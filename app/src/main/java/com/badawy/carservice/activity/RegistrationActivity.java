@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import java.util.Scanner;
 
+
 import com.badawy.carservice.R;
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText editTextpassword;
     private EditText editTextconfirmpassword;
     private Button   buttoncreateaccount;
+    String x = "test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
