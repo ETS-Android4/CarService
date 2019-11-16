@@ -14,9 +14,10 @@
 
         <activity android:name=".activity.ProfileActivity" />
         <activity android:name=".activity.RegistrationActivity" />
+
         <activity android:name=".activity.AddCarActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.SplashScreenActivity">
+        <activity android:name=".activity.SplashScreenActivity">//the first page will be the spalash page and then the next one will be registration page ahmed tarek
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
