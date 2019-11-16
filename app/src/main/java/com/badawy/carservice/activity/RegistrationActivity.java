@@ -21,8 +21,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText editTextpassword;
     private EditText editTextconfirmpassword;
     private Button   buttoncreateaccount;
-    String x = "test";
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
