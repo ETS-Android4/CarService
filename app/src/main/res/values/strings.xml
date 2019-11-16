@@ -13,4 +13,6 @@
     <string name="create_account">Create account</string>
     <string name="already_have_an_account">Already have an account ?</string>
     <string name="log_in">Log in</string>
+    <string name="car_service">Car Service</string>
+    <string name="your_road_assistance_partner">Your Road Assistance Partner</string>
 </resources>
