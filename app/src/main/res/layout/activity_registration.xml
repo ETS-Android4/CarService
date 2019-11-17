@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:contentDescription="@string/app_logo"
             android:id="@+id/registration_img_logo"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_45sdp"
@@ -140,27 +141,28 @@
             android:id="@+id/registration_tv_alreadyHaveAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/segoe_ui_regular"
             android:text="@string/already_have_an_account"
             android:textColor="@color/black"
-            android:fontFamily="@font/segoe_ui_regular"
             android:textSize="@dimen/_16sdp"
-            app:layout_constraintTop_toBottomOf="@id/registration_btn_createAccount"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/registration_tv_signIn"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/registration_tv_signIn"
+            app:layout_constraintTop_toBottomOf="@id/registration_btn_createAccount" />
 
         <TextView
             android:id="@+id/registration_tv_signIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sign_in"
             android:fontFamily="@font/segoe_ui_regular"
+            android:onClick="showLoginActivity"
+            android:text="@string/sign_in"
             android:textColor="@color/red"
             android:textSize="@dimen/_16sdp"
-            app:layout_constraintTop_toBottomOf="@id/registration_btn_createAccount"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/registration_tv_alreadyHaveAccount"
-           app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registration_btn_createAccount" />
 
         <TextView
             android:layout_width="0dp"
@@ -168,7 +170,7 @@
             android:background="@color/red"
             app:layout_constraintLeft_toLeftOf="@id/registration_tv_signIn"
             app:layout_constraintRight_toRightOf="@id/registration_tv_signIn"
-            app:layout_constraintTop_toBottomOf="@id/registration_tv_signIn"/>
+            app:layout_constraintTop_toBottomOf="@id/registration_tv_signIn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

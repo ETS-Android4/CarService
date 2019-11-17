@@ -28,4 +28,5 @@
     <string name="sign_up">Sign up</string>
     <string name="or_sign_in_with">Or sign in with</string>
     <string name="enter_password_again">Enter password again</string>
+    <string name="app_logo">app_logo</string>
 </resources>
