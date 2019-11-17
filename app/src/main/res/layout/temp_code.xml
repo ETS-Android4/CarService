@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <CheckBox
+        android:id="@+id/login_cb_rememberCheck"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="0dp"
+        android:background="?android:attr/listChoiceIndicatorMultiple"
+        android:button="@null"
+        android:layout_marginLeft="@dimen/_10sdp"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/login_tv_rememberMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoe_ui_regular"
+        android:text="@string/remember_me"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="@id/login_cb_rememberCheck"
+        app:layout_constraintLeft_toRightOf="@id/login_cb_rememberCheck"
+        app:layout_constraintTop_toTopOf="@id/login_cb_rememberCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

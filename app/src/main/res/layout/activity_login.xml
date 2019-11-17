@@ -4,6 +4,355 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingLeft="@dimen/_28sdp"
+    android:paddingRight="@dimen/_28sdp"
     tools:context=".activity.LoginActivity">
+
+
+    <!-- App Details_Top Container-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login_container_appDetails"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <!-- logo -->
+        <ImageView
+            android:id="@+id/login_img_logo"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_65sdp"
+            android:src="@drawable/ic_logo_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
+
+
+        <!-- app name -->
+        <TextView
+            android:id="@+id/login_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/futura_bd_cn_bt"
+            android:text="@string/car_service"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_30sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_img_logo" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!-- Login form_middle Container-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login_container_form"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:paddingLeft="@dimen/_5sdp"
+        android:paddingRight="@dimen/_5sdp"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_container_appDetails">
+
+        <!-- Sign in to continue Text-->
+        <TextView
+            android:id="@+id/login_tv_askSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:fontFamily="@font/segoe_ui_sb"
+            android:text="@string/sign_in_to_continue_using_our_app"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintBottom_toTopOf="@id/login_cv_email"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+        <!-- Email Input -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/login_cv_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:background="@color/white"
+            android:elevation="@dimen/_5sdp"
+            app:cardCornerRadius="@dimen/_15sdp"
+            app:cardElevation="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:paddingTop="@dimen/_3sdp"
+                android:paddingBottom="@dimen/_5sdp">
+
+                <ImageView
+                    android:id="@+id/login_icon_email"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:src="@drawable/ic_email"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/login_et_email"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/login_et_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/segoe_ui_regular"
+                    android:hint="@string/email_address"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="24"
+                    android:maxLines="1"
+                    android:textAlignment="textStart"
+                    android:textColorHint="@color/grey"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/login_icon_email"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <!-- Password Input -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/login_cv_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:background="@color/white"
+            android:elevation="@dimen/_5sdp"
+            app:cardCornerRadius="@dimen/_15sdp"
+            app:cardElevation="@dimen/_5sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_cv_email">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:paddingTop="@dimen/_3sdp"
+                android:paddingBottom="@dimen/_5sdp">
+
+                <ImageView
+                    android:id="@+id/login_icon_lock"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:src="@drawable/ic_lock"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/login_et_password"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/login_et_password"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/segoe_ui_regular"
+                    android:hint="@string/hint_password"
+                    android:inputType="textPassword"
+                    android:maxLength="24"
+                    android:maxLines="1"
+                    android:textAlignment="textStart"
+                    android:textColorHint="@color/grey"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/login_icon_lock"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/registration_icon_showPassword"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:src="@drawable/ic_eye_grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/login_et_password"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <!-- Forgot Password Text-->
+        <TextView
+            android:id="@+id/login_tv_forgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:fontFamily="@font/segoe_ui_sb"
+            android:text="@string/forgot_password"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_cv_password" />
+
+
+        <!-- Sign in button-->
+        <Button
+            android:id="@+id/login_btn_signIn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@drawable/style_btn_create_account"
+            android:fontFamily="@font/segoe_ui_regular"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:text="@string/sign_in"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_tv_forgotPassword" />
+
+
+        <!-- Don't have account Text-->
+        <TextView
+            android:id="@+id/login_tv_doNotHaveAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/segoe_ui_regular"
+            android:text="@string/don_t_have_an_account"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_btn_signIn" />
+
+
+        <!-- Sign up text-->
+        <TextView
+            android:id="@+id/login_tv_signUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:fontFamily="@font/segoe_ui_regular"
+            android:text="@string/sign_up"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/login_tv_doNotHaveAccount"
+            app:layout_constraintTop_toBottomOf="@id/login_btn_signIn" />
+
+
+        <!-- Sign up text underline-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/red"
+            app:layout_constraintLeft_toLeftOf="@id/login_tv_signUp"
+            app:layout_constraintRight_toRightOf="@id/login_tv_signUp"
+            app:layout_constraintTop_toBottomOf="@id/login_tv_signUp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--other sign up options_Bottom Container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login_container_bottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/login_tv_line"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/grey"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Or sign in with Text-->
+        <TextView
+            android:id="@+id/login_tv_signInOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:fontFamily="@font/segoe_ui_sb"
+            android:text="@string/or_sign_in_with"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_tv_line" />
+
+
+        <ImageView
+            android:id="@+id/login_img_facebook"
+            android:layout_width="@dimen/_34sdp"
+            android:layout_height="@dimen/_34sdp"
+            android:src="@drawable/ic_facebook"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/login_img_google"
+            app:layout_constraintTop_toBottomOf="@id/login_tv_signInOptions" />
+
+        <ImageView
+            android:id="@+id/login_img_google"
+            android:layout_width="@dimen/_34sdp"
+            android:layout_height="@dimen/_34sdp"
+            android:src="@drawable/ic_google"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_tv_signInOptions" />
+
+        <ImageView
+            android:id="@+id/login_img_twitter"
+            android:layout_width="@dimen/_34sdp"
+            android:layout_height="@dimen/_34sdp"
+            android:src="@drawable/ic_twitter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/login_img_google"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_tv_signInOptions" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
