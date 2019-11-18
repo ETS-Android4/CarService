@@ -73,7 +73,6 @@ public class RegistrationActivity extends AppCompatActivity {
                                     if (task.isSuccessful())
                                     {
                                         // Sign in success, update UI with the signed-in user's information
-                                        FirebaseUser user = mAuth.getCurrentUser();
                                         String user_id = mAuth.getCurrentUser().getUid();
                                         DatabaseReference userid = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
                                         Map<String,String> Users_map=new HashMap<>();
