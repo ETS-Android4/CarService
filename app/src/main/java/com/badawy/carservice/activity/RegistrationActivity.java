@@ -1,11 +1,13 @@
 package com.badawy.carservice.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,6 +17,11 @@ import android.widget.Toast;
 
 import com.badawy.carservice.R;
 import com.badawy.carservice.utils.MyValidation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -33,6 +40,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private Button buttonCreateAccount;
     private CheckBox checkBoxTermsConditions;
     private ImageView iconShowPassword, iconShowConfirmPassword;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +61,31 @@ public class RegistrationActivity extends AppCompatActivity {
                     String password = editTextPassword.getText().toString().trim();
                     String phoneNumber = editTextPassword.getText().toString().trim();
 
+                    mAuth.createUserWithEmailAndPassword(emailAddress, password)
+                            .addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful())
+                                    {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Intent goToLoginActivity = new Intent(RegistrationActivity.this, LoginActivity.class);
+                                        startActivity(goToLoginActivity);
+                                        finish();
+                                    }
+                                    else {
+                                        // If sign in fails, display a message to the user.
+                                        Toast.makeText(RegistrationActivity.this, "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+
+                                    }
+
+                                    // ...
+                                }
+                            });
 
                     // put these after auth and upload are successful
-                    Intent goToLoginActivity = new Intent(RegistrationActivity.this, LoginActivity.class);
-                    startActivity(goToLoginActivity);
-                    finish();
+
 
                 }
 
@@ -79,6 +107,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 //Show confirm Password Code
             }
         });
+        mAuth = FirebaseAuth.getInstance();
 
         //Ahmed Tarek`s code ... Commented by mahmoud Badawy
 //        editTextUsername.addTextChangedListener(loginTextWatcher);
