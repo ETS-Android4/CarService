@@ -84,7 +84,6 @@ public class RegistrationActivity extends AppCompatActivity {
                                 }
                             });
 
-                    // put these after auth and upload are successful
 
 
                 }
