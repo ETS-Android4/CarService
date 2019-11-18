@@ -22,6 +22,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -56,10 +61,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 // write Create Authentication and Upload to Realtime database here inside this if statement
                 if (validateData()) {
 
-                    String username = editTextUsername.getText().toString().trim();
-                    String emailAddress = editTextEmail.getText().toString().trim();
-                    String password = editTextPassword.getText().toString().trim();
-                    String phoneNumber = editTextPassword.getText().toString().trim();
+                    final String username = editTextUsername.getText().toString().trim();
+                    final String emailAddress = editTextEmail.getText().toString().trim();
+                    final String password = editTextPassword.getText().toString().trim();
+                    final String phoneNumber = editTextPassword.getText().toString().trim();
 
                     mAuth.createUserWithEmailAndPassword(emailAddress, password)
                             .addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
@@ -69,6 +74,13 @@ public class RegistrationActivity extends AppCompatActivity {
                                     {
                                         // Sign in success, update UI with the signed-in user's information
                                         FirebaseUser user = mAuth.getCurrentUser();
+                                        String user_id = mAuth.getCurrentUser().getUid();
+                                        DatabaseReference userid = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
+                                        Map<String,String> Users_map=new HashMap<>();
+                                        Users_map.put("Username",username);
+                                        Users_map.put("EmailAddress",emailAddress);
+                                        Users_map.put("PhoneNumber",phoneNumber);
+                                        userid.setValue(Users_map);
                                         Intent goToLoginActivity = new Intent(RegistrationActivity.this, LoginActivity.class);
                                         startActivity(goToLoginActivity);
                                         finish();
