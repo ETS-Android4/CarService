@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "271170928995-4b45kcgq3tmrlrck9n9nl3rhs0emmsr8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.badawy.carservice",
+            "certificate_hash": "ac8ebdb496e218dc036e39fc0e7d74f68094248b"
+          }
+        },
+        {
           "client_id": "271170928995-ul2qu0ujqt2dg9bbr2kp87t5jlup969k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

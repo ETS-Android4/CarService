@@ -1,19 +1,28 @@
 package com.badawy.carservice.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.badawy.carservice.utils.MyValidation;
 import com.badawy.carservice.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText emailET, passwordET;
     private Button signInBtn;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +39,37 @@ public class LoginActivity extends AppCompatActivity {
                     String emailAddress = emailET.getText().toString().trim();
                     String password = passwordET.getText().toString().trim();
 
+                    mAuth.signInWithEmailAndPassword(emailAddress, password)
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
 
+                                        FirebaseUser user = mAuth.getCurrentUser();
 
+                                        Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
+                                        startActivity(goToLoginActivity);
 
-                    // put these after auth is successful
-                    Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
-                    startActivity(goToLoginActivity);
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+
+                                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+
+                                    }
+
+                                    // ...
+                                }
+                            });
 
                 }
 
+
             }
         });
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
     }
 
     private void initializeUi(){
