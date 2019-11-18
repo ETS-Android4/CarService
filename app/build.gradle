@@ -32,4 +32,9 @@ dependencies {
     //SDP library
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'androidx.cardview:cardview:1.0.0'
+
+    //FireBase Libraries
+    implementation 'com.google.firebase:firebase-auth:19.1.0'
+    implementation 'com.google.firebase:firebase-database:19.2.0'
 }
+apply plugin: 'com.google.gms.google-services'

@@ -5,21 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-
 import com.badawy.carservice.R;
-
-import org.w3c.dom.Text;
-
-import java.util.regex.Pattern;
+import com.badawy.carservice.utils.MyValidation;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -37,6 +32,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText editTextConfirmPassword;
     private Button buttonCreateAccount;
     private CheckBox checkBoxTermsConditions;
+    private ImageView iconShowPassword, iconShowConfirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,19 +40,43 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         initializeUi();
+
+
         buttonCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // write Create Authentication and Upload to Realtime database here inside this if statement
                 if (validateData()) {
 
+                    String username = editTextUsername.getText().toString().trim();
+                    String emailAddress = editTextEmail.getText().toString().trim();
+                    String password = editTextPassword.getText().toString().trim();
+                    String phoneNumber = editTextPassword.getText().toString().trim();
 
-                   // put these after auth and upload are successful
+
+                    // put these after auth and upload are successful
                     Intent goToLoginActivity = new Intent(RegistrationActivity.this, LoginActivity.class);
                     startActivity(goToLoginActivity);
+                    finish();
 
                 }
 
+            }
+        });
+
+
+        iconShowPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Show Password Code
+            }
+        });
+
+
+        iconShowConfirmPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Show confirm Password Code
             }
         });
 
@@ -71,37 +91,37 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private boolean validateData() {
 
-        if (isEmpty(editTextUsername)) {
+        if (MyValidation.isEmpty(editTextUsername)) {
 
             editTextUsername.setError(" A username is required");
             editTextUsername.requestFocus();
             return false;
 
-        } else if (!isEmail(editTextEmail)) {
+        } else if (!MyValidation.isEmail(editTextEmail)) {
 
             editTextEmail.setError("Enter a valid email");
             editTextEmail.requestFocus();
             return false;
 
-        } else if (!isPassword(editTextPassword)) {
+        } else if (!MyValidation.isPassword(editTextPassword)) {
 
             editTextPassword.setError("Password must be > 8 characters and have at least 1 number");
             editTextPassword.requestFocus();
             return false;
 
-        } else if (!isConfirmed(editTextPassword, editTextConfirmPassword)) {
+        } else if (!MyValidation.isConfirmed(editTextPassword, editTextConfirmPassword)) {
 
             editTextConfirmPassword.setError("Please confirm the password");
             editTextConfirmPassword.requestFocus();
             return false;
 
-        } else if (!isPhone(editTextPhone)) {
+        } else if (!MyValidation.isPhone(editTextPhone)) {
 
             editTextPhone.setError("Enter a valid phone number");
             editTextPhone.requestFocus();
             return false;
 
-        } else if (!isChecked(checkBoxTermsConditions)) {
+        } else if (!MyValidation.isChecked(checkBoxTermsConditions)) {
 
             Toast.makeText(this, "please read and accept our terms and conditions", Toast.LENGTH_SHORT).show();
             return false;
@@ -113,41 +133,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
-    private boolean isEmpty(EditText editText) {
-        CharSequence inputText = editText.getText().toString().trim();
-
-        return TextUtils.isEmpty(inputText);
-    }
-
-    private boolean isEmail(EditText editText) {
-        CharSequence email = editText.getText().toString().trim();
-
-        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
-    }
-
-    private boolean isPassword(EditText editText) {
-
-        CharSequence password = editText.getText().toString().trim();
-        Pattern PASSWORD_PATTERN = Pattern.compile("[a-zA-Z0-9]{8,24}");
-
-        return (!TextUtils.isEmpty(password) && PASSWORD_PATTERN.matcher(password).matches());
-    }
-
-    private boolean isConfirmed(EditText originalText, EditText confirmedText) {
-
-        CharSequence originalPassword = originalText.getText().toString().trim();
-        CharSequence confirmedPassword = confirmedText.getText().toString().trim();
-        return (!TextUtils.isEmpty(confirmedPassword) && confirmedPassword.equals(originalPassword));
-    }
-
-    private boolean isPhone(EditText editText) {
-        CharSequence phone = editText.getText().toString().trim();
-        return (!TextUtils.isEmpty(phone) && Patterns.PHONE.matcher(phone).matches());
-    }
-
-    private boolean isChecked(CheckBox checkBox) {
-        return checkBox.isChecked();
-    }
 
     private void initializeUi() {
 
@@ -162,6 +147,8 @@ public class RegistrationActivity extends AppCompatActivity {
         buttonCreateAccount = findViewById(R.id.registration_btn_createAccount);
         editTextPhone = findViewById(R.id.registration_et_phone); //modified last name to phone @badawy
         checkBoxTermsConditions = findViewById(R.id.registration_cb_termsCheck);
+        iconShowPassword = findViewById(R.id.registration_icon_showPassword);
+        iconShowConfirmPassword = findViewById(R.id.registration_icon_showConfirmPassword);
 
 
     }

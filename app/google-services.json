@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "271170928995",
+    "firebase_url": "https://carservice-dcdd1.firebaseio.com",
+    "project_id": "carservice-dcdd1",
+    "storage_bucket": "carservice-dcdd1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271170928995:android:96d1d05b53c0488c631356",
+        "android_client_info": {
+          "package_name": "com.badawy.carservice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271170928995-ul2qu0ujqt2dg9bbr2kp87t5jlup969k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.badawy.carservice",
+            "certificate_hash": "2630a1bf1c2918672325f3e40b333ae76a6586b7"
+          }
+        },
+        {
+          "client_id": "271170928995-s7m3bb4tei0c3afbflu9huv5d17a5icf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsMZEIkQ0MQ30wI1YBbCPE0SEJDgPJMzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271170928995-s7m3bb4tei0c3afbflu9huv5d17a5icf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
