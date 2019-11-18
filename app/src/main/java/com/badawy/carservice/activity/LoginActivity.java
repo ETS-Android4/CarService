@@ -5,27 +5,74 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.badawy.carservice.utils.MyValidation;
 import com.badawy.carservice.R;
 
 public class LoginActivity extends AppCompatActivity {
+    private EditText emailET, passwordET;
+    private Button signInBtn;
 
-    private TextView login_tv_signUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        hideSystemUI();
+        initializeUi();
 
-        login_tv_signUp = findViewById(R.id.login_tv_signUp);
-        login_tv_signUp.setOnClickListener(new View.OnClickListener() {
+        signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
+                // write sign in Authentication here inside this if statement
+                if (validateData()) {
+
+                    String emailAddress = emailET.getText().toString().trim();
+                    String password = passwordET.getText().toString().trim();
+
+
+
+
+                    // put these after auth is successful
+                    Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
+                    startActivity(goToLoginActivity);
+
+                }
+
             }
         });
     }
+
+    private void initializeUi(){
+
+       // hideSystemUI();
+        emailET = findViewById(R.id.login_et_email);
+        passwordET = findViewById(R.id.login_et_password);
+        signInBtn = findViewById(R.id.login_btn_signIn);
+
+    }
+
+    private boolean validateData() {
+
+        if (!MyValidation.isEmail(emailET)) {
+
+            emailET.setError("Enter a valid email");
+            emailET.requestFocus();
+            return false;
+
+        } else if (!MyValidation.isPassword(passwordET)) {
+
+            passwordET.setError("Password is not correct");
+            passwordET.requestFocus();
+            return false;
+
+        } else {
+
+            return true;
+        }
+
+    }
+
     private void hideSystemUI() {
 
         View decorView = getWindow().getDecorView();
@@ -40,5 +87,10 @@ public class LoginActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
+
+    public void showRegistrationActivity(View view) {
+        startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
+    }
+
 
 }
