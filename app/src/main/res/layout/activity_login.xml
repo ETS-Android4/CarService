@@ -217,6 +217,7 @@
 
         <!-- Forgot Password Text-->
         <TextView
+            android:onClick="goToForgotPasswordActivity"
             android:id="@+id/login_tv_forgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -275,7 +276,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_10sdp"
             android:fontFamily="@font/segoe_ui_regular"
-            android:onClick="showRegistrationActivity"
+            android:onClick="goToRegistrationActivity"
             android:text="@string/sign_up"
             android:textColor="@color/red"
             android:textSize="@dimen/_14sdp"

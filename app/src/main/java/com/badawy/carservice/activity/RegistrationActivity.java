@@ -52,6 +52,7 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        mAuth = FirebaseAuth.getInstance();
         initializeUi();
 
 
@@ -117,7 +118,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 //Show confirm Password Code
             }
         });
-        mAuth = FirebaseAuth.getInstance();
 
         //Ahmed Tarek`s code ... Commented by mahmoud Badawy
 //        editTextUsername.addTextChangedListener(loginTextWatcher);

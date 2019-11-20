@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.badawy.carservice.utils.MyValidation;
@@ -22,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
     private EditText emailET, passwordET;
     private Button signInBtn;
+    private ImageView facebookIcon, googleIcon, twitterIcon;
     private FirebaseAuth mAuth;
 
     @Override
@@ -30,6 +32,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         initializeUi();
 
+        // Initialize FireBase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        //Signing Authentication
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,19 +71,48 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
 
+            }
+        });
+
+
+        //Facebook Authentication
+        facebookIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+
+
+        //Google Authentication
+        googleIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        //Twitter Authentication
+        twitterIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
     }
 
-    private void initializeUi(){
+    private void initializeUi() {
 
-       // hideSystemUI();
+        // hideSystemUI();
         emailET = findViewById(R.id.login_et_email);
         passwordET = findViewById(R.id.login_et_password);
         signInBtn = findViewById(R.id.login_btn_signIn);
+        facebookIcon = findViewById(R.id.login_img_facebook);
+        googleIcon = findViewById(R.id.login_img_google);
+        twitterIcon = findViewById(R.id.login_img_twitter);
 
     }
 
@@ -117,9 +152,14 @@ public class LoginActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
-    public void showRegistrationActivity(View view) {
+
+
+    public void goToRegistrationActivity(View view) {
         startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
     }
 
 
+    public void goToForgotPasswordActivity(View view) {
+        startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+    }
 }
