@@ -29,4 +29,7 @@
     <string name="or_sign_in_with">Or sign in with</string>
     <string name="enter_password_again">Enter password again</string>
     <string name="app_logo">app_logo</string>
+    <string name="facebook_app_id">2589036221181624</string>
+    <string name="fb_login_protocol_scheme">fb2589036221181624</string>
+
 </resources>
