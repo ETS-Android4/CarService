@@ -79,13 +79,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                         Toast.makeText(LoginActivity.this, "Authentication failed.",
                                                 Toast.LENGTH_SHORT).show();
-
                                     }
-
-                                    // ...
                                 }
                             });
-
                 }
 
             }
@@ -138,17 +134,9 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
-        //to
-
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-
     }
-    // onActivityResult method to pass the login results to the LoginManager via callbackManager.
-
-
-
     //@alfred
     //to get an access token for the signed-in user ,but it in firebase then auth
     private void handleFacebookAccessToken(AccessToken token) {
@@ -168,14 +156,12 @@ public class LoginActivity extends AppCompatActivity {
 
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
                         }
-
-                        // ...
                     }
                 });
     }
     //@alfred
+    // onActivityResult method to pass the login results to the LoginManager via callbackManager
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
