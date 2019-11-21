@@ -229,7 +229,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
                 android:fontFamily="@font/segoe_ui_regular"
-                android:hint="@string/enter_password_again"
+                android:hint="@string/hint_confirm_password"
                 android:inputType="textPassword"
                 android:maxLength="24"
                 android:maxLines="1"
