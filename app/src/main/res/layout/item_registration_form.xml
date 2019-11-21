@@ -10,8 +10,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_10sdp"
         android:background="@color/white"
         android:elevation="@dimen/_5sdp"
         app:cardCornerRadius="@dimen/_15sdp"
@@ -22,6 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:onClick="showUsernameKeyboard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/_5sdp">
@@ -67,8 +68,8 @@
         android:id="@+id/registration_cv_emailAddress"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:background="@color/white"
         android:elevation="@dimen/_5sdp"
@@ -80,6 +81,7 @@
         app:layout_constraintTop_toBottomOf="@id/registration_cv_username">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:onClick="showEmailKeyboard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/_5sdp">
@@ -105,7 +107,6 @@
                 android:fontFamily="@font/segoe_ui_regular"
                 android:hint="@string/email_address"
                 android:inputType="textEmailAddress"
-                android:maxLength="30"
                 android:maxLines="1"
                 android:textAlignment="textStart"
                 android:textColorHint="@color/grey"
@@ -125,8 +126,8 @@
         android:id="@+id/registration_cv_password"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:background="@color/white"
         android:elevation="@dimen/_5sdp"
@@ -138,6 +139,7 @@
         app:layout_constraintTop_toBottomOf="@id/registration_cv_emailAddress">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:onClick="showPasswordKeyboard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/_5sdp">
@@ -162,7 +164,6 @@
                 android:fontFamily="@font/segoe_ui_regular"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:maxLength="24"
                 android:maxLines="1"
                 android:textAlignment="textStart"
                 android:textColorHint="@color/grey"
@@ -174,8 +175,8 @@
 
             <ImageView
                 android:id="@+id/registration_icon_showPassword"
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:layout_marginRight="@dimen/_15sdp"
                 android:src="@drawable/ic_eye_grey"
@@ -194,8 +195,8 @@
         android:id="@+id/registration_cv_confirmPassword"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:background="@color/white"
         android:elevation="@dimen/_5sdp"
@@ -207,6 +208,7 @@
         app:layout_constraintTop_toBottomOf="@id/registration_cv_password">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:onClick="showConfirmPasswordKeyboard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/_5sdp">
@@ -231,7 +233,6 @@
                 android:fontFamily="@font/segoe_ui_regular"
                 android:hint="@string/hint_confirm_password"
                 android:inputType="textPassword"
-                android:maxLength="24"
                 android:maxLines="1"
                 android:textAlignment="textStart"
                 android:textColorHint="@color/grey"
@@ -243,8 +244,8 @@
 
             <ImageView
                 android:id="@+id/registration_icon_showConfirmPassword"
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:layout_marginRight="@dimen/_15sdp"
                 android:src="@drawable/ic_eye_grey"
@@ -263,8 +264,8 @@
         android:id="@+id/registration_cv_phone"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:background="@color/white"
@@ -277,6 +278,7 @@
         app:layout_constraintTop_toBottomOf="@id/registration_cv_confirmPassword">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:onClick="showPhoneKeyboard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/_5sdp">
@@ -302,7 +304,7 @@
                 android:fontFamily="@font/segoe_ui_regular"
                 android:hint="@string/phone"
                 android:inputType="phone"
-                android:maxLength="15"
+                android:maxLength="11"
                 android:maxLines="1"
                 android:textAlignment="textStart"
                 android:textColorHint="@color/grey"

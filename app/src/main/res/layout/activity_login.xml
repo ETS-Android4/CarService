@@ -103,6 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/_5sdp"
+                android:onClick="showLoginEmailKeyboard"
                 android:paddingTop="@dimen/_3sdp"
                 android:paddingBottom="@dimen/_5sdp">
 
@@ -127,7 +128,6 @@
                     android:fontFamily="@font/segoe_ui_regular"
                     android:hint="@string/email_address"
                     android:inputType="textEmailAddress"
-                    android:maxLength="24"
                     android:maxLines="1"
                     android:textAlignment="textStart"
                     android:textColorHint="@color/grey"
@@ -162,6 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/_5sdp"
+                android:onClick="showLoginPasswordKeyboard"
                 android:paddingTop="@dimen/_3sdp"
                 android:paddingBottom="@dimen/_5sdp">
 
@@ -177,38 +178,38 @@
                     app:layout_constraintRight_toLeftOf="@id/login_et_password"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:id="@+id/login_icon_showPassword"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@drawable/ic_eye_grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlHardcoded" />
+
                 <EditText
                     android:id="@+id/login_et_password"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:background="@color/transparent"
                     android:fontFamily="@font/segoe_ui_regular"
                     android:hint="@string/hint_password"
                     android:importantForAutofill="no"
                     android:inputType="textPassword"
-                    android:maxLength="24"
                     android:maxLines="1"
                     android:textAlignment="textStart"
                     android:textColorHint="@color/grey"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/login_icon_lock"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/login_icon_showPassword"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="RtlHardcoded" />
 
-                <ImageView
-                    android:id="@+id/registration_icon_showPassword"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
-                    android:layout_marginLeft="@dimen/_15sdp"
-                    android:layout_marginRight="@dimen/_15sdp"
-                    android:src="@drawable/ic_eye_grey"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/login_et_password"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -217,12 +218,12 @@
 
         <!-- Forgot Password Text-->
         <TextView
-            android:onClick="goToForgotPasswordActivity"
             android:id="@+id/login_tv_forgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
             android:fontFamily="@font/segoe_ui_sb"
+            android:onClick="goToForgotPasswordActivity"
             android:text="@string/forgot_password"
             android:textColor="@color/grey"
             android:textSize="@dimen/_13sdp"
@@ -238,10 +239,10 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:background="@drawable/style_btn_create_account"
             android:fontFamily="@font/segoe_ui_regular"
-            android:paddingTop="@dimen/_6sdp"
-            android:paddingBottom="@dimen/_6sdp"
             android:paddingLeft="@dimen/_85sdp"
+            android:paddingTop="@dimen/_6sdp"
             android:paddingRight="@dimen/_85sdp"
+            android:paddingBottom="@dimen/_6sdp"
             android:text="@string/sign_in"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -262,10 +263,10 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_14sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_btn_signIn"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_btn_signIn"
             tools:ignore="RtlHardcoded" />
 
 

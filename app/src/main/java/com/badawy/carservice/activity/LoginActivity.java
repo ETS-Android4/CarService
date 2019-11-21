@@ -5,26 +5,26 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.badawy.carservice.utils.MyCustomSystemUi;
 import com.badawy.carservice.utils.MyValidation;
 import com.badawy.carservice.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText emailET, passwordET;
     private Button signInBtn;
-    private ImageView facebookIcon, googleIcon, twitterIcon;
+    private ImageView showPasswordIcon, facebookIcon, googleIcon, twitterIcon;
     private FirebaseAuth mAuth;
+    private boolean isPasswordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,40 +35,38 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize FireBase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        //Signing Authentication
+        //Sign In Authentication
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // write sign in Authentication here inside this if statement
-                if (validateData()) {
+                if (isDataValid()) {
+                    signIn();
+                }
 
-                    String emailAddress = emailET.getText().toString().trim();
-                    String password = passwordET.getText().toString().trim();
+            }
+        });
 
-                    mAuth.signInWithEmailAndPassword(emailAddress, password)
-                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
 
-                                        FirebaseUser user = mAuth.getCurrentUser();
+        //Show Password
+        showPasswordIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!MyValidation.isEmpty(passwordET)) {
 
-                                        Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
-                                        startActivity(goToLoginActivity);
+                    if (!isPasswordVisible) {
 
-                                    } else {
-                                        // If sign in fails, display a message to the user.
+                        // show password and change icon to black eye
+                        MyCustomSystemUi.showPassword(passwordET, showPasswordIcon);
+                        isPasswordVisible = !isPasswordVisible;
 
-                                        Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                                Toast.LENGTH_SHORT).show();
+                    } else {
 
-                                    }
+                        // hide password and change icon to grey eye
+                        MyCustomSystemUi.hidePassword(passwordET, showPasswordIcon);
+                        isPasswordVisible = !isPasswordVisible;
 
-                                    // ...
-                                }
-                            });
-
+                    }
                 }
 
             }
@@ -104,19 +102,35 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void initializeUi() {
 
-        // hideSystemUI();
-        emailET = findViewById(R.id.login_et_email);
-        passwordET = findViewById(R.id.login_et_password);
-        signInBtn = findViewById(R.id.login_btn_signIn);
-        facebookIcon = findViewById(R.id.login_img_facebook);
-        googleIcon = findViewById(R.id.login_img_google);
-        twitterIcon = findViewById(R.id.login_img_twitter);
+    // Logic Methods
+    private void signIn() {
 
+        String emailAddress = emailET.getText().toString().trim();
+        String password = passwordET.getText().toString().trim();
+
+        mAuth.signInWithEmailAndPassword(emailAddress, password)
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
+                            startActivity(goToLoginActivity);
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                });
     }
 
-    private boolean validateData() {
+    private boolean isDataValid() {
 
         if (!MyValidation.isEmail(emailET)) {
 
@@ -137,29 +151,36 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void hideSystemUI() {
 
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        // Set the content to appear under the system bars so that the
-                        // content doesn't resize when the system bars hide and show.
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        // Hide the nav bar and status bar
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+
+
+    // Views Methods
+    private void initializeUi() {
+
+        // setFullScreenMode();
+        emailET = findViewById(R.id.login_et_email);
+        passwordET = findViewById(R.id.login_et_password);
+        signInBtn = findViewById(R.id.login_btn_signIn);
+        showPasswordIcon = findViewById(R.id.login_icon_showPassword);
+        facebookIcon = findViewById(R.id.login_img_facebook);
+        googleIcon = findViewById(R.id.login_img_google);
+        twitterIcon = findViewById(R.id.login_img_twitter);
+
     }
-
-
 
     public void goToRegistrationActivity(View view) {
         startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
     }
 
-
     public void goToForgotPasswordActivity(View view) {
         startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+    }
+
+    public void showLoginEmailKeyboard(View view) {
+        MyCustomSystemUi.showKeyboard(this, emailET);
+    }
+
+    public void showLoginPasswordKeyboard(View view) {
+        MyCustomSystemUi.showKeyboard(this, passwordET);
     }
 }
