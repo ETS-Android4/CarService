@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private ImageView showPasswordIcon, facebookIcon, googleIcon, twitterIcon;
     private FirebaseAuth mAuth;
     private boolean isPasswordVisible = false;
+    String d7k = "d7k";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
