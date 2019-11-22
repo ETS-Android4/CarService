@@ -145,7 +145,8 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            /*modified by ahmed tarek*/    Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity/*AddCarActivity*/.class);                            startActivity(goToLoginActivity);
+                            Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
+                            startActivity(goToLoginActivity);
 
                         } else {
                             // If sign in fails, display a message to the user.
