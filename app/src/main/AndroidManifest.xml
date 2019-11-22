@@ -17,6 +17,7 @@
         <activity android:name=".activity.ProfileActivity" />
         <activity android:name=".activity.RegistrationActivity" />
         <activity android:name=".activity.AddCarActivity" />
+
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.SplashScreenActivity">
             <intent-filter>
@@ -25,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.HomepageActivity" />
     </application>
 

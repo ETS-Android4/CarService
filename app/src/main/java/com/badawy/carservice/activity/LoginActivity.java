@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         forgot_passowrd=(TextView) findViewById(R.id.login_tv_forgotPassword); //forgot password
 
         initializeUi();
@@ -87,7 +88,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
             }
+
         });
+
 
 
         //Google Authentication
@@ -129,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
+                        /*modified by ahmed tarek*/    Intent goToLoginActivity = new Intent(LoginActivity.this, /*HomepageActivity*/AddCarActivity.class);
                             startActivity(goToLoginActivity);
 
                         } else {
@@ -197,4 +200,5 @@ public class LoginActivity extends AppCompatActivity {
     public void showLoginPasswordKeyboard(View view) {
         MyCustomSystemUi.showKeyboard(this, passwordET);
     }
+
 }
