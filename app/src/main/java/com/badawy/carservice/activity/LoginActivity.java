@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
         //Google Authentication
         googleIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                        /*modified by ahmed tarek*/    Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity/*AddCarActivity*/.class);
+                            Intent goToLoginActivity = new Intent(LoginActivity.this, AddCarActivity.class);
                             startActivity(goToLoginActivity);
 
                         } else {
@@ -155,8 +154,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-
-
 
 
     // Views Methods
