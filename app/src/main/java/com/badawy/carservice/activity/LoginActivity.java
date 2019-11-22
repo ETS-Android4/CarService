@@ -47,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         initializeUi();
 
+        //callbackManager to handle login responses
+        callbackManager = CallbackManager.Factory.create();
 
         // Initialize FireBase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -114,7 +116,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
 
 
         // not completed yet .. @badawy to @alfred
