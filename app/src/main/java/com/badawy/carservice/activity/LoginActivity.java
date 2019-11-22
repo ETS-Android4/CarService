@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.autofill.TextValueSanitizer;
 import android.view.View;
 
 import android.widget.Button;
@@ -46,8 +47,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         initializeUi();
 
-        //callbackManager to handle login responses
-        callbackManager = CallbackManager.Factory.create();
 
         // Initialize FireBase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -56,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // write sign in Authentication here inside this if statement
                 if (isDataValid()) {
                     signIn();
                 }
@@ -98,7 +98,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
         //Google Authentication
         googleIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
 
 
         // not completed yet .. @badawy to @alfred
@@ -257,12 +257,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void showLoginEmailKeyboard(View view) {
-
         MyCustomSystemUi.showKeyboard(this, emailET);
     }
 
     public void showLoginPasswordKeyboard(View view) {
-
         MyCustomSystemUi.showKeyboard(this, passwordET);
     }
+
 }
