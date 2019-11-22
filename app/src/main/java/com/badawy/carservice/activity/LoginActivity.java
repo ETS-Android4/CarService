@@ -27,16 +27,11 @@ public class LoginActivity extends AppCompatActivity {
     private ImageView showPasswordIcon, facebookIcon, googleIcon, twitterIcon;
     private FirebaseAuth mAuth;
     private boolean isPasswordVisible = false;
-    String d7k = "d7k";
-    private TextView forgot_passowrd; //forgot password
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        forgot_passowrd=(TextView) findViewById(R.id.login_tv_forgotPassword); //forgot password
-
         initializeUi();
 
 
@@ -107,13 +102,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-            }
-        });
-        //forgot password
-        forgot_passowrd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this,ForgotPasswordActivity.class));
             }
         });
 
