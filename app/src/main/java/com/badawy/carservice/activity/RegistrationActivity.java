@@ -170,7 +170,7 @@ public class RegistrationActivity extends AppCompatActivity {
         final String username = usernameET.getText().toString().trim();
         final String emailAddress = emailET.getText().toString().trim();
         final String password = passwordET.getText().toString().trim();
-        final String phoneNumber = passwordET.getText().toString().trim();
+        final String phoneNumber = phoneET.getText().toString().trim();
 
 
         //@AhmedMahmoud RealTime Database
