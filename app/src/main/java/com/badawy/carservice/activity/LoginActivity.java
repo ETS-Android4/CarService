@@ -172,6 +172,7 @@ public class LoginActivity extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             Toast.makeText(LoginActivity.this, "Sign In Successfully",
                     Toast.LENGTH_SHORT).show();
+            firebaseAuthWithGoogle(account);
 
 
         } catch (ApiException e) {
@@ -203,6 +204,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
 
     // Logic Methods
     //@AhmedMahmoud SignIn
