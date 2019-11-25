@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.ForgotPasswordActivity"></activity>
+        <activity android:name=".activity.ForgotPasswordActivity"/>
         <activity android:name=".activity.ProfileActivity" />
         <activity android:name=".activity.RegistrationActivity" />
         <activity android:name=".activity.AddCarActivity" />
