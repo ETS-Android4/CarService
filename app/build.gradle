@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -32,10 +33,18 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     //FireBase Libraries
     implementation 'com.google.firebase:firebase-auth:19.1.0'
+    implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.google.firebase:firebase-database:19.2.0'
     //facebook sdk
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.facebook.android:facebook-android-sdk:5.11.2'
+    // Google Play services Auth split
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
+// Google Api Client library and Android extension
+    implementation 'com.google.api-client:google-api-client:1.22.0'
+    implementation 'com.google.api-client:google-api-client-android:1.22.0'
+// Change to the API you want to access:
+// Below is just an example for People REST API access
+    implementation 'com.google.apis:google-api-services-people:v1-rev4-1.22.0'
 }
 apply plugin: 'com.google.gms.google-services'
