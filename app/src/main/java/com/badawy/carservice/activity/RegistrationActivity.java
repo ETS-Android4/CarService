@@ -1,8 +1,5 @@
 package com.badawy.carservice.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +8,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.badawy.carservice.R;
 import com.badawy.carservice.utils.MyCustomSystemUi;
@@ -170,8 +170,10 @@ public class RegistrationActivity extends AppCompatActivity {
         final String username = usernameET.getText().toString().trim();
         final String emailAddress = emailET.getText().toString().trim();
         final String password = passwordET.getText().toString().trim();
-        final String phoneNumber = passwordET.getText().toString().trim();
+        final String phoneNumber = phoneET.getText().toString().trim();
 
+
+        //@AhmedMahmoud RealTime Database
         mAuth.createUserWithEmailAndPassword(emailAddress, password)
                 .addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override

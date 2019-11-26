@@ -8,26 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:271170928995:android:96d1d05b53c0488c631356",
+        "mobilesdk_app_id": "1:271170928995:android:edeaf914345344db631356",
         "android_client_info": {
           "package_name": "com.badawy.carservice"
         }
       },
       "oauth_client": [
         {
-          "client_id": "271170928995-4b45kcgq3tmrlrck9n9nl3rhs0emmsr8.apps.googleusercontent.com",
+          "client_id": "271170928995-61npdud7tsfdbmdkq8vd5g0m3k3dtm34.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.badawy.carservice",
-            "certificate_hash": "ac8ebdb496e218dc036e39fc0e7d74f68094248b"
-          }
-        },
-        {
-          "client_id": "271170928995-ul2qu0ujqt2dg9bbr2kp87t5jlup969k.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.badawy.carservice",
-            "certificate_hash": "2630a1bf1c2918672325f3e40b333ae76a6586b7"
+            "certificate_hash": "c7a4b23b92be496d71ee5b47683f79627ad2acd4"
           }
         },
         {
@@ -37,14 +29,14 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCsMZEIkQ0MQ30wI1YBbCPE0SEJDgPJMzI"
+          "current_key": "AIzaSyBbBYxVbK8Oa7y99bVf2rfuVf2AjptayMU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "271170928995-s7m3bb4tei0c3afbflu9huv5d17a5icf.apps.googleusercontent.com",
+              "client_id": "271170928995-pqk9jurnope0enhun2667r3d4j86ldl6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
