@@ -46,5 +46,8 @@ dependencies {
 // Change to the API you want to access:
 // Below is just an example for People REST API access
     implementation 'com.google.apis:google-api-services-people:v1-rev4-1.22.0'
+
+    //Lottie
+    implementation 'com.airbnb.android:lottie:3.2.2'
 }
 apply plugin: 'com.google.gms.google-services'

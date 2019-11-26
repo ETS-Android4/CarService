@@ -41,6 +41,10 @@ public class MyCustomSystemUi {
 
     }
 
+    public static void clearInput(EditText editText){
+        editText.setText("");
+    }
+
     public static void setFullScreenMode(Activity activity) {
 
         View decorView = activity.getWindow().getDecorView();

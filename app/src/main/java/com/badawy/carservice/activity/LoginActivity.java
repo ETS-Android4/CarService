@@ -52,6 +52,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initializeUi();
+
+
+
         //@AhmedMahmoud GooGleSignIn
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -59,9 +62,12 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .requestProfile()
                 .build();
+
+
+
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        GoogleSignInAccount account=GoogleSignIn.getLastSignedInAccount(this);
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
 
         //callbackManager to handle login responses
@@ -157,10 +163,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+
+
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
-            // a lis    tener.
+            // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
@@ -176,8 +184,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
         } catch (ApiException e) {
-            Toast.makeText(LoginActivity.this, "Sign In Faild",
-                    Toast.LENGTH_SHORT).show();
+            //Toast.makeText(LoginActivity.this, "Sign In Faild",
+              //      Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(this, String.valueOf(e), Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -185,18 +195,16 @@ public class LoginActivity extends AppCompatActivity {
     //@AhmedMahmoud GooGleSignIn
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>()
-        {
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "Successfuly",
                             Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mAuth.getCurrentUser();
                     Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
                     startActivity(goToLoginActivity);
-                }
-                else{
+                } else {
                     Toast.makeText(LoginActivity.this, "Faild",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -205,11 +213,15 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyCustomSystemUi.clearInput(emailET);
+        MyCustomSystemUi.clearInput(passwordET);
+    }
 
     // Logic Methods
+
     //@AhmedMahmoud SignIn
     private void signIn() {
 
