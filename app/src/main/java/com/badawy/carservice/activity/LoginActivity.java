@@ -1,11 +1,13 @@
 package com.badawy.carservice.activity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,12 +47,26 @@ public class LoginActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
     int RC_SIGN_IN = 1;
     GoogleSignInClient mGoogleSignInClient;
+    /**
+     * forgot password
+     */
+    private TextView forgotpassword;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        /**
+         * underline for forgot password ahmed tarek
+         */
+        forgotpassword=(TextView)findViewById(R.id.login_tv_forgotPassword);
+        forgotpassword.setPaintFlags(forgotpassword.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        //.................................................................................. UNDERLINE FOR FORGOT PASSWORD
+
+
         initializeUi();
 
 

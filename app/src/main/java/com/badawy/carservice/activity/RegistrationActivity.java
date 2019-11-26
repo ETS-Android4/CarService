@@ -1,12 +1,14 @@
 package com.badawy.carservice.activity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,11 +48,32 @@ public class RegistrationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private boolean isPasswordVisible = false;
     private boolean isConfirmPasswordVisible = false;
+/**link of terms and conditions MODIFIED BY AHMED TAREK 26/11/2019..............*/
+    private TextView conditions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        //conditions and terms link ....................................................\
+        conditions=(TextView)findViewById(R.id.registration_tv_terms);
+
+      conditions.setPaintFlags(conditions.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        conditions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Intent intent=new Intent(RegistrationActivity.this,RegistrationActivity.class);
+              //  startActivity(intent);
+                Toast.makeText(RegistrationActivity.this,"you clicked on terms and conditions...!!",Toast.LENGTH_SHORT).show();
+            }
+
+
+
+
+
+            //............................................................................. END THE LINK OF CONDITIONS AND TERMS
+
+        });
         initializeUi();
 
 
