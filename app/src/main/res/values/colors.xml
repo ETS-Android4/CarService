@@ -11,4 +11,5 @@
     <color name="orange">#CE6238</color>
     <color name="white">#F9FDFF</color>
     <color name="transparent">#00000000</color>
+    <color name="grey_line">#cfcfcf</color>
 </resources>

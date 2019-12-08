@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <group
+        android:id="@+id/nav_fragments_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_nav_home"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/nav_garage"
+            android:icon="@drawable/ic_nav_garage"
+            android:title="@string/my_garage" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_nav_settings"
+            android:title="@string/settings_amp_account" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_nav_help_feedback"
+            android:title="@string/help_amp_feedback" />
+
+
+    </group>
+
+    <group android:id="@+id/nav_actions_group">
+
+        <item
+            android:id="@+id/nav_signOut"
+            android:icon="@drawable/ic_nav_sign_out"
+            android:title="@string/sign_out" />
+    </group>
+
+
+</menu>
