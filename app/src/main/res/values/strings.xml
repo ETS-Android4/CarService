@@ -53,4 +53,9 @@
     <string name="too_busy">too busy?</string>
     <string name="about_us">About us</string>
     <string name="who_are_we">who are we?</string>
+    <string name="add_your_car">Add your car</string>
+    <string name="please_select">Please Select</string>
+    <string name="year">Year</string>
+    <string name="brand">Brand</string>
+    <string name="model">Model</string>
 </resources>

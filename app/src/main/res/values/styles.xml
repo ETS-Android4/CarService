@@ -23,4 +23,5 @@
         <item name="android:itemTextAppearance">@font/segoe_ui_regular</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
 </resources>

@@ -4,16 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:paddingLeft="@dimen/_16sdp"
-    android:paddingRight="@dimen/_16sdp"
-    tools:context=".activity.LoginActivity"
-    tools:ignore="ContentDescription">
+    android:padding="@dimen/_16sdp"
+    tools:context=".activity.AddCarActivity">
 
-
-    <!-- App Details_Top Container-->
+    <!--Top Container -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/login_container_appDetails"
+        android:id="@+id/addCar_top_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintHeight_percent="0.3"
@@ -21,35 +17,189 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <!-- logo -->
         <ImageView
-            android:id="@+id/login_img_logo"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_65sdp"
-            android:src="@drawable/ic_logo_color"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/addCar_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/ic_add_car"
+            app:layout_constraintBottom_toTopOf="@id/addCar_tv_title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-        <!-- app name -->
         <TextView
-            android:id="@+id/addcar"
+            android:id="@+id/addCar_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/segoe_ui_sb"
+            android:text="@string/add_your_car"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_22sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--Select Container-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/addCar_bottom_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingRight="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addCar_top_container"
+        app:layout_constraintVertical_bias="0.1">
+
+
+        <!-- Year Selection -->
+        <TextView
+            android:id="@+id/addCar_tv_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/segoe_ui_sb"
+            android:text="@string/year"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toTopOf="@id/addCar_container_year"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/addCar_container_year"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/style_spinner"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            app:layout_constraintBottom_toTopOf="@id/addCar_tv_brand"
+            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addCar_tv_year"
+            >
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/addCar_spinner_year"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!--Brand Selection -->
+        <TextView
+            android:id="@+id/addCar_tv_brand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:fontFamily="@font/futura_bd_cn_bt"
-            android:text="@string/car_service"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:fontFamily="@font/segoe_ui_sb"
+            android:text="@string/brand"
             android:textColor="@color/black"
-            android:textSize="@dimen/_30sdp"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toTopOf="@id/addCar_container_brand"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addCar_container_year"
+            app:layout_goneMarginTop="@dimen/_5sdp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/addCar_container_brand"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/style_spinner"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.12"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_img_logo" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/addCar_spinner_brand"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/addCar_tv_model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:fontFamily="@font/segoe_ui_sb"
+            android:text="@string/model"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toTopOf="@id/addCar_container_model"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addCar_container_brand" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/addCar_container_model"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/style_spinner"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addCar_container_brand">
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/addCar_spinner_model"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/addCar_img_next"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:src="@drawable/ic_round_next_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addCar_bottom_container"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

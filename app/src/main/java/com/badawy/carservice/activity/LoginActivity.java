@@ -59,10 +59,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        /**
-         * underline for forgot password ahmed tarek
-         */
-        forgotpassword=(TextView)findViewById(R.id.login_tv_forgotPassword);
+
+          //underline for forgot password ahmed tarek
+
+        forgotpassword=findViewById(R.id.login_tv_forgotPassword);
         forgotpassword.setPaintFlags(forgotpassword.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         //.................................................................................. UNDERLINE FOR FORGOT PASSWORD
 
@@ -250,7 +250,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
+                            Intent goToLoginActivity = new Intent(LoginActivity.this, AddCarActivity.class);
                             startActivity(goToLoginActivity);
 
                         } else {
