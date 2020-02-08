@@ -215,7 +215,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Successfuly",
+                    Toast.makeText(LoginActivity.this, "Successfully",
                             Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mAuth.getCurrentUser();
                     Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
