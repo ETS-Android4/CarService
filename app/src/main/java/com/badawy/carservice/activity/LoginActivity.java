@@ -1,28 +1,32 @@
 package com.badawy.carservice.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
-import android.service.autofill.TextValueSanitizer;
 import android.view.View;
-
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.badawy.carservice.R;
 import com.badawy.carservice.utils.MyCustomSystemUi;
 import com.badawy.carservice.utils.MyValidation;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.badawy.carservice.R;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -30,6 +34,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Arrays;
 
@@ -40,12 +45,46 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private boolean isPasswordVisible = false;
     private CallbackManager callbackManager;
+    int RC_SIGN_IN = 1;
+    GoogleSignInClient mGoogleSignInClient;
+    /**
+     * forgot password
+     */
+    private TextView forgotpassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+
+          //underline for forgot password ahmed tarek
+
+        forgotpassword=findViewById(R.id.login_tv_forgotPassword);
+        forgotpassword.setPaintFlags(forgotpassword.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        //.................................................................................. UNDERLINE FOR FORGOT PASSWORD
+
+
         initializeUi();
+
+
+
+        //@AhmedMahmoud GooGleSignIn
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .requestProfile()
+                .build();
+
+
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
 
         //callbackManager to handle login responses
         callbackManager = CallbackManager.Factory.create();
@@ -104,6 +143,7 @@ public class LoginActivity extends AppCompatActivity {
         googleIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SignInGoogle();
 
             }
         });
@@ -111,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //Twitter Authentication
         twitterIcon.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -124,17 +165,80 @@ public class LoginActivity extends AppCompatActivity {
 
     }//END OF ON CREATE
 
+    //@AhmedMahmoud GooGleSignIn
+    private void SignInGoogle() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
 
     //@alfred
+    //@AhmedMahmoud GooGleSignIn
     // onActivityResult method to pass the login results to the LoginManager via callbackManager.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
     }
 
+    //@AhmedMahmoud GooGleSignIn
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            Toast.makeText(LoginActivity.this, "Sign In Successfully",
+                    Toast.LENGTH_SHORT).show();
+            firebaseAuthWithGoogle(account);
+
+
+        } catch (ApiException e) {
+            //Toast.makeText(LoginActivity.this, "Sign In Faild",
+              //      Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(this, String.valueOf(e), Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    //@AhmedMahmoud GooGleSignIn
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this, "Successfuly",
+                            Toast.LENGTH_SHORT).show();
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
+                    startActivity(goToLoginActivity);
+                } else {
+                    Toast.makeText(LoginActivity.this, "Faild",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyCustomSystemUi.clearInput(emailET);
+        MyCustomSystemUi.clearInput(passwordET);
+    }
 
     // Logic Methods
+
+    //@AhmedMahmoud SignIn
     private void signIn() {
 
         String emailAddress = emailET.getText().toString().trim();
@@ -146,7 +250,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
+                            Intent goToLoginActivity = new Intent(LoginActivity.this, AddCarActivity.class);
                             startActivity(goToLoginActivity);
 
                         } else {
