@@ -1,5 +1,6 @@
 package com.badawy.carservice.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.badawy.carservice.R;
 import com.badawy.carservice.utils.MyCustomSystemUi;
 import com.badawy.carservice.utils.MyValidation;
+import com.badawy.carservice.utils.SharePreference;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -158,10 +160,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
         // not completed yet .. @badawy to @alfred
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+        //AhmedRabie
+        //sharepreference
+        if (SharePreference.GetEmail(this)!=null && !SharePreference.GetEmail(this).equals("")){
+        Intent intent=new Intent(LoginActivity.this,HomepageActivity.class);
+        startActivity(intent);}
 
     }//END OF ON CREATE
 
@@ -241,17 +248,22 @@ public class LoginActivity extends AppCompatActivity {
     //@AhmedMahmoud SignIn
     private void signIn() {
 
-        String emailAddress = emailET.getText().toString().trim();
-        String password = passwordET.getText().toString().trim();
+        final String emailAddress = emailET.getText().toString().trim();
+        final String password = passwordET.getText().toString().trim();
 
         mAuth.signInWithEmailAndPassword(emailAddress, password)
                 .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
-                            Intent goToLoginActivity = new Intent(LoginActivity.this, AddCarActivity.class);
+                            //AhmedRabie
+                            //sharepreference
+                            SharePreference.SaveEmail(emailAddress,LoginActivity.this);
+                            SharePreference.SavePassword(password,LoginActivity.this);
+                            Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
+                            goToLoginActivity.putExtra("Email",emailET.getText().toString().trim());
                             startActivity(goToLoginActivity);
+                            finish();
 
                         } else {
                             // If sign in fails, display a message to the user.

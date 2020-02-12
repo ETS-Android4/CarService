@@ -1,8 +1,12 @@
 package com.badawy.carservice.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +21,7 @@ import com.badawy.carservice.fragment.NavGarageFragment;
 import com.badawy.carservice.fragment.NavHelpFragment;
 import com.badawy.carservice.fragment.NavHomeFragment;
 import com.badawy.carservice.fragment.NavSettingsFragment;
+import com.badawy.carservice.utils.SharePreference;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;
@@ -24,7 +29,7 @@ import com.google.android.material.navigation.NavigationView;
 public class HomepageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static DrawerLayout drawerLayout;
     private NavigationView navigationView;
-
+    private EditText emailET , passwordET;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +59,8 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
         }
+
+
     }
 
 
@@ -96,8 +103,16 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
                 replaceFragment(new NavHelpFragment());
                 break;
             case R.id.nav_signOut:
-                Toast.makeText(this, "sign out", Toast.LENGTH_SHORT).show();
-                break;
+                //Toast.makeText(this, "sign out", Toast.LENGTH_SHORT).show();
+                //AhmedRabie
+                //sharepreference to log out
+                SharePreference.SavePassword("",this);
+                SharePreference.SaveEmail("",this);
+                Intent intent=new Intent(HomepageActivity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -122,4 +137,5 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
 
 
     }
+
 }
