@@ -13,7 +13,7 @@ import android.widget.VideoView;
 import com.badawy.carservice.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
-//splash animation variables by AHMED TAREK
+//splash animation variables by AHMED TAREK...
 
 
     private VideoView videoView;
