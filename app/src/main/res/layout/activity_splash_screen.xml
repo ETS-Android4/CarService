@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/splash_tv_video"
         app:layout_constraintHeight_percent="0.6"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -27,7 +27,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.4" />
+            app:layout_constraintVertical_bias="0.4"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/splash_tv_title"
@@ -63,7 +64,7 @@
     <!-- Bottom splash screen icon-->
 
     <VideoView
-        android:id="@+id/svideo"
+        android:id="@+id/splash_tv_video"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:adjustViewBounds="true"

@@ -111,7 +111,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
                 Intent intent=new Intent(HomepageActivity.this,LoginActivity.class);
                 startActivity(intent);
                 finish();
-                return true;
+                break;
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);

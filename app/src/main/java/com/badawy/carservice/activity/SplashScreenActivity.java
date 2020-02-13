@@ -40,9 +40,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
 
-        /**video view............... splash animation AHMED TAREK*/
-
-        videoView=(VideoView)findViewById(R.id.svideo);
+        //video view............... splash animation AHMED TAREK
+        videoView=findViewById(R.id.splash_tv_video);
 
         //build the video uri
         Uri uri=Uri.parse("android.resource://" +getPackageName() +
