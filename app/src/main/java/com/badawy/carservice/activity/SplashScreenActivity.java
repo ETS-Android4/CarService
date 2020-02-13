@@ -3,17 +3,34 @@ package com.badawy.carservice.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.VideoView;
 
 import com.badawy.carservice.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
+//splash animation variables by AHMED TAREK...
+
+
+    private VideoView videoView;
+    private MediaPlayer mediaPlayer1;
+    int currentvideoposition;
+    //...............................................................
+
+
+
+
+
     /**
-    * Created  by Ahmed Tarek 15/11/2019
-    * Modified by Mahmoud Badawy 16/11/2019
-    **/
+     *
+     * Created  by Ahmed Tarek 15/11/2019
+     * Modified by Mahmoud Badawy 16/11/2019
+     * ...
+     **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,13 +38,46 @@ public class SplashScreenActivity extends AppCompatActivity {
         hideSystemUI();
         setSplashScreen();
 
+
+
+        /**video view............... splash animation AHMED TAREK*/
+
+        videoView=(VideoView)findViewById(R.id.svideo);
+
+        //build the video uri
+        Uri uri=Uri.parse("android.resource://" +getPackageName() +
+                "/" +R.raw.v1);
+
+        //attach or this step to link the new uri to our video view
+        videoView.setVideoURI(uri);
+        videoView.start();
+
+//method to make our video run
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                mediaPlayer1=mediaPlayer;
+
+                mediaPlayer1.setLooping(true);
+
+
+                if (currentvideoposition !=0){
+
+                    mediaPlayer1.seekTo(currentvideoposition);
+                    mediaPlayer1.start();
+                }
+
+
+            }
+        });
+
     }
 
 
     private void setSplashScreen() {
 
         // Time in MilliSeconds 1000 = 1 second
-        int SPLASH_TIME_OUT = 3000;
+        int SPLASH_TIME_OUT = 4000;
 
 
         new Handler().postDelayed(new Runnable() {
