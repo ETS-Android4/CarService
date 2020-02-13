@@ -26,8 +26,10 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
     /**
+     *
      * Created  by Ahmed Tarek 15/11/2019
      * Modified by Mahmoud Badawy 16/11/2019
+     * ...
      **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
