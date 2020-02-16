@@ -58,4 +58,10 @@
     <string name="year">Year</string>
     <string name="brand">Brand</string>
     <string name="model">Model</string>
+    <string name="overview">overview</string>
+    <string name="overview_description">Car Service App Provides for you a lot of service such as setting a date to check your car, provide quick emergency assistance on the road and possibility of buying spare parts of your car online.</string>
+    <string name="call_us">Call us</string>
+    <string name="location">Location</string>
+    <string name="carserviceshared8_gmail_com">CarServiceShared8@gmail.com</string>
+    <string name="open_hours">Open hours</string>
 </resources>

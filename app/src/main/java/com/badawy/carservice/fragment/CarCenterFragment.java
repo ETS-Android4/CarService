@@ -14,10 +14,10 @@ import com.badawy.carservice.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ServiceCenter_VehicleInspectionFragment extends Fragment {
+public class CarCenterFragment extends Fragment {
 
 
-    public ServiceCenter_VehicleInspectionFragment() {
+    public CarCenterFragment() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class ServiceCenter_VehicleInspectionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_service_center_vehicle_inspection, container, false);
+        return inflater.inflate(R.layout.fragment_service_center, container, false);
     }
 
 }
