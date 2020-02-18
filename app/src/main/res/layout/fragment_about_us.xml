@@ -36,6 +36,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
+                android:id="@+id/aboutUs_navMenuBtn"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:paddingTop="@dimen/_5sdp"
