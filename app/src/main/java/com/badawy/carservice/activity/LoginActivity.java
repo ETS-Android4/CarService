@@ -30,6 +30,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -37,6 +39,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.OAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -59,14 +62,13 @@ public class LoginActivity extends AppCompatActivity {
      * forgot password
      */
     private TextView forgotpassword;
-
+    //twitter
+    OAuthProvider.Builder provider = OAuthProvider.newBuilder("twitter.com");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
 
           //underline for forgot password ahmed tarek
 
@@ -162,6 +164,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                signInWithTwitter();
 
             }
         });
@@ -336,6 +339,27 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    private void signInWithTwitter()
+    {
+
+
+        mAuth.startActivityForSignInWithProvider(this, provider.build()).addOnSuccessListener(
+                        new OnSuccessListener<AuthResult>() {
+                            @Override
+                            public void onSuccess(AuthResult authResult)
+                            {
+                                authResult.getAdditionalUserInfo().getProfile();
+                                authResult.getCredential();
+                                check();
+                                Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
+                                startActivity(goToLoginActivity);
+                                finish();
+                            }
+
+                        });
+
     }
 
     private boolean isDataValid() {
