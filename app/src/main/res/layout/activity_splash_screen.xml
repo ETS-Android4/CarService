@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/splash_tv_video"
+        app:layout_constraintBottom_toTopOf="@id/splash_video"
         app:layout_constraintHeight_percent="0.6"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -61,14 +61,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <!-- Bottom splash screen icon-->
+    <!-- Bottom splash screen video -->
 
-    <VideoView
-        android:id="@+id/splash_tv_video"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
+    <com.alphamovie.lib.AlphaMovieView
+        android:id="@+id/splash_video"
+        android:layout_width="wrap_content"
+        app:alphaColor="#000000"
+        app:accuracy="0.85"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHeight_percent="0.4"
         app:layout_constraintLeft_toLeftOf="parent"

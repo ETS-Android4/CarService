@@ -3,28 +3,15 @@ package com.badawy.carservice.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.VideoView;
 
+import com.alphamovie.lib.AlphaMovieView;
 import com.badawy.carservice.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
-//splash animation variables by AHMED TAREK...
-
-
-    private VideoView videoView;
-    private MediaPlayer mediaPlayer1;
-    int currentvideoposition;
-    //...............................................................
-
-
-
-
-
     /**
      *
      * Created  by Ahmed Tarek 15/11/2019
@@ -41,34 +28,15 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
         //video view............... splash animation AHMED TAREK
-        videoView=findViewById(R.id.splash_tv_video);
+
+        AlphaMovieView alphaMovieView = findViewById(R.id.splash_video);
 
         //build the video uri
         Uri uri=Uri.parse("android.resource://" +getPackageName() +
-                "/" +R.raw.v1);
+                "/" +R.raw.background_splash);
 
-        //attach or this step to link the new uri to our video view
-        videoView.setVideoURI(uri);
-        videoView.start();
+        alphaMovieView.setVideoFromUri(this,uri);
 
-//method to make our video run
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                mediaPlayer1=mediaPlayer;
-
-                mediaPlayer1.setLooping(true);
-
-
-                if (currentvideoposition !=0){
-
-                    mediaPlayer1.seekTo(currentvideoposition);
-                    mediaPlayer1.start();
-                }
-
-
-            }
-        });
 
     }
 

@@ -3,7 +3,9 @@ package com.badawy.carservice.fragment;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,38 @@ public class NavHomeFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_nav_home, container, false);
         ImageView navMenuBtn = view.findViewById(R.id.homepage_img_menu);
 
+        CardView carCenterCard = view.findViewById(R.id.homepage_cv_carCenter);
+        CardView emergencyCard = view.findViewById(R.id.homepage_cv_emergency);
+        CardView deliveryCard = view.findViewById(R.id.homepage_cv_delivery);
+        CardView aboutUsCard = view.findViewById(R.id.homepage_cv_about);
+
+        carCenterCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new CarCenterFragment());
+            }
+        });
+
+        emergencyCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new EmergencyFragment());
+            }
+        });
+
+        deliveryCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new DeliveryCarFragment());
+            }
+        });
+        aboutUsCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new AboutUsFragment());
+            }
+        });
+
         navMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +73,18 @@ public class NavHomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+
+
+    private void replaceFragment(Fragment fragment) {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .replace(R.id.homepage_fragment_container, fragment)
+                .addToBackStack("NavHomeFragment")
+                .commit();
+
+
     }
 
 

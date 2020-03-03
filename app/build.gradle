@@ -49,5 +49,8 @@ dependencies {
 
     // Circle ImageView
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+    //to display the splash video with transparent background
+    implementation 'com.alphamovie.library:alpha-movie:1.2.1'
 }
 apply plugin: 'com.google.gms.google-services'
