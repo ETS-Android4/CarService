@@ -32,11 +32,11 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'androidx.cardview:cardview:1.0.0'
     //FireBase Libraries
-    implementation 'com.google.firebase:firebase-auth:19.1.0'
-    implementation 'com.google.firebase:firebase-core:17.0.0'
-    implementation 'com.google.firebase:firebase-database:19.2.0'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-core:17.2.2'
+    implementation 'com.google.firebase:firebase-database:19.2.1'
     //facebook sdk
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.facebook.android:facebook-android-sdk:5.11.2'
     // Google Play services Auth split
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
