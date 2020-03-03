@@ -69,4 +69,5 @@
     <string name="account_settings">Account Settings</string>
     <string name="add_your_car_to_get_additional_services">Add your car to get additional services</string>
     <string name="add_car">Add car</string>
+    <string name="garage">Garage</string>
 </resources>
