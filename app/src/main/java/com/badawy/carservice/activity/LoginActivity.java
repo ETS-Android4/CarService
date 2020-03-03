@@ -70,15 +70,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-          //underline for forgot password ahmed tarek
+        //underline for forgot password ahmed tarek
 
-        forgotpassword=findViewById(R.id.login_tv_forgotPassword);
+        forgotpassword = findViewById(R.id.login_tv_forgotPassword);
         forgotpassword.setPaintFlags(forgotpassword.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         //.................................................................................. UNDERLINE FOR FORGOT PASSWORD
 
 
         initializeUi();
-
 
 
         //@AhmedMahmoud GooGleSignIn
@@ -88,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .requestProfile()
                 .build();
-
 
 
         // Build a GoogleSignInClient with the options specified by gso.
@@ -175,9 +173,11 @@ public class LoginActivity extends AppCompatActivity {
 
         //AhmedRabie
         //sharepreference
-        if (SharePreference.GetEmail(this)!=null && !SharePreference.GetEmail(this).equals("")){
-        Intent intent=new Intent(LoginActivity.this,HomepageActivity.class);
-        startActivity(intent);}
+        if (SharePreference.GetEmail(this) != null && !SharePreference.GetEmail(this).equals("")) {
+            Intent intent = new Intent(LoginActivity.this, HomepageActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
     }//END OF ON CREATE
 
@@ -216,7 +216,7 @@ public class LoginActivity extends AppCompatActivity {
 
         } catch (ApiException e) {
             //Toast.makeText(LoginActivity.this, "Sign In Faild",
-              //      Toast.LENGTH_SHORT).show();
+            //      Toast.LENGTH_SHORT).show();
 
             Toast.makeText(this, String.valueOf(e), Toast.LENGTH_SHORT).show();
 
@@ -268,10 +268,10 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             //AhmedRabie
                             //sharepreference
-                            SharePreference.SaveEmail(emailAddress,LoginActivity.this);
-                            SharePreference.SavePassword(password,LoginActivity.this);
+                            SharePreference.SaveEmail(emailAddress, LoginActivity.this);
+                            SharePreference.SavePassword(password, LoginActivity.this);
                             Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
-                            goToLoginActivity.putExtra("Email",emailET.getText().toString().trim());
+                            goToLoginActivity.putExtra("Email", emailET.getText().toString().trim());
                             startActivity(goToLoginActivity);
                             finish();
 
@@ -341,24 +341,22 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void signInWithTwitter()
-    {
+    private void signInWithTwitter() {
 
 
         mAuth.startActivityForSignInWithProvider(this, provider.build()).addOnSuccessListener(
-                        new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult)
-                            {
-                                authResult.getAdditionalUserInfo().getProfile();
-                                authResult.getCredential();
-                                check();
-                                Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
-                                startActivity(goToLoginActivity);
-                                finish();
-                            }
+                new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        authResult.getAdditionalUserInfo().getProfile();
+                        authResult.getCredential();
+                        check();
+                        Intent goToLoginActivity = new Intent(LoginActivity.this, HomepageActivity.class);
+                        startActivity(goToLoginActivity);
+                        finish();
+                    }
 
-                        });
+                });
 
     }
 
@@ -413,18 +411,16 @@ public class LoginActivity extends AppCompatActivity {
     public void showLoginPasswordKeyboard(View view) {
         MyCustomSystemUi.showKeyboard(this, passwordET);
     }
-    private void check()
-    {
+
+    private void check() {
         FirebaseDatabase.getInstance().getReference("/Users").child(mAuth.getUid()).child("/Username").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //check if userID in realtime database
                 //if he isn't, so save his data to realtime database
                 FirebaseUser currentUser = mAuth.getCurrentUser();
-                if(dataSnapshot.getValue()==null)
-                {
+                if (dataSnapshot.getValue() == null) {
                     Map<String, String> Users_map = new HashMap<>();
                     Users_map.put("Username", currentUser.getDisplayName());
                     Users_map.put("EmailAddress", currentUser.getEmail());
