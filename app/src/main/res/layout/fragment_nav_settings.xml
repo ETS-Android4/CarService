@@ -388,7 +388,7 @@
         android:id="@+id/settings_addCarButton"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_25sdp"
-        android:background="@drawable/style_btn_create_account"
+        android:background="@drawable/style_btn_red_with_corners"
         android:text="@string/add_car"
         android:textAllCaps="false"
         android:textColor="@color/white"

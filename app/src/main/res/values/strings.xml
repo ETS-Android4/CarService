@@ -70,4 +70,7 @@
     <string name="add_your_car_to_get_additional_services">Add your car to get additional services</string>
     <string name="add_car">Add car</string>
     <string name="garage">Garage</string>
+    <string name="emergency_description">wherever you are, we are with you through few clicks and Within less than a minute you can request a tow truck to transport your car to any location</string>
+    <string name="request_a_tow_truck">Request a tow truck</string>
+    <string name="spare_parts">Spare Parts</string>
 </resources>
