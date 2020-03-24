@@ -16,8 +16,8 @@ import android.widget.ImageView;
 
 import com.badawy.carservice.R;
 import com.badawy.carservice.activity.HomepageActivity;
-import com.badawy.carservice.adapters.RecyclerAdapter;
-import com.badawy.carservice.models.RecyclerItemModel;
+import com.badawy.carservice.adapters.ServiceListRecyclerAdapter;
+import com.badawy.carservice.models.ServiceListModel;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DeliveryCarFragment extends Fragment implements RecyclerAdapter.OnButtonClickListener {
+public class DeliveryCarFragment extends Fragment implements ServiceListRecyclerAdapter.OnButtonClickListener {
 
 
     // Service Data
@@ -50,7 +50,7 @@ public class DeliveryCarFragment extends Fragment implements RecyclerAdapter.OnB
 
 
         // Hold the data
-        ArrayList<RecyclerItemModel> serviceList = new ArrayList<>();
+        ArrayList<ServiceListModel> serviceList = new ArrayList<>();
 
 
         //Initialize Views
@@ -63,12 +63,12 @@ public class DeliveryCarFragment extends Fragment implements RecyclerAdapter.OnB
         // Fill the service List with the Data
         for (int i = 0; i < serviceLabels.length; i++) {
 
-            serviceList.add(new RecyclerItemModel(serviceIcons[i], serviceLabels[i], serviceDescription[i], serviceListButtons[i],serviceButtonLabel[i]));
+            serviceList.add(new ServiceListModel(serviceIcons[i], serviceLabels[i], serviceDescription[i], serviceListButtons[i],serviceButtonLabel[i]));
 
         }
 
         // Send the list to the adapter
-        RecyclerAdapter adapter = new RecyclerAdapter(getActivity(), serviceList,this);
+        ServiceListRecyclerAdapter adapter = new ServiceListRecyclerAdapter(getActivity(), serviceList,this);
 
 
         // Set the adapter and Layout Manager into the Recycler View

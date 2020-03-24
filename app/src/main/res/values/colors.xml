@@ -13,4 +13,5 @@
     <color name="transparent">#00000000</color>
     <color name="grey_line">#cfcfcf</color>
     <color name="bg_color">#f1f1f1</color>
+    <color name="red_dark">#6A0B0B</color>
 </resources>

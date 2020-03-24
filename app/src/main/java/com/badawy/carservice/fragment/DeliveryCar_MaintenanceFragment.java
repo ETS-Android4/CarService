@@ -16,15 +16,15 @@ import android.widget.ImageView;
 
 import com.badawy.carservice.R;
 import com.badawy.carservice.activity.HomepageActivity;
-import com.badawy.carservice.adapters.RecyclerAdapter;
-import com.badawy.carservice.models.RecyclerItemModel;
+import com.badawy.carservice.adapters.ServiceListRecyclerAdapter;
+import com.badawy.carservice.models.ServiceListModel;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DeliveryCar_MaintenanceFragment extends Fragment implements RecyclerAdapter.OnButtonClickListener {
+public class DeliveryCar_MaintenanceFragment extends Fragment implements ServiceListRecyclerAdapter.OnButtonClickListener {
 
 
     // Service Data
@@ -50,7 +50,7 @@ public class DeliveryCar_MaintenanceFragment extends Fragment implements Recycle
 
 
         // Hold the data
-        ArrayList<RecyclerItemModel> maintenanceCategoryList = new ArrayList<>();
+        ArrayList<ServiceListModel> maintenanceCategoryList = new ArrayList<>();
 
 
         //Initialize Views
@@ -63,12 +63,12 @@ public class DeliveryCar_MaintenanceFragment extends Fragment implements Recycle
         // Fill the maintenanceCategory List with the Data
         for (int i = 0; i < maintenanceLabels.length; i++) {
 
-            maintenanceCategoryList.add(new RecyclerItemModel(maintenanceIcons[i], maintenanceLabels[i], maintenanceDescription[i], maintenanceListButtons[i],maintenanceButtonLabel[i]));
+            maintenanceCategoryList.add(new ServiceListModel(maintenanceIcons[i], maintenanceLabels[i], maintenanceDescription[i], maintenanceListButtons[i],maintenanceButtonLabel[i]));
 
         }
 
         // Send the list to the adapter
-        RecyclerAdapter adapter = new RecyclerAdapter(getActivity(), maintenanceCategoryList,this);
+        ServiceListRecyclerAdapter adapter = new ServiceListRecyclerAdapter(getActivity(), maintenanceCategoryList,this);
 
 
         // Set the adapter and Layout Manager into the Recycler View

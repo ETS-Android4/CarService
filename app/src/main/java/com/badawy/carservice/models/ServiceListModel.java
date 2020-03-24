@@ -2,7 +2,7 @@ package com.badawy.carservice.models;
 
 import android.widget.Button;
 
-public class RecyclerItemModel {
+public class ServiceListModel {
     private int serviceIcon;
     private String serviceLabel;
     private String serviceDescription;
@@ -10,7 +10,7 @@ public class RecyclerItemModel {
     private String serviceButtonLabel;
 
 
-    public RecyclerItemModel(int serviceIcon, String serviceLabel, String serviceDescription, Button serviceListButton, String serviceButtonLabel) {
+    public ServiceListModel(int serviceIcon, String serviceLabel, String serviceDescription, Button serviceListButton, String serviceButtonLabel) {
         this.serviceIcon = serviceIcon;
         this.serviceLabel = serviceLabel;
         this.serviceDescription = serviceDescription;

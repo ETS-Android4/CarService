@@ -10,21 +10,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.badawy.carservice.R;
-import com.badawy.carservice.models.RecyclerItemModel;
+import com.badawy.carservice.models.ServiceListModel;
 import java.util.ArrayList;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.myViewHolder> {
+public class ServiceListRecyclerAdapter extends RecyclerView.Adapter<ServiceListRecyclerAdapter.myViewHolder> {
 
     //Global Variables
 
-    private ArrayList<RecyclerItemModel> list;
+    private ArrayList<ServiceListModel> list;
     private Context context;
     private OnButtonClickListener onButtonClickListener;
 
 
 
     //Constructor
-    public RecyclerAdapter(Context context, ArrayList<RecyclerItemModel> list, OnButtonClickListener onButtonClickListener) {
+    public ServiceListRecyclerAdapter(Context context, ArrayList<ServiceListModel> list, OnButtonClickListener onButtonClickListener) {
         this.onButtonClickListener = onButtonClickListener;
         this.list = list;
         this.context = context;

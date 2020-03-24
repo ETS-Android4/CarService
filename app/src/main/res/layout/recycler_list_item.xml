@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/style_recycler_item_border_line">
+        android:background="@drawable/style_grey_stroke_line">
 
 
         <ImageView
