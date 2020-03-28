@@ -32,7 +32,7 @@
             android:id="@+id/carItem_image"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:src="@drawable/ic_garage_car_test"
+            android:src="@drawable/ic_nav_cars_car_test"
             app:layout_constraintBottom_toTopOf="@id/carItem_name"
             app:layout_constraintLeft_toLeftOf="parent"
             android:scaleType="fitCenter"

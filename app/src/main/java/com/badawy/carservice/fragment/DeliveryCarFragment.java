@@ -43,7 +43,7 @@ public class DeliveryCarFragment extends Fragment implements View.OnClickListene
 
     // Simple Testing Data for Car Selection
     private byte[] carId = {0, 1, 2, 3, 4};
-    private int[] carImage = {R.drawable.ic_garage_car_test, R.drawable.ic_garage_car_test, R.drawable.ic_garage_car_test, R.drawable.ic_garage_car_test, R.drawable.ic_garage_car_test};
+    private int[] carImage = {R.drawable.ic_nav_cars_car_test, R.drawable.ic_nav_cars_car_test, R.drawable.ic_nav_cars_car_test, R.drawable.ic_nav_cars_car_test, R.drawable.ic_nav_cars_car_test};
     private String[] carName = {"2018 Audi TT", "2014 Mazda Mk4", "2018 Audi TT", "2014 Mazda Mk4", "2018 Audi TT"};
 
 

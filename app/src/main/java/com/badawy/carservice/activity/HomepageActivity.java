@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.badawy.carservice.R;
-import com.badawy.carservice.fragment.NavGarageFragment;
+import com.badawy.carservice.fragment.NavCarsFragment;
 import com.badawy.carservice.fragment.NavAppointmentsFragment;
 import com.badawy.carservice.fragment.NavHomeFragment;
 import com.badawy.carservice.fragment.NavSettingsFragment;
@@ -89,7 +89,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
                 replaceFragment(new NavHomeFragment());
                 break;
             case R.id.nav_cars:
-                replaceFragment(new NavGarageFragment());
+                replaceFragment(new NavCarsFragment());
                 break;
             case R.id.nav_settings:
                 replaceFragment(new NavSettingsFragment());

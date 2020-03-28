@@ -17,7 +17,6 @@ import com.badawy.carservice.adapters.SelectCarRecyclerAdapter;
 import com.badawy.carservice.adapters.TimeAppointmentRecyclerAdapter;
 import com.badawy.carservice.models.SelectCarModel;
 import com.badawy.carservice.models.TimeAppointmentModel;
-import com.badawy.carservice.utils.CustomCalendar;
 
 import java.util.ArrayList;
 
@@ -34,7 +33,7 @@ public class CarCenterFragment extends Fragment {
 
     // Simple Testing Data for Car Selection
     private byte[] carId = {0,1,2,3,4};
-    private int [] carImage = {R.drawable.ic_garage_car_test,R.drawable.ic_garage_car_test,R.drawable.ic_garage_car_test,R.drawable.ic_garage_car_test,R.drawable.ic_garage_car_test};
+    private int [] carImage = {R.drawable.ic_nav_cars_car_test,R.drawable.ic_nav_cars_car_test,R.drawable.ic_nav_cars_car_test,R.drawable.ic_nav_cars_car_test,R.drawable.ic_nav_cars_car_test};
     private String [] carName = {"2018 Audi TT","2014 Mazda Mk4","2018 Audi TT","2014 Mazda Mk4","2018 Audi TT"};
 
 

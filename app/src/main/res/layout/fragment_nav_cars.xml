@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
-    tools:context=".fragment.NavGarageFragment">
+    tools:context=".fragment.NavCarsFragment">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/navGarage_headerCard"
+        android:id="@+id/navCars_headerCard"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:cardElevation="@dimen/_5sdp"
@@ -23,11 +23,11 @@
 
 
             <TextView
-                android:id="@+id/navGarage_label"
+                android:id="@+id/navCars_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/segoe_ui_sb"
-                android:text="@string/garage"
+                android:text="@string/cars"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_20sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -36,17 +36,28 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/navGarage_navMenuBtn"
+                android:id="@+id/navCars_navMenuBtn"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:src="@drawable/ic_menu_black"
-                app:layout_constraintBottom_toBottomOf="@id/navGarage_label"
+                app:layout_constraintBottom_toBottomOf="@id/navCars_label"
                 app:layout_constraintHorizontal_bias="0.04"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@id/navGarage_label"
-                app:layout_constraintTop_toTopOf="@id/navGarage_label"
+                app:layout_constraintRight_toRightOf="@id/navCars_label"
+                app:layout_constraintTop_toTopOf="@id/navCars_label"
                 tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/navCars_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_nav_cars_edit"
+                app:layout_constraintBottom_toBottomOf="@id/navCars_label"
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintLeft_toRightOf="@id/navCars_label"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/navCars_label" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -54,7 +65,7 @@
 
 
     <TextView
-        android:id="@+id/navGarage_name"
+        android:id="@+id/navCars_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoe_ui_regular"
@@ -66,67 +77,81 @@
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navGarage_headerCard"
+        app:layout_constraintTop_toBottomOf="@id/navCars_headerCard"
         app:layout_constraintVertical_bias="0.1" />
 
 
-    <TextView
-        android:id="@+id/navGarage_welcomeLabel"
+    <LinearLayout
+        android:id="@+id/navCars_cancel"
         android:layout_width="wrap_content"
+        android:visibility="invisible"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/segoe_ui_regular"
-        android:text="Welcome to your Garage"
-        android:textColor="@color/grey"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.01"
-        app:layout_constraintLeft_toLeftOf="@id/navGarage_name"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/navCars_name"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintLeft_toRightOf="@id/navCars_name"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navGarage_name"
-        app:layout_constraintVertical_bias="0.01" />
+        app:layout_constraintTop_toTopOf="@id/navCars_name"
+        app:layout_constraintVertical_bias="0.01">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/segoe_ui_sb"
+            android:text="Cancel"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/grey" />
+
+
+    </LinearLayout>
 
 
     <ImageView
-        android:id="@+id/navGarage_halfCircle"
+        android:id="@+id/navCars_halfCircle"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_115sdp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_garage_half_circle"
+        android:src="@drawable/ic_nav_cars_half_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/nav_garage_lineUnderCircle"
+        android:id="@+id/navCars_lineUnderCircle"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_5sdp"
-        android:src="@drawable/ic_garage_line"
-        app:layout_constraintBottom_toBottomOf="@id/navGarage_halfCircle"
+        android:src="@drawable/ic_nav_cars_line"
+        app:layout_constraintBottom_toBottomOf="@id/navCars_halfCircle"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/navGarage_halfCircle"
+        app:layout_constraintTop_toTopOf="@id/navCars_halfCircle"
         app:layout_constraintVertical_bias="0.92" />
 
     <ImageView
-        android:id="@+id/navGarage_carShadow"
+        android:id="@+id/navCars_carShadow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:src="@drawable/ic_car_shadow"
-        app:layout_constraintBottom_toBottomOf="@id/navGarage_car"
-        app:layout_constraintLeft_toLeftOf="@id/navGarage_car"
-        app:layout_constraintRight_toRightOf="@id/navGarage_car"
-        app:layout_constraintTop_toTopOf="@id/navGarage_car"
-        app:layout_constraintVertical_bias="0.92" />
+        app:layout_constraintBottom_toBottomOf="@id/navCars_car"
+        app:layout_constraintLeft_toLeftOf="@id/navCars_car"
+        app:layout_constraintRight_toRightOf="@id/navCars_car"
+        app:layout_constraintTop_toTopOf="@id/navCars_car"
+        app:layout_constraintVertical_bias="0.99" />
 
     <ImageView
-        android:id="@+id/navGarage_car"
+        android:id="@+id/navCars_car"
         android:layout_width="@dimen/_150sdp"
         android:layout_height="@dimen/_150sdp"
         android:adjustViewBounds="true"
-        android:src="@drawable/ic_garage_car_test"
+        android:src="@drawable/ic_nav_cars_car_test"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -135,7 +160,7 @@
 
 
     <TextView
-        android:id="@+id/navGarage_swipeLabel"
+        android:id="@+id/navCars_swipeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoe_ui_regular"
@@ -144,20 +169,20 @@
         android:textSize="@dimen/_10sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navGarage_carShadow" />
+        app:layout_constraintTop_toBottomOf="@id/navCars_carShadow" />
 
     <ImageView
         android:layout_width="@dimen/_12sdp"
         android:layout_height="@dimen/_12sdp"
         android:layout_margin="@dimen/_2sdp"
         android:src="@drawable/ic_swipe_right"
-        app:layout_constraintBottom_toBottomOf="@id/navGarage_swipeLabel"
-        app:layout_constraintRight_toLeftOf="@id/navGarage_swipeLabel"
-        app:layout_constraintTop_toTopOf="@id/navGarage_swipeLabel" />
+        app:layout_constraintBottom_toBottomOf="@id/navCars_swipeLabel"
+        app:layout_constraintRight_toLeftOf="@id/navCars_swipeLabel"
+        app:layout_constraintTop_toTopOf="@id/navCars_swipeLabel" />
 
 
     <TextView
-        android:id="@+id/navGarage_carName"
+        android:id="@+id/navCars_carName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoe_ui_regular"
@@ -168,8 +193,42 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navGarage_car"
+        app:layout_constraintTop_toBottomOf="@id/navCars_car"
         app:layout_constraintVertical_bias="0.7" />
+
+    <LinearLayout
+        android:id="@+id/navCars_removeCar"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        android:background="@drawable/style_btn_red_with_corners"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navCars_swipeLabel">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_10sdp"
+            android:src="@drawable/ic_nav_cars_delete_car" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:fontFamily="@font/segoe_ui_sb"
+            android:gravity="center_vertical"
+            android:text="Remove this car"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
