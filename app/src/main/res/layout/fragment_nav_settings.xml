@@ -79,7 +79,7 @@
         android:id="@+id/settings_profile_edit"
         android:layout_width="@dimen/_25sdp"
         android:layout_height="@dimen/_25sdp"
-        android:src="@drawable/ic_edit"
+        android:src="@drawable/ic_edit_account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintLeft_toLeftOf="@id/settings_profile_image"

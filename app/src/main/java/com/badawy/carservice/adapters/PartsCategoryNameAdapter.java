@@ -5,23 +5,22 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.badawy.carservice.R;
-import com.badawy.carservice.models.TimeAppointmentModel;
+import com.badawy.carservice.models.PartsCategoryNameModel;
 
 import java.util.ArrayList;
 
-public class TimeAppointmentRecyclerAdapter extends RecyclerView.Adapter<TimeAppointmentRecyclerAdapter.TimeHolder> {
-
+public class PartsCategoryNameAdapter extends RecyclerView.Adapter<PartsCategoryNameAdapter.PartsCategoryNameViewHolder> {
 
     //Global Variables
 
-    private ArrayList<TimeAppointmentModel> timeList;
+    private ArrayList<PartsCategoryNameModel> nameList;
     private Context context;
     private OnItemClickListener onItemClickListener;
     private int defaultSelectedItem;
@@ -36,8 +35,8 @@ public class TimeAppointmentRecyclerAdapter extends RecyclerView.Adapter<TimeApp
     }
 
     //Constructor
-    public TimeAppointmentRecyclerAdapter(Context context, ArrayList<TimeAppointmentModel> timeList) {
-        this.timeList = timeList;
+    public PartsCategoryNameAdapter(Context context, ArrayList<PartsCategoryNameModel> carList) {
+        this.nameList = carList;
         this.context = context;
         this.defaultSelectedItem = 0;
     }
@@ -46,72 +45,62 @@ public class TimeAppointmentRecyclerAdapter extends RecyclerView.Adapter<TimeApp
     //return the layout of items ( How an item should look like )
     @NonNull
     @Override
-    public TimeAppointmentRecyclerAdapter.TimeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PartsCategoryNameAdapter.PartsCategoryNameViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View itemLayout = LayoutInflater.from(context).inflate(R.layout.appointment_time_item, parent, false);
-        return new TimeHolder(itemLayout, onItemClickListener);
+        View itemLayout = LayoutInflater.from(context).inflate(R.layout.item_shop_category_name, parent, false);
+        return new PartsCategoryNameViewHolder(itemLayout, onItemClickListener);
     }
 
 
     // put the data inside the views of an item
     @Override
-    public void onBindViewHolder(@NonNull TimeHolder holder, final int position) {
-        holder.time.setText(timeList.get(position).getTime());
-        holder.timeOfDay.setText(timeList.get(position).getTimeOfDay());
+    public void onBindViewHolder(@NonNull PartsCategoryNameViewHolder holder, final int position) {
+        holder.partsCategoryName.setText(nameList.get(position).getPartsCategoryName());
 
 
-        holder.itemBackgroundColor.setOnClickListener(new View.OnClickListener() {
+        holder.partsCategoryName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 defaultSelectedItem = position;
                 notifyDataSetChanged();
-
             }
         });
 
 
         if (defaultSelectedItem == position) {
-
-            holder.itemBackgroundColor.setBackgroundResource(R.drawable.style_rectangle_full_corners_red);
-            holder.time.setTextColor(Color.WHITE);
-            holder.timeOfDay.setTextColor(Color.WHITE);
+            holder.partsCategoryName.setTextColor(Color.BLACK);
+            holder.partsCategoryBlackDot.setVisibility(View.VISIBLE);
+            holder.partsCategoryName.setTextSize(13);
         } else {
-            holder.itemBackgroundColor.setBackgroundResource(R.drawable.style_grey_stroke_line);
-            holder.time.setTextColor(Color.BLACK);
-            holder.timeOfDay.setTextColor(Color.BLACK);
+            holder.partsCategoryName.setTextColor(Color.GRAY);
+            holder.partsCategoryBlackDot.setVisibility(View.INVISIBLE);
+            holder.partsCategoryName.setTextSize(11);
 
         }
 
-
     }
 
-    public byte getTimeId() {
-        return timeList.get(defaultSelectedItem).getId();
-    }
 
     // return number of rows in the list
     @Override
     public int getItemCount() {
-        return timeList.size();
+        return nameList.size();
     }
 
 
     // define the views of an item
-    class TimeHolder extends RecyclerView.ViewHolder {
+    class PartsCategoryNameViewHolder extends RecyclerView.ViewHolder {
 
-        ConstraintLayout itemBackgroundColor;
-        TextView time;
-        TextView timeOfDay;
-
+        ImageView partsCategoryBlackDot;
+        TextView partsCategoryName;
 
         // Constructor to initialize the views from the Layout
-        TimeHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        PartsCategoryNameViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 
             // Views inside our layout
-            time = itemView.findViewById(R.id.item_appointment_time);
-            timeOfDay = itemView.findViewById(R.id.item_appointment_timeOfDay);
-            itemBackgroundColor = itemView.findViewById(R.id.item_appointment_background);
+            partsCategoryBlackDot = itemView.findViewById(R.id.shopItem_categoryDot);
+            partsCategoryName = itemView.findViewById(R.id.shopItem_categoryName);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +118,5 @@ public class TimeAppointmentRecyclerAdapter extends RecyclerView.Adapter<TimeApp
                 }
             });
         }
-
-
     }
 }

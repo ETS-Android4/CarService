@@ -2,88 +2,349 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/delivery_fragment_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.DeliveryCarFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/delivery_headerCard"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:cardElevation="@dimen/_5sdp"
-        app:layout_constraintHeight_percent="0.08"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
-            <TextView
-                android:id="@+id/delivery_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/segoe_ui_sb"
-                android:text="@string/delivery"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_20sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <!-- Header -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/delivery_headerCard"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                app:cardElevation="@dimen/_5sdp"
+                app:layout_constraintHeight_percent="0.08"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/delivery_navMenuBtn"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:paddingTop="@dimen/_5sdp"
-                android:src="@drawable/ic_menu_black"
-                app:layout_constraintBottom_toBottomOf="@id/delivery_label"
-                app:layout_constraintHorizontal_bias="0.04"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:id="@+id/delivery_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/segoe_ui_sb"
+                        android:text="@string/delivery"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_20sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/delivery_navMenuBtn"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:src="@drawable/ic_menu_black"
+                        app:layout_constraintBottom_toBottomOf="@id/delivery_label"
+                        app:layout_constraintHorizontal_bias="0.04"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="@id/delivery_label"
+                        app:layout_constraintTop_toTopOf="@id/delivery_label"
+                        tools:ignore="ContentDescription" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- Select Car -->
+            <TextView
+                android:id="@+id/delivery_selectCarLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:gravity="left"
+                android:text="Choose your car to find products that will fit it."
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@id/delivery_label"
-                app:layout_constraintTop_toTopOf="@id/delivery_label"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/delivery_headerCard"
+                app:layout_constraintWidth_percent="0.9" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/delivery_chooseCarRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:scrollbars="none"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintHeight_percent="0.2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/delivery_selectCarLabel"
+                app:layout_constraintVertical_bias="0.05"
+                tools:itemCount="4"
+                tools:listitem="@layout/select_car_item" />
+
+
+            <!--  Select Service -->
+            <TextView
+                android:id="@+id/delivery_selectServiceLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:gravity="left"
+                android:text="Please select which service you want."
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/delivery_chooseCarRecyclerView"
+                app:layout_constraintVertical_bias="0.05"
+                app:layout_constraintWidth_percent="0.9" />
+
+
+            <!-- Maintenance -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/delivery_maintenance_CV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:animateLayoutChanges="true"
+                android:elevation="0dp"
+                app:cardCornerRadius="@dimen/_5sdp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toTopOf="@id/delivery_spareParts_CV"
+                app:layout_constraintLeft_toLeftOf="@id/delivery_selectServiceLabel"
+                app:layout_constraintRight_toRightOf="@id/delivery_selectServiceLabel"
+                app:layout_constraintTop_toBottomOf="@id/delivery_selectServiceLabel"
+                app:layout_constraintVertical_bias="0.15">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/style_grey_stroke_line">
+
+
+                    <ImageView
+                        android:id="@+id/delivery_maintenance_Image"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:adjustViewBounds="true"
+                        android:padding="@dimen/_10sdp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_delivery_maintenance"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.3" />
+
+
+                    <TextView
+                        android:id="@+id/delivery_maintenance_labelText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:fontFamily="@font/segoe_ui_sb"
+                        android:gravity="left"
+                        android:paddingLeft="@dimen/_3sdp"
+                        android:text="Maintenance &amp; Repair"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintBottom_toBottomOf="@id/delivery_maintenance_Image"
+                        app:layout_constraintLeft_toRightOf="@id/delivery_maintenance_Image"
+                        app:layout_constraintRight_toLeftOf="@id/delivery_maintenance_listArrow"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.15"
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+                    <TextView
+                        android:id="@+id/delivery_maintenance_descriptionText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/segoe_ui_sb"
+                        android:gravity="left"
+                        android:maxLines="3"
+                        android:paddingLeft="@dimen/_3sdp"
+                        android:text="Order a mechanic to come and fix a specific issue with your car"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toTopOf="@id/delivery_maintenance_listArrow"
+                        app:layout_constraintLeft_toRightOf="@id/delivery_maintenance_Image"
+                        app:layout_constraintRight_toLeftOf="@id/delivery_maintenance_listArrow"
+                        app:layout_constraintTop_toBottomOf="@id/delivery_maintenance_labelText"
+                        app:layout_constraintVertical_bias="0.01"
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+                    <ImageView
+                        android:id="@+id/delivery_maintenance_listArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_grey_arrow"
+                        android:rotation="90"
+                        app:layout_constraintBottom_toBottomOf="@id/delivery_maintenance_Image"
+                        app:layout_constraintHorizontal_bias="0.95"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/maintenance_category_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/delivery_maintenance_Image">
+                        <!-- Maintenance Category -->
+                        <LinearLayout
+                            android:id="@+id/maintenance_categoryLinearLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@drawable/style_grey_stroke_line"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:fontFamily="@font/segoe_ui_sb"
+                                android:text="Categories"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10sdp" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/maintenance_category_recyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:overScrollMode="never"
+                                android:scrollbars="vertical"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                tools:itemCount="4"
+                                tools:listitem="@layout/item_maintenance_categories" />
+
+                        </LinearLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- Spare Parts-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/delivery_spareParts_CV"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:elevation="0dp"
+                app:cardCornerRadius="@dimen/_5sdp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/delivery_selectServiceLabel"
+                app:layout_constraintRight_toRightOf="@id/delivery_selectServiceLabel"
+                app:layout_constraintTop_toBottomOf="@id/delivery_maintenance_CV"
+                app:layout_constraintVertical_bias="0.05">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/style_grey_stroke_line">
+
+
+                    <ImageView
+                        android:id="@+id/delivery_spareParts_Image"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:adjustViewBounds="true"
+                        android:padding="@dimen/_10sdp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_delivery_spare_parts"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.3" />
+
+
+                    <TextView
+                        android:id="@+id/delivery_spareParts_labelText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:fontFamily="@font/segoe_ui_sb"
+                        android:gravity="left"
+                        android:paddingLeft="@dimen/_3sdp"
+                        android:text="@string/spare_parts"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintBottom_toBottomOf="@id/delivery_spareParts_Image"
+                        app:layout_constraintLeft_toRightOf="@id/delivery_spareParts_Image"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.15" />
+
+                    <TextView
+                        android:id="@+id/delivery_spareParts_descriptionText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/segoe_ui_sb"
+                        android:gravity="left"
+                        android:maxLines="3"
+                        android:paddingLeft="@dimen/_3sdp"
+                        android:text="Have a look on all the available spare parts for your car."
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/delivery_spareParts_Image"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/delivery_spareParts_labelText"
+                        app:layout_constraintVertical_bias="0.01"
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </androidx.cardview.widget.CardView>
-
-
-    <TextView
-        android:id="@+id/delivery_serviceLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_25sdp"
-        android:layout_marginRight="@dimen/_25sdp"
-        android:fontFamily="@font/segoe_ui_sb"
-        android:text="Please select which service you want.."
-        android:textColor="@color/grey"
-        android:textSize="@dimen/_15sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/delivery_headerCard"
-        app:layout_constraintVertical_bias="0.1" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/delivery_serviceList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingLeft="@dimen/_20sdp"
-        android:paddingRight="@dimen/_20sdp"
-        android:paddingTop="@dimen/_20sdp"
-        android:overScrollMode="never"
-        android:scrollbars="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/delivery_serviceLabel"
-        tools:itemCount="3"
-        tools:listitem="@layout/recycler_list_item" />
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

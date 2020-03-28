@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.SparePartsShopFragment">
+
+
+    <!-- Header -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/sparePartsShop_headerCard"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_40sdp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/sparePartsShop_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:gravity="left"
+                android:text="@string/spare_parts"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/sparePartsShop_navMenuBtn"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:paddingTop="@dimen/_5sdp"
+                android:src="@drawable/ic_menu_black"
+                app:layout_constraintBottom_toBottomOf="@id/sparePartsShop_label"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/sparePartsShop_label"
+                app:layout_constraintTop_toTopOf="@id/sparePartsShop_label"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/sparePartsShop_shoppingCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_shopping_cart"
+                app:layout_constraintBottom_toBottomOf="@id/sparePartsShop_label"
+                app:layout_constraintHorizontal_bias="0.8"
+                app:layout_constraintLeft_toRightOf="@id/sparePartsShop_label"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/sparePartsShop_label"
+                tools:ignore="ContentDescription" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/sparePartsShop_availableProductsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="left"
+        android:text="Available Products"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sparePartsShop_headerCard" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sparePartsShop_categoryNameRV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintLeft_toLeftOf="@id/sparePartsShop_availableProductsLabel"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sparePartsShop_availableProductsLabel"
+        tools:itemCount="6"
+        tools:listitem="@layout/item_shop_category_name" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sparePartsShop_productsRV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sparePartsShop_categoryNameRV"
+        tools:itemCount="8"
+        tools:listitem="@layout/item_shop_product" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
