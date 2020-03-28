@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,14 +16,12 @@ import android.widget.ImageView;
 
 import com.badawy.carservice.R;
 import com.badawy.carservice.activity.HomepageActivity;
-import com.badawy.carservice.activity.ShoppingCartActivity;
 import com.badawy.carservice.adapters.PartsCategoryNameAdapter;
 import com.badawy.carservice.adapters.ProductItemAdapter;
 import com.badawy.carservice.models.PartsCategoryNameModel;
 import com.badawy.carservice.models.ProductItemModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,7 +86,7 @@ public class SparePartsShopFragment extends Fragment {
         shoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),ShoppingCartActivity.class));
+                replaceFragment(new NavShoppingCartFragment());
             }
         });
         return view;
@@ -98,5 +97,14 @@ public class SparePartsShopFragment extends Fragment {
         shoppingCart = view.findViewById(R.id.sparePartsShop_shoppingCart);
         partsCategoryNameRv = view.findViewById(R.id.sparePartsShop_categoryNameRV);
         productsRv = view.findViewById(R.id.sparePartsShop_productsRV);
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .replace(R.id.homepage_fragment_container, fragment)
+                .commit();
+
+
     }
 }
