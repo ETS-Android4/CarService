@@ -73,4 +73,6 @@
     <string name="spare_parts">Spare Parts</string>
     <string name="appointments">Appointments</string>
     <string name="shopping_cart">Shopping cart</string>
+    <string name="account">Account</string>
+    <string name="notifications">Notifications</string>
 </resources>
