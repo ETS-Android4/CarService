@@ -41,7 +41,7 @@ public class NavHomeFragment extends Fragment {
         carCenterCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(new CarCenterFragment());
+                replaceFragment(new CarCenterChooseFragment());
             }
         });
 

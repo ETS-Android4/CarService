@@ -78,4 +78,6 @@
     <string name="your_shopping_cart_is_empty">Your shopping cart is empty</string>
     <string name="check_out">Check Out</string>
     <string name="maintenance_amp_repair"><![CDATA[Maintenance & Repair]]></string>
+    <string name="car_care">Car Care</string>
+    <string name="vehicle_inspection">Vehicle Inspection</string>
 </resources>

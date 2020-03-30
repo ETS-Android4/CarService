@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.badawy.carservice.R;
+import com.badawy.carservice.activity.HomepageActivity;
 import com.badawy.carservice.adapters.TimeAppointmentRecyclerAdapter;
 import com.badawy.carservice.models.TimeAppointmentModel;
 
@@ -37,6 +39,13 @@ public class DeliveryCarMaintenanceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_maintenance, container, false);
         ArrayList<TimeAppointmentModel> timeList = new ArrayList<>();
 
+        ImageView navMenuBtn = view.findViewById(R.id.maintenance_navMenuBtn);
+        navMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomepageActivity.openDrawer();
+            }
+        });
 
         // Filling time list
         for (int i = 0 ; i<time.length;i++){
