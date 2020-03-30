@@ -15,8 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.badawy.carservice.R;
-import com.badawy.carservice.fragment.MaintenanceFragment;
-import com.badawy.carservice.fragment.SparePartsShopFragment;
+import com.badawy.carservice.fragment.DeliveryCarMaintenanceFragment;
 import com.badawy.carservice.models.MaintenanceCategoryModel;
 
 import java.util.ArrayList;
@@ -70,7 +69,7 @@ public class MaintenanceCategoryAdapter extends RecyclerView.Adapter<Maintenance
             public void onClick(View v) {
                 currentPosition = position;
                 notifyDataSetChanged();
-                replaceFragment(v, new MaintenanceFragment());
+                replaceFragment(v, new DeliveryCarMaintenanceFragment());
             }
         });
 
@@ -118,9 +117,9 @@ public class MaintenanceCategoryAdapter extends RecyclerView.Adapter<Maintenance
             super(itemView);
 
             // Views inside our layout
-            categoryIcon = itemView.findViewById(R.id.maintenance_category_image);
-            categoryName = itemView.findViewById(R.id.maintenance_category_name);
-            categoryBackground = itemView.findViewById(R.id.maintenance_category_background);
+            categoryIcon = itemView.findViewById(R.id.item_maintenance_category_image);
+            categoryName = itemView.findViewById(R.id.item_maintenance_category_name);
+            categoryBackground = itemView.findViewById(R.id.item_maintenance_category_background);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

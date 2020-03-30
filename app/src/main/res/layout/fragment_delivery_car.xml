@@ -211,7 +211,7 @@
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/maintenance_category_parent"
+                        android:id="@+id/delivery_maintenance_category_parent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -219,7 +219,7 @@
                         app:layout_constraintTop_toBottomOf="@id/delivery_maintenance_Image">
                         <!-- Maintenance Category -->
                         <LinearLayout
-                            android:id="@+id/maintenance_categoryLinearLayout"
+                            android:id="@+id/delivery_maintenance_categoryLinearLayout"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10sdp"
@@ -244,7 +244,7 @@
                                 android:textSize="@dimen/_10sdp" />
 
                             <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/maintenance_category_recyclerView"
+                                android:id="@+id/delivery_maintenance_category_recyclerView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"

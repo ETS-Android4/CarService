@@ -21,11 +21,11 @@ import com.badawy.carservice.activity.HomepageActivity;
 public class NavCarsFragment extends Fragment {
 
 
-    ImageView navCarsEdit;
-    TextView navCarsCarName;
-    LinearLayout navCarsRemoveCarLayout;
-    LinearLayout navCarsCancelLayout;
-    boolean isVisible = true;
+    private ImageView navCarsEdit;
+    private TextView navCarsCarName;
+    private LinearLayout navCarsRemoveCarLayout;
+    private LinearLayout navCarsCancelLayout;
+    private boolean isVisible = true;
 
     public NavCarsFragment() {
         // Required empty public constructor
@@ -71,6 +71,8 @@ public class NavCarsFragment extends Fragment {
                 isVisible = !isVisible;
             }
         });
+
+
         navMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,5 +81,6 @@ public class NavCarsFragment extends Fragment {
         });
         return view;
     }
+
 
 }

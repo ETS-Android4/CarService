@@ -75,4 +75,7 @@
     <string name="shopping_cart">Shopping cart</string>
     <string name="account">Account</string>
     <string name="notifications">Notifications</string>
+    <string name="your_shopping_cart_is_empty">Your shopping cart is empty</string>
+    <string name="check_out">Check Out</string>
+    <string name="maintenance_amp_repair"><![CDATA[Maintenance & Repair]]></string>
 </resources>

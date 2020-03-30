@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.badawy.carservice.R;
+import com.badawy.carservice.activity.HomepageActivity;
 import com.badawy.carservice.adapters.SelectCarRecyclerAdapter;
 import com.badawy.carservice.adapters.TimeAppointmentRecyclerAdapter;
 import com.badawy.carservice.models.SelectCarModel;
@@ -51,6 +53,15 @@ public class CarCenterFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_car_center, container, false);
         ArrayList<TimeAppointmentModel> timeList = new ArrayList<>();
         ArrayList<SelectCarModel> carList = new ArrayList<>();
+
+
+        ImageView navMenuBtn = view.findViewById(R.id.carCenter_navMenuBtn);
+        navMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomepageActivity.openDrawer();
+            }
+        });
 
 
 

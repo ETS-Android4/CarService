@@ -88,11 +88,11 @@ public class DeliveryCarFragment extends Fragment implements View.OnClickListene
         sparePartsCV = view.findViewById(R.id.delivery_spareParts_CV);
         navMenuBtn = view.findViewById(R.id.delivery_navMenuBtn);
         maintenanceCard = view.findViewById(R.id.delivery_maintenance_CV);
-        categoryLayout = view.findViewById(R.id.maintenance_categoryLinearLayout);
-        categoryParent = view.findViewById(R.id.maintenance_category_parent);
+        categoryLayout = view.findViewById(R.id.delivery_maintenance_categoryLinearLayout);
+        categoryParent = view.findViewById(R.id.delivery_maintenance_category_parent);
         arrow = view.findViewById(R.id.delivery_maintenance_listArrow);
         carRecyclerView = view.findViewById(R.id.delivery_chooseCarRecyclerView);
-        categoryRecyclerView = view.findViewById(R.id.maintenance_category_recyclerView);
+        categoryRecyclerView = view.findViewById(R.id.delivery_maintenance_category_recyclerView);
 
 
     }
@@ -139,7 +139,7 @@ public class DeliveryCarFragment extends Fragment implements View.OnClickListene
         int CATEGORY_ANIMATION_DURATION = 350;
         Transition transition = new Slide(Gravity.TOP);
         transition.setDuration(CATEGORY_ANIMATION_DURATION);
-        transition.addTarget(R.id.maintenance_categoryLinearLayout);
+        transition.addTarget(R.id.delivery_maintenance_categoryLinearLayout);
         TransitionManager.beginDelayedTransition(categoryParent, transition);
         categoryLayout.setVisibility(isListVisible ? View.VISIBLE : View.GONE);
 
@@ -158,7 +158,7 @@ public class DeliveryCarFragment extends Fragment implements View.OnClickListene
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .replace(R.id.homepage_fragment_container, fragment)
-                .addToBackStack("NavHomeFragment")
+                .addToBackStack("DeliveryCarFragment")
                 .commit();
 
     }
@@ -177,7 +177,7 @@ public class DeliveryCarFragment extends Fragment implements View.OnClickListene
                 showCategory();
                 break;
             case R.id.delivery_spareParts_CV:
-                replaceFragment(new SparePartsShopFragment());
+                replaceFragment(new DeliveryCarSparePartsShopFragment());
                 break;
             default:
                 break;

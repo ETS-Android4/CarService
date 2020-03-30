@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.SparePartsShopFragment">
+    tools:context=".fragment.DeliveryCarSparePartsShopFragment">
 
 
     <!-- Header -->
@@ -55,7 +55,7 @@
                 android:id="@+id/sparePartsShop_shoppingCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_shopping_cart"
+                android:src="@drawable/ic_spare_parts_shopping_cart"
                 app:layout_constraintBottom_toBottomOf="@id/sparePartsShop_label"
                 app:layout_constraintHorizontal_bias="0.8"
                 app:layout_constraintLeft_toRightOf="@id/sparePartsShop_label"

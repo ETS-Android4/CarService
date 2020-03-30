@@ -1,14 +1,350 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.MaintenanceFragment">
+    tools:context=".fragment.DeliveryCarMaintenanceFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="mainetnenne" />
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Header -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/maintenance_headerCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:cardElevation="@dimen/_5sdp"
+                app:layout_constraintHeight_percent="0.08"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:id="@+id/maintenance_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/segoe_ui_sb"
+                        android:text="@string/maintenance_amp_repair"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_15sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/maintenance_navMenuBtn"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:src="@drawable/ic_menu_black"
+                        app:layout_constraintBottom_toBottomOf="@id/maintenance_label"
+                        app:layout_constraintHorizontal_bias="0.04"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="@id/maintenance_label"
+                        app:layout_constraintTop_toTopOf="@id/maintenance_label"
+                        tools:ignore="ContentDescription" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- _________________________________________________________ -->
+            <!-- Service Select -->
+            <TextView
+                android:id="@+id/maintenance_serviceTypeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:text="Select Car Part"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.07"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/maintenance_headerCard"
+                app:layout_constraintVertical_bias="0.05" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/maintenance_serviceTypeCardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/style_grey_stroke_line"
+                app:cardCornerRadius="@dimen/_5sdp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/maintenance_serviceTypeLabel"
+                app:layout_constraintVertical_bias="0.03"
+                app:layout_constraintWidth_percent="0.9">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/style_grey_stroke_line">
+
+                    <TextView
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/style_rectangle_left_corners_red"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/maintenance_serviceTypeName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/segoe_ui_sb"
+                        android:text="Oil Change"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0.15"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.2" />
+
+                    <TextView
+                        android:id="@+id/maintenance_serviceTypeDescription"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:fontFamily="@font/segoe_ui_regular"
+                        android:gravity="left"
+                        android:text="Motor Oil"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0.15"
+                        app:layout_constraintLeft_toLeftOf="@id/maintenance_serviceTypeName"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/maintenance_serviceTypeName" />
+
+
+                    <Spinner
+                        android:id="@+id/maintenance_serviceTypeSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_grey_arrow"
+                        android:rotation="90"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0.9"
+                        app:layout_constraintLeft_toRightOf="@id/maintenance_serviceTypeName"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- _________________________________________________________ -->
+            <!-- Line 1 -->
+            <TextView
+                android:id="@+id/maintenance_line1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/grey_line"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/maintenance_serviceTypeCardView"
+                app:layout_constraintVertical_bias="0.05" />
+
+
+            <!-- _________________________________________________________ -->
+            <!-- Appointment Select -->
+            <TextView
+                android:id="@+id/maintenance_availableDateTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:text="Choose the date and time that suits you"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="@id/maintenance_serviceTypeLabel"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/maintenance_line1"
+                app:layout_constraintVertical_bias="0.04" />
+
+            <com.badawy.carservice.utils.CustomCalendar
+                android:id="@+id/maintenance_customCalender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/maintenance_line1"
+                app:layout_constraintVertical_bias="0.15"
+                app:layout_constraintWidth_percent="0.9" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/maintenance_timeRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:scrollbars="none"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/maintenance_redBottomBanner"
+                app:layout_constraintLeft_toLeftOf="@id/maintenance_customCalender"
+                app:layout_constraintRight_toRightOf="@id/maintenance_customCalender"
+                app:layout_constraintTop_toBottomOf="@id/maintenance_customCalender"
+                app:layout_constraintVertical_bias="0.05"
+                tools:itemCount="5"
+                tools:listitem="@layout/appointment_time_item" />
+
+
+            <!-- _________________________________________________________ -->
+            <!-- Line 2 -->
+            <TextView
+                android:id="@+id/maintenance_line2"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/grey_line"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/maintenance_timeRecyclerView"
+                app:layout_constraintVertical_bias="0.05" />
+
+
+            <!-- _________________________________________________________ -->
+            <!-- Add a Note -->
+            <TextView
+                android:id="@+id/maintenance_typeNoteLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:text="type any additional notes about your problem"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="@id/maintenance_serviceTypeLabel"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/maintenance_line2"
+                app:layout_constraintVertical_bias="0.04" />
+
+
+            <EditText
+                android:id="@+id/maintenance_typeNoteET"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:background="@drawable/style_grey_stroke_line"
+                android:gravity="top|left"
+                android:hint="Type Here..."
+                android:inputType="textMultiLine"
+                android:maxLines="6"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toTopOf="@id/maintenance_redBottomBanner"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/maintenance_typeNoteLabel"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintWidth_percent="0.9" />
+
+
+            <!-- _________________________________________________________ -->
+            <!-- Book Now -->
+            <TextView
+                android:id="@+id/maintenance_redBottomBanner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/style_rectangle_top_corners_red"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.12"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <Button
+                android:id="@+id/maintenance_bookNowButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/style_rectangle_full_corners_white"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:text="Order Now"
+                android:textAllCaps="false"
+                android:textColor="@color/red_dark"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.055"
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/maintenance_redBottomBanner"
+                app:layout_constraintWidth_percent="0.35" />
+
+            <TextView
+                android:id="@+id/maintenance_serviceCostLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:text="Total Cost : "
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.08"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/maintenance_redBottomBanner"
+                app:layout_constraintVertical_bias="0.3" />
+
+            <TextView
+                android:id="@+id/maintenance_serviceCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:text="100 ~ 300 EGP"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toTopOf="@id/maintenance_serviceCost"
+                app:layout_constraintHorizontal_bias="0.01"
+                app:layout_constraintLeft_toLeftOf="@id/maintenance_serviceCostLabel"
+                app:layout_constraintRight_toRightOf="@id/maintenance_serviceCostLabel"
+                app:layout_constraintTop_toBottomOf="@id/maintenance_serviceCostLabel"
+                app:layout_constraintVertical_bias="0" />
+
+
+            <!-- _________________________________________________________ -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

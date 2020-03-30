@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SparePartsShopFragment extends Fragment {
+public class DeliveryCarSparePartsShopFragment extends Fragment {
 
     private ImageView navMenuBtn, shoppingCart;
     private RecyclerView partsCategoryNameRv, productsRv;
@@ -45,7 +45,7 @@ public class SparePartsShopFragment extends Fragment {
     private int[] productImage={R.drawable.tire,R.drawable.tire,R.drawable.tire,R.drawable.tire,R.drawable.tire,R.drawable.tire};
 
     private ArrayList<ProductItemModel> productsList = new ArrayList<>();
-    public SparePartsShopFragment() {
+    public DeliveryCarSparePartsShopFragment() {
         // Required empty public constructor
     }
 
@@ -103,6 +103,7 @@ public class SparePartsShopFragment extends Fragment {
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .replace(R.id.homepage_fragment_container, fragment)
+                .addToBackStack("SparePartsShop")
                 .commit();
 
 
