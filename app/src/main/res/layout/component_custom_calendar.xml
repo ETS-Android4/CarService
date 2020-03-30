@@ -57,6 +57,7 @@
         <ImageView
             android:id="@+id/customCalendar_nextDay"
             android:layout_width="wrap_content"
+            android:padding="@dimen/_5sdp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_grey_arrow"
             app:layout_constraintBottom_toBottomOf="parent"
