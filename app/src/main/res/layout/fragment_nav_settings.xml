@@ -8,325 +8,203 @@
     tools:ignore="ContentDescription">
 
     <!-- Banner Container -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settings_container_banner"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/settings_headerCard"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.15"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintHeight_percent="0.08"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <ImageView
-            android:id="@+id/settings_img_banner"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_settings_banner"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/settings_tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:fontFamily="@font/segoe_ui_sb"
-            android:text="@string/settings"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_20sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
-        <ImageView
-            android:id="@+id/settings_navMenuBtn"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:src="@drawable/ic_menu"
-            app:layout_constraintBottom_toBottomOf="@id/settings_tv_title"
-            app:layout_constraintHorizontal_bias="0.15"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/settings_tv_title"
-            app:layout_constraintTop_toTopOf="@id/settings_tv_title" />
+            <TextView
+                android:id="@+id/settings_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:text="@string/settings"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/settings_navMenuBtn"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:src="@drawable/ic_menu_black"
+                app:layout_constraintBottom_toBottomOf="@id/settings_label"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/settings_label"
+                app:layout_constraintTop_toTopOf="@id/settings_label"
+                tools:ignore="ContentDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 
     <!-- Profile picture-->
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/settings_profile_image"
-        android:layout_width="@dimen/_90sdp"
-        android:layout_height="@dimen/_90sdp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:src="@drawable/ic_default_profile"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.15"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintTop_toBottomOf="@id/settings_headerCard"
+        app:layout_constraintVertical_bias="0.02"
+        app:layout_constraintWidth_percent="0.25" />
 
     <ImageView
         android:id="@+id/settings_profile_edit"
-        android:layout_width="@dimen/_25sdp"
+        android:layout_width="0dp"
         android:layout_height="@dimen/_25sdp"
-        android:src="@drawable/ic_edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.37"
+        android:src="@drawable/ic_edit_account"
+        app:layout_constraintBottom_toBottomOf="@id/settings_profile_image"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintLeft_toLeftOf="@id/settings_profile_image"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@id/settings_profile_image"
         app:layout_constraintTop_toTopOf="@id/settings_profile_image"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.95"
+        app:layout_constraintWidth_percent="0.07" />
 
+    <ImageView
+        android:id="@+id/settings_accountIcon"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="0dp"
+        android:paddingTop="@dimen/_2sdp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_user"
+        app:layout_constraintBottom_toBottomOf="@id/settings_accountLabel"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/settings_accountLabel"
+        app:layout_constraintTop_toTopOf="@id/settings_accountLabel" />
 
-    <!-- Personal Label -->
     <TextView
-        android:id="@+id/settings_personalDetailsLabel"
+        android:id="@+id/settings_accountLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoe_ui_sb"
-        android:text="@string/personal_details"
+        android:gravity="left"
+        android:text="@string/account"
         android:textColor="@color/black"
-        android:textSize="@dimen/_15sdp"
+        android:textSize="@dimen/_14sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/settings_profile_image"
-        app:layout_constraintVertical_bias="0.03" />
-
-    <!-- user name -->
-    <ImageView
-        android:id="@+id/settings_icon_user"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:padding="@dimen/_3sdp"
-        android:src="@drawable/ic_grey_user"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_personalDetailsLabel"
-        app:layout_constraintVertical_bias="0.03" />
+        app:layout_constraintVertical_bias="0.01" />
 
     <TextView
-        android:id="@+id/settings_tv_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:fontFamily="@font/segoe_ui_regular"
-        android:textColor="@color/grey"
-        android:textSize="@dimen/_13sdp"
-        app:layout_constraintBottom_toBottomOf="@id/settings_icon_user"
-        app:layout_constraintLeft_toRightOf="@id/settings_icon_user"
-        app:layout_constraintRight_toLeftOf="@id/settings_user_edit"
-        app:layout_constraintTop_toTopOf="@id/settings_icon_user" />
-
-    <ImageView
-        android:id="@+id/settings_user_edit"
-        android:layout_width="@dimen/_15sdp"
-        android:layout_height="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:padding="@dimen/_2sdp"
-        android:src="@drawable/ic_grey_arrow"
-        app:layout_constraintBottom_toBottomOf="@id/settings_tv_name"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/settings_tv_name" />
-
-    <TextView
-        android:id="@+id/settings_lineUnderName"
+        android:id="@+id/settings_line1"
         android:layout_width="0dp"
         android:layout_height="@dimen/_1sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:background="@color/grey_line"
-        app:layout_constraintLeft_toLeftOf="@id/settings_tv_name"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_tv_name" />
-
-    <!-- email -->
-
-    <ImageView
-        android:id="@+id/settings_icon_email"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:padding="@dimen/_2sdp"
-        android:src="@drawable/ic_grey_email"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintWidth_percent="0.92"
+        android:gravity="left"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_lineUnderName"
-        app:layout_constraintVertical_bias="0.04" />
+        app:layout_constraintTop_toBottomOf="@id/settings_accountLabel" />
 
-    <TextView
-        android:id="@+id/settings_tv_email"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/settings_accountInfoRV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:fontFamily="@font/segoe_ui_regular"
-        android:textColor="@color/grey"
-        android:textSize="@dimen/_13sdp"
-        app:layout_constraintBottom_toBottomOf="@id/settings_icon_email"
-        app:layout_constraintLeft_toRightOf="@id/settings_icon_email"
-        app:layout_constraintRight_toLeftOf="@id/settings_email_edit"
-        app:layout_constraintTop_toTopOf="@id/settings_icon_email" />
-
-    <ImageView
-        android:id="@+id/settings_email_edit"
-        android:layout_width="@dimen/_15sdp"
-        android:layout_height="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:padding="@dimen/_2sdp"
-        android:src="@drawable/ic_grey_arrow"
-        app:layout_constraintBottom_toBottomOf="@id/settings_tv_email"
-        app:layout_constraintHorizontal_bias="0.95"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/settings_tv_email" />
+        app:layout_constraintTop_toBottomOf="@id/settings_line1"
+        app:layout_constraintWidth_percent="0.87"
+        tools:itemCount="4"
+        tools:listitem="@layout/account_info_item" />
 
     <TextView
-        android:id="@+id/settings_lineUnderEmail"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:background="@color/grey_line"
-        app:layout_constraintLeft_toLeftOf="@id/settings_tv_email"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_tv_email" />
-
-    <!-- location -->
-    <ImageView
-        android:id="@+id/settings_icon_location"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:padding="@dimen/_2sdp"
-        android:src="@drawable/ic_grey_location"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_lineUnderEmail"
-        app:layout_constraintVertical_bias="0.04" />
-
-    <TextView
-        android:id="@+id/settings_tv_location"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:fontFamily="@font/segoe_ui_regular"
-        android:textColor="@color/grey"
-        android:textSize="@dimen/_13sdp"
-        app:layout_constraintBottom_toBottomOf="@id/settings_icon_location"
-        app:layout_constraintLeft_toRightOf="@id/settings_icon_location"
-        app:layout_constraintRight_toLeftOf="@id/settings_location_edit"
-        app:layout_constraintTop_toTopOf="@id/settings_icon_location" />
-
-    <ImageView
-        android:id="@+id/settings_location_edit"
-        android:layout_width="@dimen/_15sdp"
-        android:layout_height="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:padding="@dimen/_2sdp"
-        android:src="@drawable/ic_grey_arrow"
-        app:layout_constraintBottom_toBottomOf="@id/settings_tv_location"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/settings_tv_location" />
-
-    <TextView
-        android:id="@+id/settings_lineUnderLocation"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:background="@color/grey_line"
-        app:layout_constraintLeft_toLeftOf="@id/settings_tv_location"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_tv_location" />
-
-
-    <!-- phone -->
-
-    <ImageView
-        android:id="@+id/settings_icon_phone"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:padding="@dimen/_2sdp"
-        android:src="@drawable/ic_grey_phone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_lineUnderLocation"
-        app:layout_constraintVertical_bias="0.04" />
-
-    <TextView
-        android:id="@+id/settings_tv_phone"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:fontFamily="@font/segoe_ui_regular"
-        android:textColor="@color/grey"
-        android:textSize="@dimen/_13sdp"
-        app:layout_constraintBottom_toBottomOf="@id/settings_icon_phone"
-        app:layout_constraintLeft_toRightOf="@id/settings_icon_phone"
-        app:layout_constraintRight_toLeftOf="@id/settings_phone_edit"
-        app:layout_constraintTop_toTopOf="@id/settings_icon_phone" />
-
-    <ImageView
-        android:id="@+id/settings_phone_edit"
-        android:layout_width="@dimen/_15sdp"
-        android:layout_height="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:padding="@dimen/_2sdp"
-        android:src="@drawable/ic_grey_arrow"
-        app:layout_constraintBottom_toBottomOf="@id/settings_tv_phone"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/settings_tv_phone" />
-
-    <TextView
-        android:id="@+id/settings_lineUnderPhone"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:background="@color/grey_line"
-        app:layout_constraintLeft_toLeftOf="@id/settings_tv_phone"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_tv_phone" />
-
-
-    <!-- Account Label -->
-    <TextView
-        android:id="@+id/settings_accountSettingsLabel"
+        android:id="@+id/settings_changePasswordLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
         android:fontFamily="@font/segoe_ui_sb"
-        android:text="@string/account_settings"
+        android:gravity="left"
+        android:text="Change Password"
         android:textColor="@color/black"
-        android:textSize="@dimen/_15sdp"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toLeftOf="@id/settings_accountInfoRV"
+        app:layout_constraintRight_toRightOf="@id/settings_accountInfoRV"
+        app:layout_constraintTop_toBottomOf="@id/settings_accountInfoRV" />
+
+
+    <ImageView
+        android:id="@+id/settings_changePasswordEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_grey_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/settings_changePasswordLabel"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintLeft_toRightOf="@id/settings_changePasswordLabel"
+        app:layout_constraintRight_toRightOf="@id/settings_accountInfoRV"
+        app:layout_constraintTop_toBottomOf="@id/settings_accountInfoRV" />
+
+
+    <ImageView
+        android:id="@+id/settings_notificationsIcon"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="0dp"
+        android:paddingTop="@dimen/_2sdp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_nav_settings_notifications"
+        app:layout_constraintBottom_toBottomOf="@id/settings_notificationsLabel"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/settings_notificationsLabel"
+        app:layout_constraintTop_toTopOf="@id/settings_notificationsLabel" />
+
+    <TextView
+        android:id="@+id/settings_notificationsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="left"
+        android:text="@string/notifications"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_lineUnderPhone"
-        app:layout_constraintVertical_bias="0.07" />
+        app:layout_constraintTop_toBottomOf="@id/settings_changePasswordLabel"
+        app:layout_constraintVertical_bias="0.03" />
+
+    <TextView
+        android:id="@+id/settings_line2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@color/grey_line"
+        app:layout_constraintWidth_percent="0.92"
+        android:gravity="left"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_notificationsLabel" />
 
 
     <!-- Show Notifications -->
@@ -336,14 +214,14 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoe_ui_regular"
         android:text="@string/show_notifications"
-        android:textColor="@color/grey"
+        android:textColor="@color/black"
         android:textSize="@dimen/_13sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_accountSettingsLabel"
-        app:layout_constraintVertical_bias="0.03" />
+        app:layout_constraintTop_toBottomOf="@id/settings_line2"
+        app:layout_constraintVertical_bias="0.1" />
 
     <Switch
         android:layout_width="wrap_content"
@@ -356,48 +234,76 @@
         app:layout_constraintTop_toTopOf="@id/settings_showNotificationsLabel" />
 
 
-    <!-- Add Car -->
-
     <ImageView
-        android:id="@+id/settings_addCarBanner"
-        android:layout_width="match_parent"
+        android:id="@+id/settings_carsIcon"
+        android:layout_width="@dimen/_15sdp"
         android:layout_height="0dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_settings_addcar_banner"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.2"
+        android:paddingTop="@dimen/_2sdp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_settings_cars"
+        app:layout_constraintBottom_toBottomOf="@id/settings_carsLabel"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toLeftOf="@id/settings_carsLabel"
+        app:layout_constraintTop_toTopOf="@id/settings_carsLabel" />
 
     <TextView
-        android:id="@+id/settings_addCarLabel"
-        android:layout_width="@dimen/_160sdp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/segoe_ui_regular"
-        android:text="@string/add_your_car_to_get_additional_services"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_15sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintLeft_toLeftOf="@id/settings_addCarBanner"
-        app:layout_constraintRight_toRightOf="@id/settings_addCarBanner"
-        app:layout_constraintTop_toTopOf="@id/settings_addCarBanner"
-        app:layout_constraintVertical_bias="0.1" />
-
-    <Button
-        android:id="@+id/settings_addCarButton"
+        android:id="@+id/settings_carsLabel"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_25sdp"
-        android:background="@drawable/style_btn_create_account"
-        android:text="@string/add_car"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintBottom_toBottomOf="@id/settings_addCarBanner"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintLeft_toLeftOf="@id/settings_addCarLabel"
-        app:layout_constraintRight_toRightOf="@id/settings_addCarLabel"
-        app:layout_constraintTop_toBottomOf="@id/settings_addCarLabel"
-        app:layout_constraintVertical_bias="0.2" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="left"
+        android:text="@string/cars"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_showNotificationsLabel"
+        app:layout_constraintVertical_bias="0.03" />
+
+    <TextView
+        android:id="@+id/settings_line3"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@color/grey_line"
+        app:layout_constraintWidth_percent="0.92"
+        android:gravity="left"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_carsLabel" />
+
+
+    <TextView
+        android:id="@+id/settings_addNewCarLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="left"
+        android:text="Add New Car"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toLeftOf="@id/settings_line3"
+        app:layout_constraintRight_toRightOf="@id/settings_line3"
+        app:layout_constraintTop_toBottomOf="@id/settings_line3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.1"/>
+
+    <ImageView
+        android:id="@+id/settings_addNewCar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_grey_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/settings_addNewCarLabel"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintLeft_toRightOf="@id/settings_addNewCarLabel"
+        app:layout_constraintRight_toRightOf="@id/settings_accountInfoRV"
+        app:layout_constraintTop_toTopOf="@id/settings_addNewCarLabel" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

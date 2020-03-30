@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.AboutUsFragment">
+    tools:context=".fragment.AboutUsFragment"
+    tools:ignore="RtlHardcoded">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/aboutUS_headerCard"
@@ -97,9 +98,11 @@
     <!-- Open hours -->
     <ImageView
         android:id="@+id/aboutUs_redClock"
+        android:layout_marginLeft="@dimen/_5sdp"
         android:layout_width="@dimen/_15sdp"
         android:layout_height="@dimen/_15sdp"
         android:src="@drawable/ic_red_clock"
+        android:padding="@dimen/_2sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -156,6 +159,8 @@
         android:id="@+id/aboutUs_redPhone"
         android:layout_width="@dimen/_15sdp"
         android:layout_height="@dimen/_15sdp"
+        android:padding="@dimen/_2sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
         android:src="@drawable/ic_red_phone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.02"
@@ -213,11 +218,13 @@
         android:id="@+id/aboutUs_redEmail"
         android:layout_width="@dimen/_15sdp"
         android:layout_height="@dimen/_15sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
         android:src="@drawable/ic_red_email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:padding="@dimen/_2sdp"
         app:layout_constraintTop_toBottomOf="@id/aboutUs_lineUnderPhone"
         app:layout_constraintVertical_bias="0.05"
         tools:ignore="ContentDescription" />
@@ -271,6 +278,8 @@
         android:id="@+id/aboutUs_redMarker"
         android:layout_width="@dimen/_15sdp"
         android:layout_height="@dimen/_15sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:padding="@dimen/_2sdp"
         android:src="@drawable/ic_red_marker"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.02"
@@ -300,16 +309,17 @@
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:background="@drawable/style_btn_create_account"
+        android:background="@drawable/style_btn_red_with_corners"
         android:padding="@dimen/_6sdp"
         android:text="@string/call_us"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/_15sdp"
+        app:layout_constraintWidth_percent="0.8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="@dimen/_15sdp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

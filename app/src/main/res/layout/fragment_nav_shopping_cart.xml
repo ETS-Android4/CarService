@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.NavShoppingCartFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/navShoppingCart_headerCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/navShoppingCart_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:text="@string/shopping_cart"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/navShoppingCart_navMenuBtn"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:src="@drawable/ic_menu_black"
+                app:layout_constraintBottom_toBottomOf="@id/navShoppingCart_label"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/navShoppingCart_label"
+                app:layout_constraintTop_toTopOf="@id/navShoppingCart_label"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/navShoppingCartRV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.65"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navShoppingCart_headerCard"
+        app:layout_constraintVertical_bias="0.1"
+        tools:listitem="@layout/item_shopping_cart" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/grey_line"
+        app:layout_constraintBottom_toBottomOf="@id/navShoppingCartRV"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/navShoppingCart_totalAmountLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:paddingTop="@dimen/_2sdp"
+        android:text="Total Amount"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navShoppingCartRV"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/navShoppingCart_totalAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="center_vertical"
+        android:text="6355.55 EGP"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintBottom_toBottomOf="@id/navShoppingCart_totalAmountLabel"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/navShoppingCart_totalAmountLabel"
+        app:layout_constraintVertical_bias="1" />
+
+    <Button
+        android:id="@+id/navShoppingCart_checkOutBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/style_btn_red_with_corners"
+        android:text="@string/check_out"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navShoppingCart_totalAmountLabel"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintWidth_percent="0.5" />
+
+
+    <!-- Empty Shopping Cart Layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/navShoppingCart_emptyCartLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navShoppingCart_headerCard">
+
+
+        <ImageView
+            android:id="@+id/navShoppingCart_emptyCartIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_shopping_cart_colors"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.35"
+            app:layout_constraintWidth_percent="0.5" />
+
+        <TextView
+            android:id="@+id/navShoppingCart_emptyCartLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/segoe_ui_sb"
+            android:text="@string/your_shopping_cart_is_empty"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/navShoppingCart_emptyCartIcon"
+            app:layout_constraintVertical_bias="0.05" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

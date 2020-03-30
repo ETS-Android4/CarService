@@ -3,11 +3,8 @@ package com.badawy.carservice.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.badawy.carservice.R;
-import com.badawy.carservice.fragment.NavGarageFragment;
-import com.badawy.carservice.fragment.NavHelpFragment;
+import com.badawy.carservice.fragment.NavCarsFragment;
+import com.badawy.carservice.fragment.NavAppointmentsFragment;
 import com.badawy.carservice.fragment.NavHomeFragment;
 import com.badawy.carservice.fragment.NavSettingsFragment;
+import com.badawy.carservice.fragment.NavShoppingCartFragment;
 import com.badawy.carservice.utils.SharePreference;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -29,7 +27,8 @@ import com.google.android.material.navigation.NavigationView;
 public class HomepageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private EditText emailET , passwordET;
+    private EditText emailET, passwordET;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,16 +36,13 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
         initializeUi();
 
 
-
         //Add Click listener to Navigation list
         navigationView.setNavigationItemSelectedListener(this);
-
 
 
         //To Start the Home Fragment once the activity starts
         replaceFragment(new NavHomeFragment());
         navigationView.setCheckedItem(R.id.nav_home);
-
 
 
         //To Be Continued @Ahmed mahmoud
@@ -64,7 +60,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     }
 
 
-    private void initializeUi(){
+    private void initializeUi() {
 
         drawerLayout = findViewById(R.id.homepage_drawerLayout);
         navigationView = findViewById(R.id.navigation_view);
@@ -83,7 +79,6 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     }
 
 
-
     //To take actions when an item is clicked in the navigation list
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -93,22 +88,25 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
             case R.id.nav_home:
                 replaceFragment(new NavHomeFragment());
                 break;
-            case R.id.nav_garage:
-                replaceFragment(new NavGarageFragment());
+            case R.id.nav_cars:
+                replaceFragment(new NavCarsFragment());
                 break;
             case R.id.nav_settings:
                 replaceFragment(new NavSettingsFragment());
                 break;
-            case R.id.nav_help:
-                replaceFragment(new NavHelpFragment());
+            case R.id.nav_appointments:
+                replaceFragment(new NavAppointmentsFragment());
+                break;
+            case R.id.nav_shopping_cart:
+                replaceFragment(new NavShoppingCartFragment());
                 break;
             case R.id.nav_signOut:
                 //Toast.makeText(this, "sign out", Toast.LENGTH_SHORT).show();
                 //AhmedRabie
                 //sharepreference to log out
-                SharePreference.SavePassword("",this);
-                SharePreference.SaveEmail("",this);
-                Intent intent=new Intent(HomepageActivity.this,LoginActivity.class);
+                SharePreference.SavePassword("", this);
+                SharePreference.SaveEmail("", this);
+                Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
                 break;

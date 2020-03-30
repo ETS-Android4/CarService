@@ -10,17 +10,23 @@
             android:icon="@drawable/ic_nav_home"
             android:title="@string/home" />
         <item
-            android:id="@+id/nav_garage"
-            android:icon="@drawable/ic_nav_garage"
-            android:title="@string/my_garage" />
+            android:id="@+id/nav_cars"
+            android:icon="@drawable/ic_nav_cars"
+            android:title="@string/cars" />
+
+        <item
+            android:id="@+id/nav_appointments"
+            android:icon="@drawable/ic_nav_appointments"
+            android:title="@string/appointments_amp_orders" />
+        <item
+            android:id="@+id/nav_shopping_cart"
+            android:icon="@drawable/ic_nav_shopping_cart"
+            android:title="@string/shopping_cart" />
+
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_nav_settings"
             android:title="@string/settings_amp_account" />
-        <item
-            android:id="@+id/nav_help"
-            android:icon="@drawable/ic_nav_help_feedback"
-            android:title="@string/help_amp_feedback" />
 
 
     </group>

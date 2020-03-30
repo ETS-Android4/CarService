@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.badawy.carservice">
+    package="com.badawy.carservice"
+    tools:ignore="LockedOrientationActivity">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
 
     <application
         android:allowBackup="true"
@@ -19,10 +19,6 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ProfileActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.RegistrationActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
@@ -30,7 +26,6 @@
             android:name=".activity.AddCarActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.LoginActivity"
             android:configChanges="orientation"
@@ -45,7 +40,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.HomepageActivity"
             android:configChanges="orientation"
@@ -73,7 +67,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

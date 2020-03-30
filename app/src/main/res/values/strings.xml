@@ -41,9 +41,8 @@
     <string name="place_holder">Place holder</string>
     <string name="profile">Profile</string>
     <string name="home">Home</string>
-    <string name="my_garage">My garage</string>
+    <string name="cars">Cars</string>
     <string name="settings_amp_account"><![CDATA[Settings & Account]]></string>
-    <string name="help_amp_feedback"><![CDATA[Help & Feedback]]></string>
     <string name="sign_out">Sign Out</string>
     <string name="car_center">Car Center</string>
     <string name="want_to_visit_us">want to visit us?</string>
@@ -69,5 +68,18 @@
     <string name="account_settings">Account Settings</string>
     <string name="add_your_car_to_get_additional_services">Add your car to get additional services</string>
     <string name="add_car">Add car</string>
-    <string name="garage">Garage</string>
+    <string name="emergency_description">wherever you are, we are with you through few clicks and Within less than a minute you can request a tow truck to transport your car to any location</string>
+    <string name="request_a_tow_truck">Request a tow truck</string>
+    <string name="spare_parts">Spare Parts</string>
+    <string name="shopping_cart">Shopping cart</string>
+    <string name="account">Account</string>
+    <string name="notifications">Notifications</string>
+    <string name="your_shopping_cart_is_empty">Your shopping cart is empty</string>
+    <string name="check_out">Check Out</string>
+    <string name="maintenance_amp_repair"><![CDATA[Maintenance & Repair]]></string>
+    <string name="car_care">Car Care</string>
+    <string name="vehicle_inspection">Vehicle Inspection</string>
+    <string name="marker">marker</string>
+    <string name="university_address"><![CDATA[Culture & Science City, Second 6th of October]]></string>
+    <string name="appointments_amp_orders"><![CDATA[Appointments & Orders]]></string>
 </resources>

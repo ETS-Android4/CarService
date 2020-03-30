@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_80sdp"
+    android:layout_marginTop="@dimen/_5sdp"
+    android:layout_marginBottom="@dimen/_5sdp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_navOrders_cv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/style_grey_stroke_line"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/style_grey_stroke_line">
+
+            <TextView
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="0dp"
+                android:background="@drawable/style_rectangle_left_corners_red"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/item_navOrders_productImage"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_60sdp"
+                android:adjustViewBounds="true"
+                android:padding="@dimen/_5sdp"
+                android:scaleType="centerInside"
+                android:src="@drawable/tire"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0" />
+
+
+            <TextView
+                android:id="@+id/item_navOrders_productPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_2sdp"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:gravity="left|bottom"
+                android:text="2500.00 EGP"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/item_navOrders_productImage"
+                app:layout_constraintRight_toRightOf="@id/item_navOrders_line1"
+                app:layout_constraintTop_toTopOf="@id/item_navOrders_productImage"
+                app:layout_constraintVertical_bias="0.2" />
+
+
+            <TextView
+                android:id="@+id/item_navOrders_productName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:gravity="left|center_vertical"
+                android:paddingRight="@dimen/_10sdp"
+                android:singleLine="true"
+                android:text="Hankook Ventus Prime 3 K125"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintBottom_toBottomOf="@id/item_navOrders_productPrice"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toRightOf="@id/item_navOrders_productImage"
+                app:layout_constraintRight_toLeftOf="@id/item_navOrders_productPrice"
+                app:layout_constraintTop_toTopOf="@id/item_navOrders_productPrice"
+                app:layout_constraintVertical_bias="0.2" />
+
+            <TextView
+                android:id="@+id/item_navOrders_productPartNumber"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/segoe_ui_regular"
+                android:gravity="left"
+                android:paddingRight="@dimen/_5sdp"
+                android:singleLine="true"
+                android:text="Product ID # 8080565665"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintHeight_percent="0.2"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="@id/item_navOrders_productName"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_navOrders_productName" />
+
+            <TextView
+                android:id="@+id/item_navOrders_orderNumber"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/segoe_ui_regular"
+                android:gravity="left"
+                android:paddingRight="@dimen/_5sdp"
+                android:singleLine="true"
+                android:text="Order #123455"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintHeight_percent="0.2"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="@id/item_navOrders_productName"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_navOrders_productPartNumber" />
+
+
+            <TextView
+                android:id="@+id/item_navOrders_line1"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/grey_line"
+                app:layout_constraintWidth_percent="0.9"
+                android:layout_marginLeft="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_navOrders_productImage" />
+
+
+
+            <TextView
+                android:id="@+id/item_navOrders_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:text="01 April, 2020"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/item_navOrders_line1"
+                app:layout_constraintTop_toBottomOf="@id/item_navOrders_line1" />
+
+            <TextView
+                android:id="@+id/item_navOrders_line2"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="0dp"
+                android:background="@color/grey_line"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="@id/item_navOrders_date"
+                app:layout_constraintLeft_toRightOf="@id/item_navOrders_date"
+                app:layout_constraintRight_toLeftOf="@id/item_navOrders_time"
+                app:layout_constraintTop_toTopOf="@id/item_navOrders_date" />
+
+
+            <TextView
+                android:id="@+id/item_navOrders_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:text="12:00 PM"
+                android:textColor="@color/grey"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/item_navOrders_line2"
+                app:layout_constraintTop_toBottomOf="@id/item_navOrders_line1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
