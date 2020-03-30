@@ -17,7 +17,7 @@
         <item
             android:id="@+id/nav_appointments"
             android:icon="@drawable/ic_nav_appointments"
-            android:title="@string/appointments" />
+            android:title="@string/appointments_amp_orders" />
         <item
             android:id="@+id/nav_shopping_cart"
             android:icon="@drawable/ic_nav_shopping_cart"

@@ -299,7 +299,7 @@
                 android:fontFamily="@font/segoe_ui_sb"
                 android:text="Order Now"
                 android:textAllCaps="false"
-                android:textColor="@color/red_dark"
+                android:textColor="@color/red"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHeight_percent="0.055"

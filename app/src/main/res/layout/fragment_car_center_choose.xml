@@ -70,27 +70,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoe_ui_sb"
-        android:text="So, What are you looking for ?"
+        android:text="What are you looking for ?"
         android:textColor="@color/black"
         android:textSize="@dimen/_18sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/carCenterChoose_questionSubLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/segoe_ui_sb"
-        android:text="Want to clean your car or do a full inspection ?"
-        android:textColor="@color/grey"
-        android:textSize="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/carCenterChoose_questionLabel"
-        app:layout_constraintVertical_bias="0" />
 
 
     <!-- Car Care -->
@@ -102,69 +88,48 @@
         app:cardCornerRadius="@dimen/_5sdp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.4"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/carCenterChoose_questionSubLabel"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintWidth_percent="0.9">
+        app:layout_constraintRight_toLeftOf="@id/carCenterChoose_carInspectionCV"
+        app:layout_constraintTop_toBottomOf="@id/carCenterChoose_questionLabel"
+        app:layout_constraintVertical_bias="0.1">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/style_grey_stroke_line">
 
 
             <ImageView
-                android:id="@+id/carCenterChoose_carCare_Image"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_80sdp"
+                android:id="@+id/carCenterChoose_carCare_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/_2sdp"
                 android:adjustViewBounds="true"
                 android:padding="@dimen/_5sdp"
                 android:src="@drawable/ic_car_center_choose_car_care"
+                app:layout_constraintBottom_toTopOf="@id/carCenterChoose_carCare_label"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.3"
                 tools:ignore="ContentDescription" />
 
-
             <TextView
-                android:id="@+id/carCenterChoose_carCare_labelText"
-                android:layout_width="0dp"
+                android:id="@+id/carCenterChoose_carCare_label"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_5sdp"
                 android:fontFamily="@font/segoe_ui_sb"
-                android:gravity="left"
-                android:paddingLeft="@dimen/_5sdp"
                 android:text="@string/car_care"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp"
-                app:layout_constraintBottom_toBottomOf="@id/carCenterChoose_carCare_Image"
-                app:layout_constraintLeft_toRightOf="@id/carCenterChoose_carCare_Image"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.15"
-                tools:ignore="RtlHardcoded,RtlSymmetry" />
+                app:layout_constraintVertical_bias="0.9" />
 
-            <TextView
-                android:id="@+id/carCenterChoose_carCare_descriptionText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_5sdp"
-                android:ellipsize="end"
-                android:fontFamily="@font/segoe_ui_sb"
-                android:gravity="left"
-                android:maxLines="3"
-                android:paddingLeft="@dimen/_5sdp"
-                android:text="Check out all of the different types of Washing services we have."
-                android:textColor="@color/grey"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/carCenterChoose_carCare_Image"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/carCenterChoose_carCare_labelText"
-                app:layout_constraintVertical_bias="0.01"
-                tools:ignore="RtlHardcoded,RtlSymmetry" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -175,72 +140,51 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/_80sdp"
         android:elevation="0dp"
+        app:layout_constraintWidth_percent="0.4"
         app:cardCornerRadius="@dimen/_5sdp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/carCenterChoose_carCareCV"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/carCenterChoose_carCareCV"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintWidth_percent="0.9">
+        app:layout_constraintTop_toBottomOf="@id/carCenterChoose_questionLabel"
+        app:layout_constraintVertical_bias="0.1">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/style_grey_stroke_line">
 
 
             <ImageView
-                android:id="@+id/carCenterChoose_carInspection_Image"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_80sdp"
+                android:id="@+id/carCenterChoose_carInspection_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/_2sdp"
                 android:adjustViewBounds="true"
-                android:padding="@dimen/_10sdp"
-                android:scaleType="fitCenter"
+                android:padding="@dimen/_5sdp"
                 android:src="@drawable/ic_car_choose_car_inspection"
+                app:layout_constraintBottom_toTopOf="@id/carCenterChoose_carInspection_label"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.3" />
-
+                tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/carCenterChoose_carInspection_labelText"
-                android:layout_width="0dp"
+                android:id="@+id/carCenterChoose_carInspection_label"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_5sdp"
                 android:fontFamily="@font/segoe_ui_sb"
-                android:gravity="left"
-                android:paddingLeft="@dimen/_3sdp"
                 android:text="@string/vehicle_inspection"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp"
-                app:layout_constraintBottom_toBottomOf="@id/carCenterChoose_carInspection_Image"
-                app:layout_constraintLeft_toRightOf="@id/carCenterChoose_carInspection_Image"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.15"
-                tools:ignore="RtlHardcoded,RtlSymmetry" />
+                app:layout_constraintVertical_bias="0.9" />
 
-            <TextView
-                android:id="@+id/carCenterChoose_carInspection_descriptionText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_5sdp"
-                android:ellipsize="end"
-                android:fontFamily="@font/segoe_ui_sb"
-                android:gravity="left"
-                android:maxLines="3"
-                android:paddingLeft="@dimen/_3sdp"
-                android:text="Book an appointment to do a full inspection on your car."
-                android:textColor="@color/grey"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/carCenterChoose_carInspection_Image"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/carCenterChoose_carInspection_labelText"
-                app:layout_constraintVertical_bias="0.01"
-                tools:ignore="RtlHardcoded,RtlSymmetry" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
