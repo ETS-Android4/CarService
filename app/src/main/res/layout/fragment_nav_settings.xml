@@ -285,6 +285,7 @@
         android:fontFamily="@font/segoe_ui_sb"
         android:gravity="left"
         android:text="Add New Car"
+
         android:textColor="@color/black"
         android:textSize="@dimen/_11sdp"
         app:layout_constraintHorizontal_bias="0"
@@ -292,7 +293,9 @@
         app:layout_constraintRight_toRightOf="@id/settings_line3"
         app:layout_constraintTop_toBottomOf="@id/settings_line3"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.1"/>
+        app:layout_constraintVertical_bias="0.1"
+
+        />
 
     <ImageView
         android:id="@+id/settings_addNewCar"
