@@ -261,7 +261,28 @@ public class RegistrationActivity extends AppCompatActivity {
             phoneET.requestFocus();
             return false;
 
-        } else if (!MyValidation.isChecked(termsConditionsCHBX)) {
+        }
+
+
+        //NEW MODIFICATIONS BY AHMED TAREK FOR PHNONE NUMBER 1/4/2020
+        else if (!MyValidation.ismyphone(phoneET)){
+
+            phoneET.setError("The Phone Number Must Contain 11 Digits ");
+            phoneET.requestFocus();
+            return false;
+        }
+
+        else if(!MyValidation.ismyphone1(phoneET)){
+            phoneET.setError("The Phone Number Must Start With 01");
+            phoneET.requestFocus();
+            return false;
+
+        }
+
+//END OF NEW MODIFICATIONS
+
+
+        else if (!MyValidation.isChecked(termsConditionsCHBX)) {
 
             Toast.makeText(this, "please read and accept our terms and conditions", Toast.LENGTH_SHORT).show();
             return false;

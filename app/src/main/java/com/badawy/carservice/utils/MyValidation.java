@@ -46,6 +46,37 @@ public class MyValidation {
         return (!TextUtils.isEmpty(phone) && Patterns.PHONE.matcher(phone).matches());
     }
 
+
+    //NEW MODIFICATIONS BY AHMED TAREK FOR PHONE NUMBER IN SIGN UP..... CREATED NEW 2 FUNCTIONS .....1/4/2020
+
+    public static boolean ismyphone(EditText editText1){
+
+        CharSequence myphone=editText1.getText().toString().trim();
+        //new pattern.........{min,max} .....INTIATE A NEW PATTERN  TO ATTACH IT WITH THE OLD CONDITIONS TO MAKE THE PHONE NUMBER START WITH 01 AND MAKE THE MAX(LENGTH) OF NUMBER=11
+        Pattern PHONE_PATTERN = Pattern.compile("[0-9]{11,11}");
+        return (!TextUtils.isEmpty(myphone) && PHONE_PATTERN.matcher(myphone).matches() && Patterns.PHONE.matcher(myphone).matches());
+    }
+
+    public static boolean ismyphone1(EditText editText2){
+        CharSequence myphone1=editText2.getText().toString().trim();
+        //........ new string var to start with 01
+        String phone1=editText2.getText().toString().trim();
+
+        //new pattern.........{min,max} .....INTIATE A NEW PATTERN  TO ATTACH IT WITH THE OLD CONDITIONS TO MAKE THE PHONE NUMBER START WITH 01 AND MAKE THE MAX(LENGTH) OF NUMBER=11
+        Pattern PHONE_PATTERN = Pattern.compile("[0-9]{11,11}");
+
+        //this condition to make the phone number start with 01 as any egyptian number
+        if(phone1.startsWith("01")) {
+            return (!TextUtils.isEmpty(myphone1) && PHONE_PATTERN.matcher(myphone1).matches() && Patterns.PHONE.matcher(myphone1).matches());
+        }
+        else{return false;}
+
+    }
+
+
+    //....................RND OF NEW MODIFICATIONS
+
+
     public static boolean isChecked(CheckBox checkBox) {
         return checkBox.isChecked();
     }
