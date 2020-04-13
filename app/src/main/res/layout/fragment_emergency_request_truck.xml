@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_line"
+    tools:context=".fragment.EmergencyRequestTruckFragment">
+
+    <!-- Header -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/emergencyTracking_headerCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/emergencyTracking_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:text="@string/tracking"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/emergencyTracking_navMenuBtn"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:src="@drawable/ic_menu_black"
+                app:layout_constraintBottom_toBottomOf="@id/emergencyTracking_label"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/emergencyTracking_label"
+                app:layout_constraintTop_toTopOf="@id/emergencyTracking_label"
+                tools:ignore="ContentDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <ImageView
+        android:id="@+id/emergencyTracking_map"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.6"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emergencyTracking_headerCard"
+        app:layout_constraintVertical_bias="0" />
+
+
+    <TextView
+        android:id="@+id/emergencyTracking_bottomBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/style_rectangle_top_corners_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/emergencyTracking_estimatedTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="left"
+        android:text="@string/estimated_time_of_arrival"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/emergencyTracking_bottomBackground"
+        app:layout_constraintVertical_bias="0.05"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/emergencyTracking_estimatedTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="left"
+        android:text="10:51 AM"
+        android:textColor="@color/red"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintLeft_toRightOf="@id/emergencyTracking_estimatedTimeLabel"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/emergencyTracking_bottomBackground"
+        app:layout_constraintVertical_bias="0.05"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/emergencyTracking_line1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/grey_line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emergencyTracking_estimatedTimeLabel"
+        app:layout_constraintVertical_bias="0.08" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/emergencyTracking_driverImage"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:src="@drawable/ic_default_profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toLeftOf="@id/emergencyTracking_estimatedTimeLabel"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emergencyTracking_line1"
+        app:layout_constraintVertical_bias="0.2" />
+
+
+    <TextView
+        android:id="@+id/emergencyTracking_driverName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="left"
+        android:text="Lorem ipusm"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="@id/emergencyTracking_driverImage"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintLeft_toRightOf="@id/emergencyTracking_driverImage"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/emergencyTracking_driverImage"
+        app:layout_constraintVertical_bias="0" />
+
+    <TextView
+        android:id="@+id/emergencyTracking_driverNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoe_ui_regular"
+        android:gravity="left"
+        android:text="01034474747"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@id/emergencyTracking_driverCarNumber"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintLeft_toRightOf="@id/emergencyTracking_driverImage"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emergencyTracking_driverName"
+        app:layout_constraintVertical_bias="0.04" />
+
+    <TextView
+        android:id="@+id/emergencyTracking_driverCarNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoe_ui_regular"
+        android:gravity="left"
+        android:text="AB 2837"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@id/emergencyTracking_driverImage"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintLeft_toLeftOf="@id/emergencyTracking_driverNumber"
+        app:layout_constraintTop_toBottomOf="@id/emergencyTracking_driverNumber"
+        app:layout_constraintVertical_bias="0.04" />
+
+    <TextView
+        android:id="@+id/emergencyTracking_line2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/grey_line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emergencyTracking_driverImage"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <Button
+        android:id="@+id/emergencyTracking_callAssistanceBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:background="@drawable/style_btn_red_with_corners"
+        android:text="@string/call_assistance"
+        android:drawableLeft="@drawable/ic_emergency_tracking_call"
+        android:paddingLeft="@dimen/_10sdp"
+        android:gravity="center"
+        android:textSize="@dimen/_10sdp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/emergencyTracking_cancelRequestBtn"
+        app:layout_constraintTop_toBottomOf="@id/emergencyTracking_line2"
+        app:layout_constraintWidth_percent="0.4"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+
+    <Button
+        android:id="@+id/emergencyTracking_cancelRequestBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:gravity="center"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:textSize="@dimen/_10sdp"
+        android:background="@drawable/style_btn_red_with_corners"
+        android:drawableLeft="@drawable/ic_emergency_tracking_cancel"
+        android:paddingLeft="@dimen/_10sdp"
+        android:text="@string/cancel_request"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintLeft_toRightOf="@id/emergencyTracking_callAssistanceBtn"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emergencyTracking_line2"
+        app:layout_constraintWidth_percent="0.4"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
