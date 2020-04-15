@@ -17,8 +17,9 @@ import java.util.ArrayList;
 
 public class CarCenterHelpGuideViewPager2Adapter extends RecyclerView.Adapter<CarCenterHelpGuideViewPager2Adapter.CarCenterHelpGuideViewHolder> {
 
-    private ArrayList<CarCenterHelpGuideModel> dataList ;
+    private ArrayList<CarCenterHelpGuideModel> dataList;
     private Context context;
+
 
     public CarCenterHelpGuideViewPager2Adapter(Context context, ArrayList<CarCenterHelpGuideModel> dataList) {
         this.dataList = dataList;
@@ -45,13 +46,13 @@ public class CarCenterHelpGuideViewPager2Adapter extends RecyclerView.Adapter<Ca
         return dataList.size();
     }
 
-    class CarCenterHelpGuideViewHolder extends RecyclerView.ViewHolder {
+    static class CarCenterHelpGuideViewHolder extends RecyclerView.ViewHolder {
 
         private TextView title;
         private TextView description;
         private ImageView image;
 
-        public CarCenterHelpGuideViewHolder(@NonNull View itemView) {
+        CarCenterHelpGuideViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.item_carCenterHelpGuide_title);
             description = itemView.findViewById(R.id.item_carCenterHelpGuide_description);
