@@ -33,6 +33,7 @@
 
 
     <TextView
+        android:id="@+id/item_carCenterHelpGuide_description"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fontFamily="@font/segoe_ui_sb"
