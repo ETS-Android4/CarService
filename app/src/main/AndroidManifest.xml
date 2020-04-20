@@ -15,6 +15,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".activity.ProductDetailsPopUpActivity"
+            android:theme="@style/AppTheme.PopUp"/>
+        <activity
             android:name=".activity.ForgotPasswordActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
@@ -43,9 +46,7 @@
         <activity
             android:name=".activity.HomepageActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

@@ -4,10 +4,12 @@ package com.badawy.carservice.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.badawy.carservice.R;
@@ -36,7 +38,24 @@ public class EmergencyFragment extends Fragment {
                 HomepageActivity.openDrawer();
             }
         });
+        Button requestTruck = view.findViewById(R.id.emergency_requestTruckBtn);
+
+        requestTruck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new EmergencyRequestTruckFragment());
+            }
+        });
         return view;
+    }
+    private void replaceFragment(Fragment fragment) {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .replace(R.id.homepage_fragment_container, fragment)
+                .addToBackStack("CarCenterChooseFragment")
+                .commit();
+
+
     }
 
 }

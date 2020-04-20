@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.EmergencyFragment">
 
     <androidx.cardview.widget.CardView
@@ -52,29 +52,28 @@
     </androidx.cardview.widget.CardView>
 
 
-
     <ImageView
         android:id="@+id/emergency_bgIcon"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.4"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/emergency"
         android:padding="@dimen/_10sdp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_emergency_tow_truck"
+        app:layout_constraintHeight_percent="0.4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emergency_headerCard"
-        android:contentDescription="@string/emergency" />
+        app:layout_constraintTop_toBottomOf="@id/emergency_headerCard" />
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/bg_color"
-        app:layout_constraintTop_toBottomOf="@id/emergency_bgIcon"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/emergency_bgIcon" />
 
     <!-- Overview -->
     <TextView
@@ -83,8 +82,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_25sdp"
         android:fontFamily="@font/segoe_ui_sb"
-        android:text="@string/overview"
         android:paddingLeft="@dimen/_5sdp"
+        android:text="@string/overview"
         android:textColor="@color/black"
         android:textSize="@dimen/_13sdp"
         android:textStyle="bold"
@@ -111,33 +110,32 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoe_ui_regular"
+        android:gravity="left"
         android:padding="@dimen/_5sdp"
         android:text="@string/emergency_description"
         android:textColor="@color/black"
         android:textSize="@dimen/_12sdp"
-        android:gravity="left"
         app:layout_constraintLeft_toLeftOf="@id/emergency_overviewLabel"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emergency_overviewLabel"
         tools:ignore="RtlHardcoded" />
 
     <Button
+        android:id="@+id/emergency_requestTruckBtn"
         android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.8"
         android:layout_height="0dp"
         android:background="@drawable/style_btn_red_with_corners"
+        android:text="@string/request_a_tow_truck"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.06"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emergency_overviewDescription"
         app:layout_constraintVertical_bias="0.7"
-        android:text="@string/request_a_tow_truck"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintHeight_percent="0.06"
-        android:textAllCaps="false"
-        />
-
+        app:layout_constraintWidth_percent="0.8" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
