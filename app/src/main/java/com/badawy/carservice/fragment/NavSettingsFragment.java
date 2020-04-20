@@ -29,19 +29,14 @@ import java.util.ArrayList;
  */
 public class NavSettingsFragment extends Fragment {
 
-    RecyclerView accountInfoRV;
+    private RecyclerView accountInfoRV;
 
-    String [] accountInfoLabels = {"Your Name","Your Email","Address","Phone Number"};
+    private String[] accountInfoLabels = {"Your Name", "Your Email", "Address", "Phone Number"};
     ArrayList<AccountInfoModel> accountInfoList = new ArrayList<>();
 
     public NavSettingsFragment() {
         // Required empty public constructor
     }
-
-//VAR FOR TO GO TO THE ADDCAR ACTIVITY
-    private TextView gotoaddcar;
-    private ImageView gotoaddcar1;
-
 
 
     @Override
@@ -49,19 +44,13 @@ public class NavSettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_nav_settings, container, false);
-//AHMED TAREK..................................
-        gotoaddcar=(TextView) view.findViewById(R.id.settings_addNewCarLabel);
-        gotoaddcar1=(ImageView)view.findViewById(R.id.settings_addNewCar);
-
-
-
 
 
         ImageView navMenuBtn = view.findViewById(R.id.settings_navMenuBtn);
-        accountInfoRV= view.findViewById(R.id.settings_accountInfoRV);
+        accountInfoRV = view.findViewById(R.id.settings_accountInfoRV);
 
-        AccountInfoLabelsAdapter accountInfoLabelsAdapter = new AccountInfoLabelsAdapter(getActivity(),accountInfoLabels);
-        accountInfoRV.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
+        AccountInfoLabelsAdapter accountInfoLabelsAdapter = new AccountInfoLabelsAdapter(getActivity(), accountInfoLabels);
+        accountInfoRV.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         accountInfoRV.setAdapter(accountInfoLabelsAdapter);
 
 
@@ -71,32 +60,6 @@ public class NavSettingsFragment extends Fragment {
                 HomepageActivity.openDrawer();
             }
         });
-
-
-        //AHMED TAREK SAAD THIS FUNCTION FOR OR TO GO TO THE ADDCAR ACTIVITY BY CLICK ON THE (ADD NEW CAR) 31/3/2020.............
-
-      gotoaddcar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myintent = new Intent(getActivity(), AddCarActivity.class);
-                startActivity(myintent);
-
-            }
-        });
-        //AHMED TAREK SAAD THIS FUNCTION FOR OR TO GO TO THE ADDCAR ACTIVITY BY CLICK ON THE (image view (arrow)) 31/3/2020..............
-      gotoaddcar1.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-              Intent myintent1=new Intent(getActivity(),AddCarActivity.class);
-              startActivity(myintent1);
-          }
-      });
-
-
-
-
-
-
 
         return view;
     }

@@ -52,5 +52,8 @@ dependencies {
 
     //to display the splash video with transparent background
     implementation 'com.alphamovie.library:alpha-movie:1.2.1'
+
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+
 }
 apply plugin: 'com.google.gms.google-services'
