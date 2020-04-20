@@ -1,10 +1,11 @@
 package com.badawy.carservice.adapters;
 
 import android.content.Context;
-import android.media.Image;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.badawy.carservice.R;
+import com.badawy.carservice.activity.ProductDetailsPopUpActivity;
 import com.badawy.carservice.models.ProductItemModel;
 
 import java.util.ArrayList;
@@ -52,13 +54,24 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
 
     // put the data inside the views of an item
     @Override
-    public void onBindViewHolder(@NonNull ProductsItemViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ProductsItemViewHolder holder, final int position) {
         holder.manufacturerImage.setImageResource(productsList.get(position).getManufacturerImage());
         holder.productImage.setImageResource(productsList.get(position).getProductImage());
         holder.productName.setText(productsList.get(position).getProductName());
         holder.productPartNumber.setText(productsList.get(position).getProductPartNumber());
         holder.productDescription.setText(productsList.get(position).getProductDescription());
         holder.productPrice.setText(productsList.get(position).getProductPrice());
+
+        holder.productDetailsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(holder.productDetailsBtn.getContext(), ProductDetailsPopUpActivity.class);
+
+
+                //start activity
+                context.startActivity(i);
+            }
+        });
 
     }
 
@@ -80,6 +93,8 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
         TextView productDescription;
         TextView productPrice;
 
+        Button productDetailsBtn;
+
         // Constructor to initialize the views from the Layout
         ProductsItemViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -92,6 +107,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
             productPartNumber = itemView.findViewById(R.id.productItem_partNumber);
             productDescription = itemView.findViewById(R.id.productItem_description);
             productPrice = itemView.findViewById(R.id.productItem_price);
+            productDetailsBtn = itemView.findViewById(R.id.productItem_partDetailsBtn);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

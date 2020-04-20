@@ -82,4 +82,8 @@
     <string name="marker">marker</string>
     <string name="university_address"><![CDATA[Culture & Science City, Second 6th of October]]></string>
     <string name="appointments_amp_orders"><![CDATA[Appointments & Orders]]></string>
+    <string name="tracking">Tracking</string>
+    <string name="call_assistance">Call Assistance</string>
+    <string name="cancel_request">Cancel Request</string>
+    <string name="estimated_time_of_arrival">Estimated time of arrival</string>
 </resources>

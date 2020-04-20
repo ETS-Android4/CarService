@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.badawy.carservice.R;
@@ -73,36 +74,87 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
 
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else {
+
             super.onBackPressed();
+
         }
     }
+
+
+
+
+
+
+
+
+
+
 
 
     //To take actions when an item is clicked in the navigation list
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
+//........... CREATED BY @AHMED TAREK 17/4/2020 the new modification of onbackpassed or backstack of fragments in side navigation drawer.
+
+
+
+//NEW VAR FROM DATATYPE FRAGMENT TO RECEIVE THE FRAGMENTS
+        Fragment fragment=null;
+
+
+
         switch (menuItem.getItemId()) {
 
+
+
             case R.id.nav_home:
-                replaceFragment(new NavHomeFragment());
+                //    replaceFragment(new NavHomeFragment());
+                fragment=new NavHomeFragment();
+                getSupportFragmentManager().beginTransaction().addToBackStack(null)
+                        .replace(R.id.homepage_fragment_container,fragment).commit();
                 break;
+
+
             case R.id.nav_cars:
-                replaceFragment(new NavCarsFragment());
+                //  replaceFragment(new NavCarsFragment());
+                fragment=new NavCarsFragment();
+                getSupportFragmentManager().beginTransaction().addToBackStack(null)
+                        .replace(R.id.homepage_fragment_container,fragment).commit();
                 break;
+
+
             case R.id.nav_settings:
-                replaceFragment(new NavSettingsFragment());
+                // replaceFragment(new NavSettingsFragment());
+                fragment=new NavSettingsFragment();
+                getSupportFragmentManager().beginTransaction().addToBackStack(null)
+                        .replace(R.id.homepage_fragment_container,fragment).commit();
                 break;
+
+
             case R.id.nav_appointments:
-                replaceFragment(new NavAppointmentsFragment());
+                // replaceFragment(new NavAppointmentsFragment());
+                fragment=new NavAppointmentsFragment();
+                getSupportFragmentManager().beginTransaction().addToBackStack(null)
+                        .replace(R.id.homepage_fragment_container,fragment).commit();
                 break;
+
+
+
             case R.id.nav_shopping_cart:
-                replaceFragment(new NavShoppingCartFragment());
+                //replaceFragment(new NavShoppingCartFragment());
+                fragment=new NavShoppingCartFragment();
+                getSupportFragmentManager().beginTransaction().addToBackStack(null)
+                        .replace(R.id.homepage_fragment_container,fragment).commit();
                 break;
+
+
+
             case R.id.nav_signOut:
                 //Toast.makeText(this, "sign out", Toast.LENGTH_SHORT).show();
-                //AhmedRabie
+                //@AhmedRabie
                 //sharepreference to log out
                 SharePreference.SavePassword("", this);
                 SharePreference.SaveEmail("", this);
@@ -112,9 +164,11 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
                 break;
 
         }
+
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 
     //To open the navigation list from inside the Fragments
@@ -130,8 +184,11 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     private void replaceFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .replace(R.id.homepage_fragment_container, fragment)
+                .replace(R.id .homepage_fragment_container, fragment)
                 .commit();
+
+
+
 
 
     }

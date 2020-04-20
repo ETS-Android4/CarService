@@ -48,7 +48,24 @@ public class EmergencyFragment extends Fragment {
                 HomepageActivity.openDrawer();
             }
         });
+        Button requestTruck = view.findViewById(R.id.emergency_requestTruckBtn);
+
+        requestTruck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new EmergencyRequestTruckFragment());
+            }
+        });
         return view;
+    }
+    private void replaceFragment(Fragment fragment) {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .replace(R.id.homepage_fragment_container, fragment)
+                .addToBackStack("CarCenterChooseFragment")
+                .commit();
+
+
     }
 
 

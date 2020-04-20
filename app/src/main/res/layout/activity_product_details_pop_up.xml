@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/style_solid_white_full_corners"
+    tools:context=".activity.ProductDetailsPopUpActivity">
+
+
+    <ImageView
+        android:id="@+id/productItemDetails_manufacturer"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_hankook"
+        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.4"
+        tools:ignore="ContentDescription" />
+
+
+    <ImageView
+        android:id="@+id/productItemDetails_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:adjustViewBounds="true"
+        android:padding="@dimen/_5sdp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/tire"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/productItemDetails_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="left"
+        android:maxLines="3"
+        android:text="Hankook Ventus Prime 3 K125"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/productItemDetails_image"
+        app:layout_constraintWidth_percent="0.9" />
+
+
+    <TextView
+        android:id="@+id/productItemDetails_partNumberLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="left"
+        android:text="Part Number :"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintLeft_toLeftOf="@id/productItemDetails_name"
+        app:layout_constraintTop_toBottomOf="@id/productItemDetails_name" />
+
+    <TextView
+        android:id="@+id/productItemDetails_partNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="left"
+        android:paddingLeft="@dimen/_2sdp"
+        android:paddingRight="@dimen/_2sdp"
+        android:text="8808563390093"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintLeft_toRightOf="@id/productItemDetails_partNumberLabel"
+        app:layout_constraintRight_toRightOf="@id/productItemDetails_name"
+        app:layout_constraintTop_toBottomOf="@id/productItemDetails_name" />
+
+
+    <TextView
+        android:id="@+id/productItemDetails_descriptionLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_3sdp"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="left"
+        android:text="Description :"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintLeft_toLeftOf="@id/productItemDetails_name"
+        app:layout_constraintRight_toRightOf="@id/productItemDetails_partNumberLabel"
+        app:layout_constraintTop_toBottomOf="@id/productItemDetails_partNumberLabel" />
+
+    <TextView
+        android:id="@+id/productItemDetails_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_3sdp"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="left"
+        android:maxLines="3"
+        android:paddingLeft="@dimen/_2sdp"
+        android:text="205/55 R1 dd aa ss dddd dd  "
+        android:textColor="@color/grey"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@id/productItemDetails_partDetailsBtn"
+        app:layout_constraintLeft_toRightOf="@id/productItemDetails_descriptionLabel"
+        app:layout_constraintRight_toRightOf="@id/productItemDetails_name"
+        app:layout_constraintTop_toBottomOf="@id/productItemDetails_partNumber"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productItemDetails_detailsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/productItemDetails_priceLabel"
+        app:layout_constraintLeft_toLeftOf="@id/productItemDetails_name"
+        app:layout_constraintRight_toRightOf="@id/productItemDetails_name"
+        app:layout_constraintTop_toBottomOf="@id/productItemDetails_description"
+        app:layout_constraintVertical_bias="0"
+        tools:itemCount="15"
+        tools:listitem="@layout/item_product_details" />
+
+
+    <TextView
+        android:id="@+id/productItemDetails_priceLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="right"
+        android:text="Price :"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintBottom_toTopOf="@id/productItemDetails_partDetailsBtn"
+        app:layout_constraintLeft_toLeftOf="@id/productItemDetails_name"
+        app:layout_constraintTop_toBottomOf="@id/productItemDetails_detailsRecyclerView" />
+
+    <TextView
+        android:id="@+id/productItemDetails_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoe_ui_sb"
+        android:gravity="right"
+        android:text="2399.00 EGP"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="@id/productItemDetails_priceLabel"
+        app:layout_constraintRight_toRightOf="@id/productItemDetails_name"
+        app:layout_constraintTop_toTopOf="@id/productItemDetails_priceLabel"
+        app:layout_constraintVertical_bias="0" />
+
+
+    <Button
+        android:id="@+id/productItemDetails_partDetailsBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/style_rectangle_corners_red"
+        android:text="Add To Cart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.07"
+        app:layout_constraintLeft_toLeftOf="@id/productItemDetails_name"
+        app:layout_constraintRight_toRightOf="@id/productItemDetails_name" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
