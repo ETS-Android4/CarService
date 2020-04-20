@@ -32,6 +32,16 @@ public class EmergencyFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_emergency, container, false);
         ImageView navMenuBtn = view.findViewById(R.id.emergency_navMenuBtn);
+        Button requestTruck = view.findViewById(R.id.emergency_requestTruckBtn);
+
+
+        requestTruck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new EmergencyRequestTruckFragment());
+
+            }
+        });
         navMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +63,18 @@ public class EmergencyFragment extends Fragment {
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .replace(R.id.homepage_fragment_container, fragment)
                 .addToBackStack("CarCenterChooseFragment")
+                .commit();
+
+
+    }
+
+
+
+    private void replaceFragment(Fragment fragment) {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .replace(R.id.homepage_fragment_container, fragment)
+                .addToBackStack("EmergencyFragment")
                 .commit();
 
 

@@ -53,7 +53,8 @@ dependencies {
     //to display the splash video with transparent background
     implementation 'com.alphamovie.library:alpha-movie:1.2.1'
 
-    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
-
+  implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+  
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

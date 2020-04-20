@@ -307,19 +307,31 @@
 
     <!-- Call us -->
     <Button
+        android:id="@+id/aboutus_bu_callus"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_15sdp"
         android:background="@drawable/style_btn_red_with_corners"
         android:padding="@dimen/_6sdp"
         android:text="@string/call_us"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/_15sdp"
-        app:layout_constraintWidth_percent="0.8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="@dimen/_15sdp"/>
+        app:layout_constraintWidth_percent="0.8" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="344dp"
+        android:layout_height="149dp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.445"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aboutUs_locationLabel"
+        app:layout_constraintVertical_bias="0.333" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
