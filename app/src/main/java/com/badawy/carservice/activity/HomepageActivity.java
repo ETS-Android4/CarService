@@ -1,3 +1,4 @@
+
 package com.badawy.carservice.activity;
 
 import android.content.Intent;
@@ -97,12 +98,18 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-//........... CREATED BY @AHMED TAREK 17/4/2020 the new modification of onbackpassed or backstack of fragments in side navigation drawer.
+//........... CREATED BY @AHMED TAREK 26/4/2020 the new modification of onbackpassed or backstack of fragments in side navigation drawer.
 
 
 
 //NEW VAR FROM DATATYPE FRAGMENT TO RECEIVE THE FRAGMENTS
         Fragment fragment=null;
+
+
+
+
+//to clear the stack...........
+        getSupportFragmentManager().popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
 
 
@@ -113,15 +120,20 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
             case R.id.nav_home:
                 //    replaceFragment(new NavHomeFragment());
                 fragment=new NavHomeFragment();
-                getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                        .replace(R.id.homepage_fragment_container,fragment).commit();
+                getSupportFragmentManager().beginTransaction()
+                        .add(new NavHomeFragment(),"Home Page")
+                        .addToBackStack(null)
+                        .replace(R.id.homepage_fragment_container,fragment)
+                        .commit();
                 break;
 
 
             case R.id.nav_cars:
                 //  replaceFragment(new NavCarsFragment());
                 fragment=new NavCarsFragment();
-                getSupportFragmentManager().beginTransaction().addToBackStack(null)
+                getSupportFragmentManager().beginTransaction()
+                        .add(new NavHomeFragment(),"Home Page")
+                        .addToBackStack(null)
                         .replace(R.id.homepage_fragment_container,fragment).commit();
                 break;
 
@@ -129,16 +141,22 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
             case R.id.nav_settings:
                 // replaceFragment(new NavSettingsFragment());
                 fragment=new NavSettingsFragment();
-                getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                        .replace(R.id.homepage_fragment_container,fragment).commit();
+                getSupportFragmentManager().beginTransaction()
+                        .add(new NavHomeFragment(),"Home Page")
+                        .addToBackStack(null)
+                        .replace(R.id.homepage_fragment_container,fragment)
+                        .commit();
                 break;
 
 
             case R.id.nav_appointments:
                 // replaceFragment(new NavAppointmentsFragment());
                 fragment=new NavAppointmentsFragment();
-                getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                        .replace(R.id.homepage_fragment_container,fragment).commit();
+                getSupportFragmentManager().beginTransaction()
+                        .add(new NavHomeFragment(),"Home Page")
+                        .addToBackStack(null)
+                        .replace(R.id.homepage_fragment_container,fragment)
+                        .commit();
                 break;
 
 
@@ -146,8 +164,11 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
             case R.id.nav_shopping_cart:
                 //replaceFragment(new NavShoppingCartFragment());
                 fragment=new NavShoppingCartFragment();
-                getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                        .replace(R.id.homepage_fragment_container,fragment).commit();
+                getSupportFragmentManager().beginTransaction()
+                        .add(new NavHomeFragment(),"Home Page")
+                        .addToBackStack(null)
+                        .replace(R.id.homepage_fragment_container,fragment)
+                        .commit();
                 break;
 
 
