@@ -1,5 +1,6 @@
 package com.badawy.carservice.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,6 @@ import com.badawy.carservice.activity.HomepageActivity;
 import com.badawy.carservice.adapters.CarCenterHelpGuideViewPager2Adapter;
 import com.badawy.carservice.models.CarCenterHelpGuideModel;
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
-
 import java.util.ArrayList;
 
 /**
@@ -47,9 +48,17 @@ public class CarCenterChooseFragment extends Fragment {
         initUi(view);
 
 
-        prepareHelpGuide();
 
 
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
+        if(!previouslyStarted) {
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
+            edit.commit();
+            prepareHelpGuide();
+        }
 
         // open Navigation Drawer
         navMenuBtn.setOnClickListener(new View.OnClickListener() {
