@@ -54,19 +54,6 @@
     </androidx.cardview.widget.CardView>
 
 
-    <ImageView
-        android:id="@+id/emergencyTracking_map"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/grey"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.6"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emergencyTracking_headerCard"
-        app:layout_constraintVertical_bias="0" />
-
-
     <TextView
         android:id="@+id/emergencyTracking_bottomBackground"
         android:layout_width="0dp"
@@ -237,5 +224,16 @@
         app:layout_constraintTop_toBottomOf="@id/emergencyTracking_line2"
         app:layout_constraintWidth_percent="0.4"
         tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapview_ERTF"
+        android:layout_width="379dp"
+        android:layout_height="396dp"
+        app:layout_constraintBottom_toTopOf="@+id/emergencyTracking_bottomBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emergencyTracking_headerCard"
+        app:layout_constraintVertical_bias="0.187" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
