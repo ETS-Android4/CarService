@@ -56,7 +56,7 @@ public class EmergencyRequestTruckFragment extends Fragment implements OnMapRead
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_emergency_request_truck, container, false);
-        mMapView = view.findViewById(R.id.mapview_ERTF);
+        mMapView = view.findViewById(R.id.emergencyTracking_map);
         if (mMapView != null) {
             mMapView.onCreate(null);
             mMapView.onResume();

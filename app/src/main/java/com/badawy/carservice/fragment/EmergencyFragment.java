@@ -49,11 +49,9 @@ public class EmergencyFragment extends Fragment {
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission( getContext(),
                         Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getContext(), "You have already granted this permission!",
-                            Toast.LENGTH_SHORT).show();
                     replaceFragment(new EmergencyRequestTruckFragment());
                 } else {
-                    requestStoragePermission();
+                    requestLocationPermission();
                 }
             }
         });
@@ -67,12 +65,12 @@ public class EmergencyFragment extends Fragment {
 
         return view;
     }
-    private void requestStoragePermission() {
+    private void requestLocationPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION)) {
             new AlertDialog.Builder(getContext())
                     .setTitle("Permission needed")
-                    .setMessage("This permission is needed because of accessing your location")
+                    .setMessage("This permission is needed to access your location")
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
