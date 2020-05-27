@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,18 +25,28 @@ import com.badawy.carservice.utils.SharePreference;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomepageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+
+
     private static DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private EditText emailET, passwordET;
+    private FirebaseAuth firebaseAuth;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+
         initializeUi();
 
+        // Initialize Firebase Auth Object
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //Add Click listener to Navigation list
         navigationView.setNavigationItemSelectedListener(this);
@@ -153,12 +164,9 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
 
 
             case R.id.nav_signOut:
-                //Toast.makeText(this, "sign out", Toast.LENGTH_SHORT).show();
-                //@AhmedRabie
-                //sharepreference to log out
-                SharePreference.SavePassword("", this);
-                SharePreference.SaveEmail("", this);
+                firebaseAuth.signOut();
                 Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
                 break;
