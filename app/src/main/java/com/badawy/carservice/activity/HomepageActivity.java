@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,20 +21,20 @@ import com.badawy.carservice.fragment.NavAppointmentsFragment;
 import com.badawy.carservice.fragment.NavHomeFragment;
 import com.badawy.carservice.fragment.NavSettingsFragment;
 import com.badawy.carservice.fragment.NavShoppingCartFragment;
-import com.badawy.carservice.utils.SharePreference;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomepageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-
+    // time in milliseconds to press back again to exit
+    private static final int EXIT_APP_TIME_INTERVAL = 2000;
+    private long backButtonPressed;
+    private static Toast exitToast;
 
     private static DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FirebaseAuth firebaseAuth;
-
 
 
     @Override
@@ -53,8 +53,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
 
 
         //To Start the Home Fragment once the activity starts
-        replaceFragment(new NavHomeFragment());
-        navigationView.setCheckedItem(R.id.nav_home);
+        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_home).setChecked(true));
 
 
         //To Be Continued @Ahmed mahmoud
@@ -80,87 +79,84 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
 
     @Override
     public void onBackPressed() {
+        // Know which fragment is currently Displayed
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.homepage_fragment_container);
 
-        //Closing the Navigation drawer if it was open when clicking on the back button
+        // if nav drawer is open >> close it
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-
             drawerLayout.closeDrawer(GravityCompat.START);
         }
-        else {
-
-            super.onBackPressed();
-
+        // if nav cars is open >> back to homepage
+        else if (currentFragment instanceof NavCarsFragment) {
+            openHomepage();
         }
+        // if nav Appointments and Orders is open >> back to homepage
+        else if (currentFragment instanceof NavAppointmentsFragment) {
+            openHomepage();
+        }
+        // if nav Shopping Cart is open >> back to homepage
+        else if (currentFragment instanceof NavShoppingCartFragment) {
+            openHomepage();
+        }
+        // if nav Settings and Account is open >> back to homepage
+        else if (currentFragment instanceof NavSettingsFragment) {
+            openHomepage();
+        }
+        // if Homepage is open and sub fragments are open >> back from fragments
+        else if (getSupportFragmentManager().getBackStackEntryCount() != 0) {
+            super.onBackPressed();
+        }
+        // if Homepage is open and no sub fragments are open >> exit the application after pressing back button twice in 2 seconds
+        else if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            if (backButtonPressed + EXIT_APP_TIME_INTERVAL > System.currentTimeMillis()) {
+                exitToast.cancel(); // stop toast after exiting the application
+                super.onBackPressed();
+            } else {
+                showExitMessage();
+            }
+            backButtonPressed = System.currentTimeMillis();
+        }
+
+
     }
-
-
-
-
-
-
-
-
-
-
 
 
     //To take actions when an item is clicked in the navigation list
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-//........... CREATED BY @AHMED TAREK 17/4/2020 the new modification of onbackpassed or backstack of fragments in side navigation drawer.
-
-
-
-//NEW VAR FROM DATATYPE FRAGMENT TO RECEIVE THE FRAGMENTS
-        Fragment fragment=null;
-
-
-
         switch (menuItem.getItemId()) {
 
 
-
             case R.id.nav_home:
-                //    replaceFragment(new NavHomeFragment());
-                fragment=new NavHomeFragment();
-                getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                        .replace(R.id.homepage_fragment_container,fragment).commit();
+                clearBackStack();
+                replaceFragment(new NavHomeFragment());
+
                 break;
 
 
             case R.id.nav_cars:
-                //  replaceFragment(new NavCarsFragment());
-                fragment=new NavCarsFragment();
-                getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                        .replace(R.id.homepage_fragment_container,fragment).commit();
+                clearBackStack();
+                replaceFragment(new NavCarsFragment());
                 break;
 
 
             case R.id.nav_settings:
-                // replaceFragment(new NavSettingsFragment());
-                fragment=new NavSettingsFragment();
-                getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                        .replace(R.id.homepage_fragment_container,fragment).commit();
+                clearBackStack();
+                replaceFragment(new NavSettingsFragment());
                 break;
 
 
             case R.id.nav_appointments:
-                // replaceFragment(new NavAppointmentsFragment());
-                fragment=new NavAppointmentsFragment();
-                getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                        .replace(R.id.homepage_fragment_container,fragment).commit();
+                clearBackStack();
+                replaceFragment(new NavAppointmentsFragment());
                 break;
-
 
 
             case R.id.nav_shopping_cart:
-                //replaceFragment(new NavShoppingCartFragment());
-                fragment=new NavShoppingCartFragment();
-                getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                        .replace(R.id.homepage_fragment_container,fragment).commit();
+                clearBackStack();
+                replaceFragment(new NavShoppingCartFragment());
                 break;
-
 
 
             case R.id.nav_signOut:
@@ -171,6 +167,9 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
                 finish();
                 break;
 
+            default:
+                break;
+
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -178,9 +177,8 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     }
 
 
-
     //To open the navigation list from inside the Fragments
-    //Called inside fragment class
+    //Called inside multiple fragment classes
     public static void openDrawer() {
         if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.openDrawer(GravityCompat.START);
@@ -192,13 +190,29 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     private void replaceFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .replace(R.id .homepage_fragment_container, fragment)
+                .replace(R.id.homepage_fragment_container, fragment)
                 .commit();
-
-
-
-
 
     }
 
+    private void clearBackStack() {
+        FragmentManager fm = getSupportFragmentManager();
+        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStack();
+        }
+    }
+
+    private void openHomepage() {
+        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_home).setChecked(true));
+    }
+
+    // Used in Spare Parts Shop to Open the Shopping Cart
+    public void openShoppingCart() {
+        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_shopping_cart).setChecked(true));
+    }
+
+    private void showExitMessage() {
+        exitToast = Toast.makeText(getApplicationContext(), "Tab back button again to exit", Toast.LENGTH_SHORT);
+        exitToast.show();
+    }
 }

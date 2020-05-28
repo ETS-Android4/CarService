@@ -18,6 +18,15 @@ public class SplashScreenActivity extends AppCompatActivity {
      * Modified by Mahmoud Badawy 16/11/2019
      * ...
      **/
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
+            startActivity(i);
+            finish();
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,18 +54,16 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         // Time in MilliSeconds 1000 = 1 second
         int SPLASH_TIME_OUT = 4000;
+        handler.postDelayed(runnable,SPLASH_TIME_OUT);
 
+    }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
-                startActivity(i);
-                finish();
-
-
-            }
-        }, SPLASH_TIME_OUT);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (handler!=null){
+            handler.removeCallbacks(runnable);
+        }
     }
 
     private void hideSystemUI() {

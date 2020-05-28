@@ -1,10 +1,9 @@
 package com.badawy.carservice.fragment;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -86,7 +85,10 @@ public class DeliveryCarSparePartsShopFragment extends Fragment {
         shoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(new NavShoppingCartFragment());
+                Activity activity = getActivity();
+                if (activity instanceof HomepageActivity){
+                    ((HomepageActivity) activity).openShoppingCart();
+                }
             }
         });
         return view;
@@ -99,13 +101,4 @@ public class DeliveryCarSparePartsShopFragment extends Fragment {
         productsRv = view.findViewById(R.id.sparePartsShop_productsRV);
     }
 
-    private void replaceFragment(Fragment fragment) {
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .replace(R.id.homepage_fragment_container, fragment)
-                .addToBackStack("SparePartsShop")
-                .commit();
-
-
-    }
 }
