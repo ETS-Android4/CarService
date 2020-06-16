@@ -3,6 +3,7 @@ package com.badawy.carservice.activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,66 +16,49 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.badawy.carservice.R;
+import com.badawy.carservice.models.UserProfileModel;
+import com.badawy.carservice.utils.Constants;
 import com.badawy.carservice.utils.MyCustomSystemUi;
 import com.badawy.carservice.utils.MyValidation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity {
 
 
+    private static final String TAG = "Registration Activity";
     /**
      * uploaded by ahmed tarek....16/11/2019......
      * Modified by Mahmoud Badawy 17/11/2019
      */
 
 
-    private EditText usernameET;
-    private EditText phoneET;
-    private EditText emailET;
-    private EditText passwordET;
-    private EditText confirmPasswordET;
+    private EditText usernameET,phoneET,emailET,passwordET,confirmPasswordET;
     private Button createAccountBTN;
     private CheckBox termsConditionsCHBX;
     private ImageView showPasswordIcon, showConfirmPasswordIcon;
     private FirebaseAuth mAuth;
+    private String userUID;
     private boolean isPasswordVisible = false;
     private boolean isConfirmPasswordVisible = false;
-/**link of terms and conditions MODIFIED BY AHMED TAREK 26/11/2019..............*/
+    /**
+     * link of terms and conditions MODIFIED BY AHMED TAREK 26/11/2019..............
+     */
     private TextView conditions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        //conditions and terms link ....................................................\
-        conditions=(TextView)findViewById(R.id.registration_tv_terms);
 
-      conditions.setPaintFlags(conditions.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        conditions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Intent intent=new Intent(RegistrationActivity.this,RegistrationActivity.class);
-              //  startActivity(intent);
-                Toast.makeText(RegistrationActivity.this,"you clicked on terms and conditions...!!",Toast.LENGTH_SHORT).show();
-            }
-
-
-
-
-
-            //............................................................................. END THE LINK OF CONDITIONS AND TERMS
-
-        });
         initializeUi();
+
 
 
         // Initialize FireBase Auth
@@ -143,49 +127,20 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
+        conditions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(RegistrationActivity.this, "terms and conditions", Toast.LENGTH_SHORT).show();
+            }
+
+
+            //............................................................................. END THE LINK OF CONDITIONS AND TERMS
+
+        });
+
+
 
     }
-
-
-    // ahmed tarek`s code .. @badawy
-    private void ahmedTarekCode() {
-
-        //Ahmed Tarek`s code ... Commented by mahmoud Badawy
-//        usernameET.addTextChangedListener(loginTextWatcher);
-//        phoneET.addTextChangedListener(loginTextWatcher); //modified last name to phone @badawy
-//        emailET.addTextChangedListener(loginTextWatcher);
-//        passwordET.addTextChangedListener(loginTextWatcher);
-//        confirmPasswordET.addTextChangedListener(loginTextWatcher);
-//
-//        TextWatcher loginTextWatcher = new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                //new variables
-//                String usernameInput = usernameET.getText().toString().trim();
-//                String emailInput = emailET.getText().toString().trim();
-//                String password = passwordET.getText().toString().trim();
-//                String confirmPasswordInput = confirmPasswordET.getText().toString().trim();
-//                String phoneInput = phoneET.getText().toString().trim(); //modified last name to phone @badawy
-//
-//                //the function is here ahmed.......!!
-//                //modified  && !lastnameinput.isEmpty()  to phone @badawy
-//                createAccountBTN.setEnabled(!usernameInput.isEmpty() && !emailInput.isEmpty() && !password.isEmpty() && !confirmPasswordInput.isEmpty() && !phoneInput.isEmpty());
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        };
-
-    }
-
 
     // Logic Methods
     private void createAccount() {
@@ -202,26 +157,61 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser currentUser = mAuth.getCurrentUser();
-                            if (currentUser != null) {
-                                String user_id = currentUser.getUid();
-                                DatabaseReference userId = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
-                                Map<String, String> Users_map = new HashMap<>();
-                                Users_map.put("Username", username);
-                                Users_map.put("EmailAddress", emailAddress);
-                                Users_map.put("PhoneNumber", phoneNumber);
-                                userId.setValue(Users_map);
-                                Intent goToLoginActivity = new Intent(RegistrationActivity.this, LoginActivity.class);
-                                startActivity(goToLoginActivity);
-                                finish();
+
+                            // After the user is created Successfully
+                            // Get user UID
+                            userUID = mAuth.getUid();
+
+                            // Sign out the user immediately from Auth listener to prevent the listener from directing the user to homepage
+                            mAuth.signOut();
+
+                            // prepare user profile object
+                            UserProfileModel userProfileObject = new UserProfileModel();
+                            userProfileObject.setEmailAddress(emailAddress);
+                            userProfileObject.setUserName(username);
+                            userProfileObject.setEmailAddress(emailAddress);
+                            userProfileObject.setUserId(userUID);
+                            userProfileObject.setPhoneNumber(phoneNumber);
+                            userProfileObject.setProfileImageUri("");
+                            userProfileObject.setAddress("");
+
+
+                            // prepare firebase root
+                            DatabaseReference userId = FirebaseDatabase
+                                    .getInstance()
+                                    .getReference()
+                                    .child(Constants.USERS)
+                                    .child(userUID);
+
+
+
+                            userId.child(Constants.USER_CARS).setValue("0");
+                            userId.child(Constants.APPOINTMENTS_ORDERS).child(Constants.APPOINTMENTS).setValue("0");
+                            userId.child(Constants.APPOINTMENTS_ORDERS).child(Constants.ORDERS).setValue("0");
+                            userId.child(Constants.SHOPPING_CART).setValue("0");
+
+                            // add user profile to database
+                            userId.child(Constants.USER_PROFILE)
+                                    .setValue(userProfileObject)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Intent goToLoginActivity = new Intent(RegistrationActivity.this, LoginActivity.class);
+                                            startActivity(goToLoginActivity);
+                                            finish();
+                                        }
+                                    });
+
+
+
+                        } else if (!task.isSuccessful()) {
+                            try {
+                                throw task.getException();
+                            } catch (FirebaseAuthUserCollisionException existEmail) {
+                                Toast.makeText(RegistrationActivity.this, "Email Already Exist .. Please log in ", Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                Log.d(TAG, "onComplete: " + e.getMessage());
                             }
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(RegistrationActivity.this, "Registration failed",
-                                    Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });
@@ -265,14 +255,12 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         //NEW MODIFICATIONS BY AHMED TAREK FOR PHNONE NUMBER 1/4/2020
-        else if (!MyValidation.ismyphone(phoneET)){
+        else if (!MyValidation.ismyphone(phoneET)) {
 
             phoneET.setError("The Phone Number Must Contain 11 Digits ");
             phoneET.requestFocus();
             return false;
-        }
-
-        else if(!MyValidation.ismyphone1(phoneET)){
+        } else if (!MyValidation.ismyphone1(phoneET)) {
             phoneET.setError("The Phone Number Must Start With 01");
             phoneET.requestFocus();
             return false;
@@ -311,6 +299,12 @@ public class RegistrationActivity extends AppCompatActivity {
         termsConditionsCHBX = findViewById(R.id.registration_cb_termsCheck);
         showPasswordIcon = findViewById(R.id.registration_icon_showPassword);
         showConfirmPasswordIcon = findViewById(R.id.registration_icon_showConfirmPassword);
+        conditions = findViewById(R.id.registration_tv_terms);
+
+
+        //conditions and terms link ....................................................\
+        conditions.setPaintFlags(conditions.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
 
 
     }

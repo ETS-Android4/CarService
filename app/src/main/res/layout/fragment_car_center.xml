@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoe_ui_sb"
-        android:text="Select Service"
+        android:text="@string/service_type"
         android:textColor="@color/grey"
         android:textSize="@dimen/_12sdp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,6 +86,7 @@
         app:layout_constraintWidth_percent="0.9">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/carCenter_serviceLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/style_grey_stroke_line">
@@ -120,19 +121,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/segoe_ui_regular"
-                android:text="Full car wash, change oil etc"
+                android:text="@string/click_to_select_service"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.15"
                 app:layout_constraintLeft_toLeftOf="@id/carCenter_serviceTypeName"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/carCenter_serviceTypeArrow"
+                android:ellipsize="end"
                 android:gravity="left"
                 app:layout_constraintTop_toBottomOf="@id/carCenter_serviceTypeName" />
 
 
-            <Spinner
-                android:id="@+id/carCenter_serviceTypeSpinner"
+            <ImageView
+                android:id="@+id/carCenter_serviceTypeArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_grey_arrow"
@@ -179,17 +181,18 @@
         app:layout_constraintTop_toBottomOf="@id/carCenter_line1"
         app:layout_constraintVertical_bias="0.04" />
 
+
     <com.badawy.carservice.utils.CustomCalendar
         android:id="@+id/carCenter_customCalender"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/carCenter_line1"
-        app:layout_constraintVertical_bias="0.15"
+        app:layout_constraintVertical_bias="0.155"
         app:layout_constraintWidth_percent="0.9" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/carCenter_timeRecyclerView"
@@ -292,7 +295,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoe_ui_sb"
-        android:text="Total Cost : "
+        android:text="Service Cost : "
         android:textColor="@color/white"
         android:textSize="@dimen/_12sdp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -307,7 +310,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoe_ui_sb"
-        android:text="200 EGP"
+        android:text="@string/please_select_a_service_first"
         android:textColor="@color/white"
         android:textSize="@dimen/_10sdp"
         app:layout_constraintBottom_toTopOf="@id/carCenter_serviceCost"

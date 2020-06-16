@@ -17,6 +17,7 @@ import com.badawy.carservice.R;
 import com.badawy.carservice.activity.HomepageActivity;
 import com.badawy.carservice.adapters.CarCenterHelpGuideViewPager2Adapter;
 import com.badawy.carservice.models.CarCenterHelpGuideModel;
+import com.badawy.carservice.utils.Constants;
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 public class CarCenterChooseFragment extends Fragment {
 
     private CardView carCareCV, carInspectionCV;
-    private ImageView helpGuideFinishArrow,navMenuBtn,helpIcon;
+    private ImageView helpGuideFinishArrow, navMenuBtn, helpIcon;
     private ConstraintLayout helpGuideContainer, carCenterContainer;
     private ViewPager2 helpGuideViewPager;
     private CarCenterHelpGuideViewPager2Adapter helpAdapter;
@@ -44,20 +45,10 @@ public class CarCenterChooseFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_car_center_choose, container, false);
 
-        initUi(view);
+        initializeUi(view);
 
 
-        prepareHelpGuide();
-
-
-
-        // open Navigation Drawer
-        navMenuBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HomepageActivity.openDrawer();
-            }
-        });
+        //  prepareHelpGuide();
 
 
         // Choose Car Care option
@@ -65,7 +56,7 @@ public class CarCenterChooseFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                replaceFragment(new CarCenterFragment());
+                replaceFragment(new CarCenterFragment(), Constants.CAR_CARE);
 
             }
         });
@@ -76,15 +67,24 @@ public class CarCenterChooseFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                replaceFragment(new CarCenterFragment());
+                replaceFragment(new CarCenterFragment(), Constants.VEHICLE_INSPECTION);
 
             }
         });
 
+        // open Help Guide
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 prepareHelpGuide();
+            }
+        });
+
+        // open Navigation Drawer
+        navMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomepageActivity.openDrawer();
             }
         });
 
@@ -138,7 +138,10 @@ public class CarCenterChooseFragment extends Fragment {
 
     }
 
-    private void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment, String serviceName) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.SERVICE_NAME_BUNDLE_KEY, serviceName);
+        fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .replace(R.id.homepage_fragment_container, fragment)
@@ -148,7 +151,7 @@ public class CarCenterChooseFragment extends Fragment {
 
     }
 
-    private void initUi(View view){
+    private void initializeUi(View view) {
         carCareCV = view.findViewById(R.id.carCenterChoose_carCareCV);
         carInspectionCV = view.findViewById(R.id.carCenterChoose_carInspectionCV);
         carCenterContainer = view.findViewById(R.id.carCenterChoose_container);
@@ -157,7 +160,7 @@ public class CarCenterChooseFragment extends Fragment {
         helpGuideViewPager = view.findViewById(R.id.carCenter_HelpGuide_viewPager);
         helpGuideFinishArrow = view.findViewById(R.id.item_carCenterHelpGuide_finishButton);
         dotsIndicator = view.findViewById(R.id.carCenter_HelpGuide_dotsIndicator);
-        helpIcon =view.findViewById(R.id.carCenterChoose_helpIcon);
+        helpIcon = view.findViewById(R.id.carCenterChoose_helpIcon);
 
 
     }

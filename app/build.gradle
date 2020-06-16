@@ -47,14 +47,21 @@ dependencies {
 // Below is just an example for People REST API access
     implementation 'com.google.apis:google-api-services-people:v1-rev4-1.22.0'
 
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+
     // Circle ImageView
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 
     //to display the splash video with transparent background
     implementation 'com.alphamovie.library:alpha-movie:1.2.1'
 
-  implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
-  
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

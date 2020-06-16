@@ -24,7 +24,7 @@ public class TimeAppointmentRecyclerAdapter extends RecyclerView.Adapter<TimeApp
     private ArrayList<TimeAppointmentModel> timeList;
     private Context context;
     private OnItemClickListener onItemClickListener;
-    private int defaultSelectedItem;
+    private int selectedItem;
 
 
     public interface OnItemClickListener {
@@ -39,9 +39,18 @@ public class TimeAppointmentRecyclerAdapter extends RecyclerView.Adapter<TimeApp
     public TimeAppointmentRecyclerAdapter(Context context, ArrayList<TimeAppointmentModel> timeList) {
         this.timeList = timeList;
         this.context = context;
-        this.defaultSelectedItem = 0;
+        this.selectedItem = 0;
     }
 
+    public TimeAppointmentRecyclerAdapter(Context context) {
+        this.context = context;
+        this.selectedItem =0;
+    }
+
+    public void setTimeList(ArrayList<TimeAppointmentModel> timeList) {
+
+        this.timeList = timeList;
+    }
 
     //return the layout of items ( How an item should look like )
     @NonNull
@@ -63,14 +72,14 @@ public class TimeAppointmentRecyclerAdapter extends RecyclerView.Adapter<TimeApp
         holder.itemBackgroundColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                defaultSelectedItem = position;
+                selectedItem = position;
                 notifyDataSetChanged();
 
             }
         });
 
 
-        if (defaultSelectedItem == position) {
+        if (selectedItem == position) {
 
             holder.itemBackgroundColor.setBackgroundResource(R.drawable.style_rectangle_full_corners_red);
             holder.time.setTextColor(Color.WHITE);
@@ -85,8 +94,8 @@ public class TimeAppointmentRecyclerAdapter extends RecyclerView.Adapter<TimeApp
 
     }
 
-    public byte getTimeId() {
-        return timeList.get(defaultSelectedItem).getId();
+    public int getTimeId() {
+        return timeList.get(selectedItem).getId();
     }
 
     // return number of rows in the list

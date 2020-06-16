@@ -86,4 +86,20 @@
     <string name="call_assistance">Call Assistance</string>
     <string name="cancel_request">Cancel Request</string>
     <string name="estimated_time_of_arrival">Estimated time of arrival</string>
+    <string name="service_type">Service Type</string>
+    <string name="click_to_select_service">Click to select Service</string>
+    <string name="please_select_a_service_first">Please Select a Service First</string>
+    <string name="finish">Finish</string>
+    <string name="speed_fix">Speed Fix</string>
+    <string name="order_a_mechanic_to_come_and_fix_a_specific_issue_with_your_car">Order a mechanic to come and fix a specific issue with your car</string>
+    <string name="categories">Categories</string>
+    <string name="have_a_look_on_all_the_available_spare_parts_for_your_car">Have a look on all the available spare parts for your car.</string>
+    <string name="please_select_which_service_you_want">Please select which service you want.</string>
+    <string name="type_any_additional_notes_about_your_problem">type any additional notes about your problem</string>
+    <string name="type_here">Type Here...</string>
+    <string name="order_now">Order Now</string>
+    <string name="default_address">Click on edit to add an address</string>
+    <string name="order_summery">Order Summery</string>
+    <string name="confirm_order">Confirm Order</string>
+    <string name="cancel">Cancel</string>
 </resources>

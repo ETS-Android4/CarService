@@ -18,7 +18,6 @@ import com.badawy.carservice.adapters.NavAppointmentsAdapter;
 import com.badawy.carservice.adapters.NavOrdersAdapter;
 import com.badawy.carservice.models.NavAppointmentsModel;
 import com.badawy.carservice.models.NavOrdersModel;
-import com.badawy.carservice.models.ProductItemModel;
 
 import java.util.ArrayList;
 
