@@ -49,11 +49,11 @@ public class SparePartModel {
     }
 
     public String getProductID() {
-        return productID;
+        return productID.toUpperCase().trim();
     }
 
     public void setProductID(String productID) {
-        this.productID = productID;
+        this.productID = productID.toUpperCase().trim();
     }
 
     public String getProductDescription() {

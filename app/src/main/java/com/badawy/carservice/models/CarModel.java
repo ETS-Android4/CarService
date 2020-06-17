@@ -5,6 +5,15 @@ public class CarModel {
     private String carYear;
     private String carBrand;
     private String carModel;
+    private String carBrandLogoUri;
+
+    public CarModel(String carID, String carYear, String carBrand, String carModel, String carBrandLogoUri) {
+        this.carID = carID;
+        this.carYear = carYear;
+        this.carBrand = carBrand;
+        this.carModel = carModel;
+        this.carBrandLogoUri = carBrandLogoUri;
+    }
 
     public CarModel(String carID, String carYear, String carBrand, String carModel) {
         this.carID = carID;
@@ -46,5 +55,13 @@ public class CarModel {
 
     public void setCarModel(String carModel) {
         this.carModel = carModel;
+    }
+
+    public String getCarBrandLogoUri() {
+        return carBrandLogoUri;
+    }
+
+    public void setCarBrandLogoUri(String carBrandLogoUri) {
+        this.carBrandLogoUri = carBrandLogoUri;
     }
 }

@@ -60,8 +60,6 @@ public class DeliveryCarSparePartsShopFragment extends Fragment implements Spare
         initializeUi(view);
 
         // Initialize Lists
-        sparePartsCategoryList = new ArrayList<>();
-        productsList = new ArrayList<>();
 
 
         // Get Selected Car Data
@@ -104,9 +102,11 @@ public class DeliveryCarSparePartsShopFragment extends Fragment implements Spare
 
     private void getCategoriesData() {
         dbRef = FirebaseDatabase.getInstance().getReference().child(Constants.CARS_SPARE_PARTS).child(selectedCarObject.getCarID());
-        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                sparePartsCategoryList = new ArrayList<>();
+
                 for (DataSnapshot ds: dataSnapshot.getChildren()
                      ) {
                     if (ds.hasChildren()){
@@ -158,13 +158,13 @@ public class DeliveryCarSparePartsShopFragment extends Fragment implements Spare
 
     private void fetchProductsOfThisCategory(int position) {
         final List<String> idList =  sparePartsCategoryList.get(position).getPartIdList();
-        productsList.clear();
         dbRef = FirebaseDatabase.getInstance().getReference().child(Constants.APP_DATA).child(Constants.SPARE_PARTS);
 
         dbRef.child(sparePartsCategoryList.get(position).getPartsCategoryName())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        productsList = new ArrayList<>();
                         for (String id: idList) {
 
                             if (dataSnapshot.hasChild(id)){

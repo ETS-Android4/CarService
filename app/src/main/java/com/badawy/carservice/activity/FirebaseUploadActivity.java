@@ -46,228 +46,74 @@ public class FirebaseUploadActivity extends AppCompatActivity {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // call the function of the data you want to upload
-//                uploadFile(R.drawable.brake3, R.drawable.brake3_manf);
-//                createSparePartsOfCar();
-                createBooking();
+                // Uncomment each method and run it alone
+
+                // Run them in this order
+
+//                createAboutUsData();
+
+//                createCarCareData();
+
+//                createSpeedFixData();
+
+//                createVehicleInspectionData();
+
+//                createAvailableAppointments();
+
+//                createBooking();
+
+//                createSparePartsCategory();
+
+                // Must Read instructions before calling this method.. Scroll Down to the method
+//                uploadSparePartFile(R.drawable.a, R.drawable.aa);
+
             }
         });
 
     }
 
 
-    private void createSparePartsOfCar(){
+    // #1   Upload Cars
 
-        String[] sparePartsCategories = {
-                "Brake System", "Engine", "Filters", "Oils And Fluids", "Body Parts,Lights,Mirrors", "Air Conditioning"
-                , "Tyres", "Shock Absorbers", "Exhaust System"
-        };
+    private void createCars() {
+        // Create new cars with the same pattern
+        CarModel car1 = new CarModel(dbRef.push().getKey(), "2008", "Mitsubishi", "Lancer");
+        uploadCar(R.drawable.mistubishi, car1);
 
-//        for (String sparePartsCategory : sparePartsCategories) {
-//            dbRef.child(Constants.CARS_SPARE_PARTS).child("-M9GME1uGGihgnTNE_IG").child(sparePartsCategory).setValue(0);
-//        }
+        CarModel car2 = new CarModel(dbRef.push().getKey(), "2008", "Hyundai", "Elantra");
+        uploadCar(R.drawable.hyundai, car2);
 
-
-        dbRef.child(Constants.CARS_SPARE_PARTS).child("-M9GME1uGGihgnTNE_IG").child("Brake System").child("402B0359").setValue(0);
-        dbRef.child(Constants.CARS_SPARE_PARTS).child("-M9GME1uGGihgnTNE_IG").child("Brake System").child("82B0492").setValue(0);
-        dbRef.child(Constants.CARS_SPARE_PARTS).child("-M9GME1uGGihgnTNE_IG").child("Filters").child("K13912").setValue(0);
-
+        CarModel car3 = new CarModel(dbRef.push().getKey(), "2008", "Jeep", "Grand Cherokee");
+        uploadCar(R.drawable.jeep, car3);
 
     }
 
-    private String getFileExtension(Uri uri) {
-        ContentResolver cR = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(uri));
-    }
-
-    private void uploadFile(final int image, int manf) {
+    private void uploadCar(int image, final CarModel car) {
+        final StorageReference stRef = FirebaseStorage.getInstance().getReference().child(Constants.CARS).child(car.getCarBrand().toLowerCase().trim());
         Uri imageUri = Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + image);
-        final Uri manfUri = Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + manf);
 
-        final StorageReference fileRef = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
-        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        stRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+                stRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        imageDownloadUri = uri.toString();
-                        final StorageReference manfRef = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(manfUri));
+                        car.setCarBrandLogoUri(uri.toString());
 
-                        manfRef.putFile(manfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                manfRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        manfDownloadUri = uri.toString();
+                        dbRef.child(Constants.APP_DATA)
+                                .child(Constants.CARS)
+                                .child(car.getCarID()).setValue(car);
 
-                                        createSparePartsData();
-                                    }
-                                });
-                            }
-                        });
                     }
                 });
 
             }
         });
-
-
     }
 
-    private void createSparePartsData() {
 
-
-        String[] brake1DetailName = {
-                " Fitting Position: "
-                , " Diameter [mm]: "
-                , " Centering Diameter [mm]: "
-                , " Hole Arrangement / Number: "
-                , " Bolt Hole Circle Ø [mm]: "
-                , " Brake Disc Thickness [mm]:  "
-                , " Minimum thickness [mm]:"
-                , " Height [mm]: "
-                , " Weight [kg]:"
-                , " Directional: "
-                , " Not tied to running direction: "
-                , " Condition: "
-
-        };
-
-        String[] brake1DetailValue = {
-                "Front Axle"
-                , " 328 "
-                , " Externally Vented "
-                , " 72 "
-                , " 05/05 ", " 127 "
-                , " 30 "
-                , " 28,5 ", " 53 "
-                , " 10,2 "
-                , " yes "
-                , " yes "
-                , " New "
-        };
-
-//        SparePartModel brake1 = new SparePartModel(
-//                manfDownloadUri
-//                , imageDownloadUri
-//                , " Brake Disc RIDEX "
-//                , "82B0492"
-//                , "without wheel hub, without wheel studs, Externally Vented, Front Axle"
-//                , "617 EGP"
-//                , partDetailsList
-//        );
-
-//        String[] brake2DetailName = {
-//
-//                " Fitting Position: "
-//                , "Brake Type: "
-//                , "Required quantity: "
-//                , "Weight [kg]: "
-//                , "Condition: "
-//
-//
-//        };
-//
-//        String[] brake2DetailValue = {
-//                "  Front "
-//                , "  Disc Brake "
-//                , "  1 "
-//                , "  0,34 "
-//                , "  New "
-//
-//        };
-//
-//        fillList(brake2DetailName, brake2DetailValue);
-//        SparePartModel brake2 = new SparePartModel(
-//                manfDownloadUri
-//                , imageDownloadUri
-//                , " Cable, parking brake A.B.S.  "
-//                , "K13912"
-//                , "Front"
-//                , "251 EGP"
-//                , partDetailsList
-//        );
-//        uploadProductObject(brake2);
-//
-//
-        String[] brake3DetailName = {
-
-                  " Quantity Unit: "
-                , " Fitting Position:"
-                , " Wear Warning Contact: "
-                , " Height [mm]:  "
-                , " Width [mm]: "
-                , " Thickness [mm]: "
-                , " WVA Number:    "
-                , " Brake System:  "
-                , " Condition:  "
-
-        };
-
-        String[] brake3DetailValue = {
-                "   Axle Set "
-                , " Front Axle "
-                , " with acoustic wear warning "
-                , " 57 "
-                , " 175,8 "
-                , " 18,6 "
-                , " 24250 "
-                , " Akebono "
-                , " New "
-
-        };
-
-        fillList(brake3DetailName, brake3DetailValue);
-
-        SparePartModel brake3 = new SparePartModel(
-                manfDownloadUri
-                , imageDownloadUri
-                , "  Brake Pad Set, disc brake RIDEX  "
-                , "402B0359"
-                , "with acoustic wear warning, Front Axle"
-                , "377 EGP"
-                , partDetailsList
-        );
-        uploadProductObject(brake3);
-
-
-    }
-
-    private void createSparePartsCategory() {
-
-        String[] sparePartsCategories = {
-                "Brake System", "Engine", "Filters", "Oils And Fluids", "Body Parts,Lights,Mirrors", "Air Conditioning"
-                , "Tyres", "Shock Absorbers", "Exhaust System"
-        };
-
-        for (String sparePartsCategory : sparePartsCategories) {
-            dbRef.child(Constants.APP_DATA)
-                    .child(Constants.SPARE_PARTS)
-                    .child(sparePartsCategory)
-                    .setValue("0");
-
-        }
-    }
-
-    private void uploadProductObject(SparePartModel productObject) {
-        dbRef.child(Constants.APP_DATA).child(Constants.SPARE_PARTS).child("Brake System")
-                .child(productObject.getProductID())
-                .setValue(productObject);
-    }
-
-    private void fillList(String[] name, String[] value) {
-
-        partDetailsList = new ArrayList<>();
-        for (int i = 0; i < name.length; i++) {
-
-            partDetailsList.add(new SparePartDetailsModel(name[i], value[i]));
-
-        }
-
-    }
+    // #2 Upload App Data
 
     private void createSpeedFixData() {
 
@@ -319,7 +165,6 @@ public class FirebaseUploadActivity extends AppCompatActivity {
 
     }
 
-
     private void createVehicleInspectionData() {
 
         String[] cycleData = {"Change Engine Oil", "Change Brake Oil", "Change Power Oil", "Change Gearbox Oil"
@@ -331,19 +176,31 @@ public class FirebaseUploadActivity extends AppCompatActivity {
                 , "Gear Stick", "Hub", "Oil Filter", "Oil Pump", "Rings Set", "Shock Absorbers", "Spark Plug", "Steering Wheel", "Complete Overhaul"};
         int[] specificFixesPrice = {200, 200, 150, 70, 70, 100, 60, 50, 30, 100, 40, 150, 200, 100, 30, 40, 55, 60, 222, 120, 300, 320, 230, 100, 40, 50, 20, 100, 60, 30, 40, 200};
 
-//        for (int i = 0; i<cycleData.length;i++){
-//            dbRef.child(Constants.APP_DATA)
-//                    .child(Constants.VEHICLE_INSPECTION)
-//                    .child(Constants.VEHICLE_INSPECTION_CYCLE)
-//                    .child(cycleData[i])
-//                    .setValue(cycleServicePrice[i]);
-//
-//        }
+        for (int i = 0; i < cycleData.length; i++) {
+            dbRef.child(Constants.APP_DATA)
+                    .child(Constants.VEHICLE_INSPECTION)
+                    .child(Constants.VEHICLE_INSPECTION_CYCLE)
+                    .child(cycleData[i])
+                    .setValue(cycleServicePrice[i]);
+
+        }
+
+        for (int i = 0; i < specificFixesData.length; i++) {
+            dbRef.child(Constants.APP_DATA)
+                    .child(Constants.VEHICLE_INSPECTION)
+                    .child(Constants.VEHICLE_INSPECTION_SPECIFIC_FIXES)
+                    .child(specificFixesData[i])
+                    .setValue(specificFixesPrice[i]);
+
+        }
 
 
     }
 
-    private void createBooking(){
+
+    // #3 Upload Available Appointments and Booking
+
+    private void createBooking() {
 
         dbRef.child(Constants.BOOKING).child(Constants.APPOINTMENTS).setValue(0);
         dbRef.child(Constants.BOOKING).child(Constants.ORDERS).setValue(0);
@@ -366,26 +223,145 @@ public class FirebaseUploadActivity extends AppCompatActivity {
                 .child(Constants.DELIVERY)
                 .child(Constants.SPEED_FIX).setValue(0);
 
-        dbRef.child(Constants.AVAILABLE_APPOINTMENTS)
-                .child(Constants.DELIVERY)
-                .child(Constants.SPARE_PARTS_ORDERS)
-                .setValue(0);
     }
 
-    private void createCars() {
-        //    String carId = dbRef.push().getKey();
-//        CarModel car1 = new CarModel();
-//        car1.setCarYear("2008");
-//        car1.setCarBrand("Mitsubishi");
-//        car1.setCarModel("Lancer");
-//        car1.setCarID(carId);
-        CarModel car2 = new CarModel(dbRef.push().getKey(), "2008", "Hyundai", "Elantra");
-        dbRef.child(Constants.APP_DATA)
-                .child(Constants.CARS)
-                .child(car2.getCarID()).setValue(car2);
-        CarModel car3 = new CarModel(dbRef.push().getKey(), "2008", "Jeep", "Grand Cherokee");
-        dbRef.child(Constants.APP_DATA)
-                .child(Constants.CARS)
-                .child(car3.getCarID()).setValue(car3);
+
+    // #4 Upload Spare Parts Categories
+
+    private void createSparePartsCategory() {
+
+        String[] sparePartsCategories = {
+                "Brake System", "Engine", "Filters", "Oils And Fluids", "Body Parts,Lights,Mirrors", "Air Conditioning"
+                , "Tyres", "Shock Absorbers", "Exhaust System"
+        };
+
+        for (String sparePartsCategory : sparePartsCategories) {
+            dbRef.child(Constants.APP_DATA)
+                    .child(Constants.SPARE_PARTS_CATEGORIES)
+                    .child(sparePartsCategory)
+                    .setValue("0");
+
+        }
     }
+
+
+    // #5 Upload a Spare Part to the Database
+    // First step:
+    // Rename product Image to [a] and manufacturer image to [aa]  ,, without the []
+    // copy paste product image and manufacturer logo image inside the Drawable folder
+
+    // Second Step:
+    // Adjust uploadProductObject Method .. change car id for the car u want to add products To ..
+    // change category name to the category u want to add the part To...
+
+    // Third Step:
+    // Copy Paste the part Details in createSparePartsData Method From Word File
+
+    // Last Step;
+    // UnComment the uploadSparePartFile method in Button onclick
+    private void uploadSparePartFile(final int productImageResourceID, int manufacturerLogoResourceID) {
+
+        // Make the Uri of each image
+        Uri productImageUri = Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + productImageResourceID);
+        final Uri manufacturerLogoUri = Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + manufacturerLogoResourceID);
+
+        // Firebase Product Image Storage Reference
+        final StorageReference productImageRef = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(productImageUri));
+
+        // Upload the images first ... Get the download Url of each image
+        // .. pass the links Global Variables  imageDownloadUri and manufacturerDownloadUri
+        // .. then Create the data of the spare part and Upload it to Database
+        productImageRef.putFile(productImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                productImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        imageDownloadUri = uri.toString();
+
+                        // Firebase Manufacturer Logo Storage Reference
+                        final StorageReference manufacturerLogoRef = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(manufacturerLogoUri));
+
+                        manufacturerLogoRef.putFile(manufacturerLogoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                manufacturerLogoRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+
+                                        manfDownloadUri = uri.toString();
+
+                                        // Upload the object
+                                        createSparePartsData();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+
+            }
+        });
+
+
+    }
+
+    // Called From UploadSparePartFile
+    private void createSparePartsData() {
+
+    }
+
+
+    // Called From createSparePartsData
+    private void uploadProductObject(SparePartModel productObject) {
+        String jeep = "-MA-bnII7omY75aLpB_w";
+        String hyundai = "-MA-bnIFC0VcaLH97CzP";
+
+        String categoryName = "Body Parts,Lights,Mirrors";
+        dbRef.child(Constants.APP_DATA).child(Constants.SPARE_PARTS).child(categoryName)
+                .child(productObject.getProductID())
+                .setValue(productObject);
+
+        createSparePartsOfCar(categoryName, jeep, productObject.getProductID());
+    }
+
+
+    // 5 Upload the Link between cars and spare parts .. what car has Which spareParts
+    private void createSparePartsOfCar(String categoryName, String carID, String sparePartID) {
+
+        String[] sparePartsCategories = {
+                "Brake System", "Engine", "Filters", "Oils And Fluids", "Body Parts,Lights,Mirrors", "Air Conditioning"
+                , "Tyres", "Shock Absorbers", "Exhaust System"
+        };
+
+//        for (String sparePartsCategory : sparePartsCategories) {
+//            dbRef.child(Constants.CARS_SPARE_PARTS).child("-M9GME1uGGihgnTNE_IG").child(sparePartsCategory).setValue(0);
+//        }
+
+
+        dbRef.child(Constants.CARS_SPARE_PARTS).child(carID).child(categoryName).child(sparePartID).setValue(0);
+
+    }
+
+
+    // Regular Methods
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    private void fillList(String[] name, String[] value) {
+
+        partDetailsList = new ArrayList<>();
+        for (int i = 0; i < name.length; i++) {
+
+            partDetailsList.add(new SparePartDetailsModel(name[i], value[i]));
+
+        }
+
+    }
+
+
 }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.badawy.carservice.R;
 import com.badawy.carservice.models.CarModel;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -58,11 +59,12 @@ public class SelectCarRecyclerAdapter extends RecyclerView.Adapter<SelectCarRecy
     // put the data inside the views of an item
     @Override
     public void onBindViewHolder(@NonNull CarHolder holder, final int position) {
-        holder.carItemImage.setImageResource(R.drawable.ic_nav_cars_car_test);
+       // holder.carItemImage.setImageResource(R.drawable.ic_nav_cars_car_test);
 
-        String carName = carList.get(position).getCarBrand().concat(" - ").concat(carList.get(position).getCarModel()).concat(" - ")
+        String carName = carList.get(position).getCarModel().concat(" - ")
                 .concat(carList.get(position).getCarYear());
         holder.carItemName.setText(carName);
+        Glide.with(context).load(carList.get(position).getCarBrandLogoUri()).into(holder.carItemImage);
 
 
         holder.carItemBackground.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +113,7 @@ public class SelectCarRecyclerAdapter extends RecyclerView.Adapter<SelectCarRecy
             super(itemView);
 
             // Views inside our layout
-            carItemImage = itemView.findViewById(R.id.carItem_image);
+            carItemImage = itemView.findViewById(R.id.carItem_brandImage);
             carItemName = itemView.findViewById(R.id.carItem_name);
             carItemBackground = itemView.findViewById(R.id.carItem_background);
 

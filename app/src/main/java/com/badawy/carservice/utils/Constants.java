@@ -13,6 +13,7 @@ public class Constants {
     public static String DELIVERY = "Delivery" ;
     public static String SPEED_FIX = "SpeedFix" ;
     public static String SPARE_PARTS = "SpareParts" ;
+    public static String SPARE_PARTS_CATEGORIES = "SparePartsCategories" ;
     public static String VEHICLE_INSPECTION_CYCLE = "Cycle" ;
     public static String VEHICLE_INSPECTION_SPECIFIC_FIXES= "SpecificFixes" ;
     public static String USERS= "Users" ;
