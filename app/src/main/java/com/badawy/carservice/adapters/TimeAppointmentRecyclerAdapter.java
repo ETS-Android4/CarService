@@ -57,7 +57,7 @@ public class TimeAppointmentRecyclerAdapter extends RecyclerView.Adapter<TimeApp
     @Override
     public TimeAppointmentRecyclerAdapter.TimeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View itemLayout = LayoutInflater.from(context).inflate(R.layout.appointment_time_item, parent, false);
+        View itemLayout = LayoutInflater.from(context).inflate(R.layout.item_appointment_time, parent, false);
         return new TimeHolder(itemLayout, onItemClickListener);
     }
 

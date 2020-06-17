@@ -221,7 +221,7 @@
                 app:layout_constraintTop_toBottomOf="@id/speedFix_customCalender"
                 app:layout_constraintVertical_bias="0.05"
                 tools:itemCount="5"
-                tools:listitem="@layout/appointment_time_item" />
+                tools:listitem="@layout/item_appointment_time" />
 
 
             <!-- _________________________________________________________ -->

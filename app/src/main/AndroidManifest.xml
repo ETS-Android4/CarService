@@ -16,9 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.CheckOutActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SpeedFixPopUpActivity"
             android:theme="@style/AppTheme.PopUp"

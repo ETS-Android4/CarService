@@ -102,4 +102,6 @@
     <string name="order_summery">Order Summery</string>
     <string name="confirm_order">Confirm Order</string>
     <string name="cancel">Cancel</string>
+    <string name="order_successful">Order Successful</string>
+    <string name="order_description">Thank you for purchasing. Your order will be shipped in 1-5 working days.</string>
 </resources>

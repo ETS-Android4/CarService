@@ -47,7 +47,7 @@ public class AccountInfoLabelsAdapter extends RecyclerView.Adapter<AccountInfoLa
     @Override
     public AccountInfoLabelsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View itemLayout = LayoutInflater.from(context).inflate(R.layout.account_info_item, parent, false);
+        View itemLayout = LayoutInflater.from(context).inflate(R.layout.item_account_info, parent, false);
         return new AccountInfoLabelsViewHolder(itemLayout);
     }
 

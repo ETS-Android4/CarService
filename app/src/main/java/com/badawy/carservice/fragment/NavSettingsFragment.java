@@ -114,7 +114,6 @@ public class NavSettingsFragment extends Fragment implements AccountInfoLabelsAd
     }
 
 
-
     // Allow the user to choose a picture from his gallery
     private void openFileChooser() {
         Intent intent = new Intent();
@@ -257,13 +256,14 @@ public class NavSettingsFragment extends Fragment implements AccountInfoLabelsAd
                             } else if (position == 5) {
                                 if (MyValidation.isPassword(taskEditText)) {
 
+
                                     Objects.requireNonNull(firebaseAuth.getCurrentUser()).updatePassword(newValue).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                                 Toast.makeText(getContext(), "Password Changed Successfully", Toast.LENGTH_SHORT).show();
                                             } else {
-                                                Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getContext(), "Failed ..Please log out then Sign in back again", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });

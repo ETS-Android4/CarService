@@ -1,12 +1,10 @@
 package com.badawy.carservice.fragment;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +21,7 @@ import com.badawy.carservice.activity.HomepageActivity;
 import com.badawy.carservice.models.OrderModel;
 import com.badawy.carservice.models.ShoppingCartModel;
 import com.badawy.carservice.utils.Constants;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,19 +30,17 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Objects;
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CheckOutFragment extends Fragment implements View.OnClickListener{
+public class CheckOutFragment extends Fragment implements View.OnClickListener {
     private static final String ORDER_OBJECT = "OrderObject";
 
     private Gson gson;
     private ImageView navMenuBtn;
     private Button confirmOrderBtn;
     private ListView productsListView;
-    private TextView usernameTv, emailTv, addressTv, phoneTv,cancelOrderTv, orderPriceTv,editUserInfoTv;
+    private TextView usernameTv, emailTv, addressTv, phoneTv, cancelOrderTv, orderPriceTv, editUserInfoTv;
     private OrderModel orderObject;
     private Activity activity;
 
@@ -57,7 +54,7 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_check_out, container, false);
+        View view = inflater.inflate(R.layout.fragment_check_out, container, false);
         navMenuBtn = view.findViewById(R.id.checkOut_navMenuBtn);
         activity = getActivity();
 
@@ -71,7 +68,7 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener{
         phoneTv = view.findViewById(R.id.checkOut_phoneNumber);
         cancelOrderTv = view.findViewById(R.id.checkOut_cancelOrderTv);
         orderPriceTv = view.findViewById(R.id.checkOut_orderPrice);
-        editUserInfoTv= view.findViewById(R.id.checkOut_editUserInfo);
+        editUserInfoTv = view.findViewById(R.id.checkOut_editUserInfo);
 
         assert getArguments() != null;
         orderObject = gson.fromJson(getArguments().getString(ORDER_OBJECT), OrderModel.class);
@@ -116,14 +113,21 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener{
                 break;
 
             case R.id.checkOut_editUserInfo:
-                Activity activity = getActivity();
                 if (activity instanceof HomepageActivity) {
                     ((HomepageActivity) activity).openSettings();
                 }
                 break;
 
             case R.id.checkOut_confirmOrderBtn:
-                makeOrder();
+                if (orderObject.getUserProfileObject().getAddress().equals("")
+                        || orderObject.getUserProfileObject().getAddress() == null
+                        || orderObject.getUserProfileObject().getAddress().equals(getResources().getString(R.string.default_address))) {
+                    addressTv.setText(R.string.default_address);
+                    addressTv.setTextColor(getResources().getColor(R.color.red));
+                    Toast.makeText(getContext(), "Please add an Address to your account", Toast.LENGTH_SHORT).show();
+                } else {
+                    makeOrder();
+                }
                 break;
 
         }
@@ -141,15 +145,38 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (ShoppingCartModel item: orderObject.getProductList()
-                     ) {
+                for (ShoppingCartModel item : orderObject.getProductList()
+                ) {
 
-                    if (dataSnapshot.hasChild(item.getSparePartModel().getProductID())){
+                    if (dataSnapshot.hasChild(item.getSparePartModel().getProductID())) {
 
-                        if (dataSnapshot.getChildrenCount() == 1){
-                            dbRef.child(Constants.USERS).child(orderObject.getUserProfileObject().getUserId()).child(Constants.SHOPPING_CART).setValue(0);
-                        }else {
-                            dbRef.child(Constants.USERS).child(orderObject.getUserProfileObject().getUserId()).child(Constants.SHOPPING_CART).child(item.getSparePartModel().getProductID()).removeValue();
+                        if (dataSnapshot.getChildrenCount() == 1) {
+                            dbRef.child(Constants.USERS)
+                                    .child(orderObject.getUserProfileObject().getUserId())
+                                    .child(Constants.SHOPPING_CART)
+                                    .setValue(0)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    if (activity instanceof HomepageActivity) {
+                                        ((HomepageActivity) activity).prepareDialog();
+                                    }
+                                }
+                            });
+                        } else {
+                            dbRef.child(Constants.USERS)
+                                    .child(orderObject.getUserProfileObject().getUserId())
+                                    .child(Constants.SHOPPING_CART)
+                                    .child(item.getSparePartModel().getProductID())
+                                    .removeValue()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    if (activity instanceof HomepageActivity) {
+                                        ((HomepageActivity) activity).prepareDialog();
+                                    }
+                                }
+                            });
                         }
                     }
                 }

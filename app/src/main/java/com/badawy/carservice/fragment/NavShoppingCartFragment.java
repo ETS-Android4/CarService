@@ -1,6 +1,5 @@
 package com.badawy.carservice.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.badawy.carservice.R;
-import com.badawy.carservice.activity.CheckOutActivity;
 import com.badawy.carservice.activity.HomepageActivity;
 import com.badawy.carservice.adapters.ShoppingCartAdapter;
 import com.badawy.carservice.models.OrderModel;
