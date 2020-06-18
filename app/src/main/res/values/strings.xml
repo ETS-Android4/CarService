@@ -104,4 +104,7 @@
     <string name="cancel">Cancel</string>
     <string name="order_successful">Order Successful</string>
     <string name="order_description">Thank you for purchasing. Your order will be shipped in 1-5 working days.</string>
+    <string name="upcoming_appointments">Upcoming Appointments</string>
+    <string name="your_orders">Your Orders</string>
+    <string name="you_don_t_have_any_appointments_or_orders">You Don`t Have any Appointments or Orders</string>
 </resources>

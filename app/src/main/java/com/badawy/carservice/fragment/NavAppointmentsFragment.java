@@ -1,9 +1,11 @@
 package com.badawy.carservice.fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,8 +21,6 @@ import com.badawy.carservice.activity.HomepageActivity;
 import com.badawy.carservice.adapters.NavAppointmentsAdapter;
 import com.badawy.carservice.adapters.NavOrdersAdapter;
 import com.badawy.carservice.models.BookingModel;
-import com.badawy.carservice.models.NavAppointmentsModel;
-import com.badawy.carservice.models.NavOrdersModel;
 import com.badawy.carservice.models.OrderModel;
 import com.badawy.carservice.utils.Constants;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,13 +38,16 @@ import java.util.Objects;
  */
 public class NavAppointmentsFragment extends Fragment {
 
-
     private ArrayList<BookingModel> appointmentList;
-    private ArrayList<OrderModel> orderList;
+    private ArrayList<OrderModel> ordersList;
     private FirebaseAuth auth;
     private DatabaseReference appointmentsRef, ordersRef;
     private String userId;
-    private RecyclerView appointmentRV,ordersRV;
+    private ImageView navMenuBtn;
+    private ConstraintLayout appointmentsLayout, ordersLayout,emptyLayout;
+    private RecyclerView appointmentRV, ordersRV;
+    private Activity activity;
+    private int appointmentsCount, ordersCount;
 
     public NavAppointmentsFragment() {
         // Required empty public constructor
@@ -55,71 +58,49 @@ public class NavAppointmentsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_nav_appointments, container, false);
-        ImageView navMenuBtn = view.findViewById(R.id.nav_appointments_navMenuBtn);
+        View view = inflater.inflate(R.layout.fragment_nav_appointments_orders, container, false);
+
+        activity = getActivity();
+        initializeUi(view);
+
+
+        // Get User UID from Auth Service
         auth = FirebaseAuth.getInstance();
-         userId = Objects.requireNonNull(auth.getCurrentUser()).getUid();
-         appointmentRV = view.findViewById(R.id.nav_appointments_appointmentsRV);
-         ordersRV = view.findViewById(R.id.nav_appointments_ordersRV);
-        appointmentRV.setVisibility(View.GONE);
-        ordersRV.setVisibility(View.GONE);
+        userId = Objects.requireNonNull(auth.getCurrentUser()).getUid();
+
+        // Hide the RecyclerViews to prevent them from loading before the data is fetched from firebase
+        appointmentsLayout.setVisibility(View.INVISIBLE);
+        ordersLayout.setVisibility(View.INVISIBLE);
 
 
-
+        // Initialize Database References
         appointmentsRef = FirebaseDatabase.getInstance().getReference();
         ordersRef = FirebaseDatabase.getInstance().getReference();
 
 
-        appointmentsRef.child(Constants.USERS)
-                .child(userId)
-                .child(Constants.APPOINTMENTS_ORDERS).child(Constants.APPOINTMENTS)
-                .addValueEventListener(new ValueEventListener() {
+        // Fetch Appointments
+        fetchAppointmentsFromFirebase(new AppointmentsCallBack() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChildren()) {
-                    appointmentList = new ArrayList<>();
+            public void bindAppointmentsData(ArrayList<BookingModel> fetchedAppointmentsList) {
 
-                    for (final DataSnapshot ds : dataSnapshot.getChildren()
-                    ) {
-
-                        appointmentsRef.child(Constants.BOOKING).child(Constants.APPOINTMENTS).child(Objects.requireNonNull(ds.getKey()))
-                                .addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        appointmentList.add(dataSnapshot.getValue(BookingModel.class));
-
-                                        bindDataApp();
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                        Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-
-                    }
-
-                }
-                else
-                {
-                    appointmentList = null;
-                }
-
-                // modify here as if list is empty do twhhhahttttt ? ? ? ?D?D?D?
-                bindDataApp();
-
-
-                checkOrders();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // This Method is called when the data is fetched from firebase
+                bindAppointmentsDataToAdapter(fetchedAppointmentsList);
 
             }
         });
 
+        // Fetch Orders
+        fetchOrdersDataFromFirebase(new OrdersCallBack() {
+            @Override
+            public void bindOrdersData(ArrayList<OrderModel> fetchedOrdersList) {
 
+                // This Method is called when the data is fetched from firebase
+                bindOrderDataToAdapter(fetchedOrdersList);
+            }
+        });
+
+
+        // Click on menu icon
         navMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,66 +112,210 @@ public class NavAppointmentsFragment extends Fragment {
         return view;
     }
 
-    private void bindDataApp() {
-        NavAppointmentsAdapter appointmentsAdapter = new NavAppointmentsAdapter(getActivity(),appointmentList);
-        appointmentRV.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
-        appointmentRV.setAdapter(appointmentsAdapter);
-        appointmentRV.setVisibility(View.VISIBLE);
+    private void initializeUi(View view) {
+        appointmentRV = view.findViewById(R.id.nav_appointments_appointmentsRV);
+        ordersRV = view.findViewById(R.id.nav_appointments_ordersRV);
+        appointmentsLayout = view.findViewById(R.id.nav_appointmentsOrders_appointmentsConstraintLayout);
+        emptyLayout = view.findViewById(R.id.nav_appointments_emptyLayout);
+        ordersLayout = view.findViewById(R.id.nav_appointmentsOrders_ordersConstraintLayout);
+        navMenuBtn = view.findViewById(R.id.nav_appointments_navMenuBtn);
+
+    }
+
+
+    // [[ APPOINTMENTS ]]
+    private interface AppointmentsCallBack {
+        void bindAppointmentsData(ArrayList<BookingModel> fetchedAppointmentsList);
+    }
+
+    private void fetchAppointmentsFromFirebase(final AppointmentsCallBack appointmentsCallBack) {
+        // Start the progress Bar
+        ((HomepageActivity) activity).showProgressBar(true);
+
+        // root of user`s appointments
+        appointmentsRef
+                .child(Constants.USERS)
+                .child(userId)
+                .child(Constants.APPOINTMENTS_ORDERS).child(Constants.APPOINTMENTS)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        // check if user have any appointments Id`s
+                        if (dataSnapshot.hasChildren()) {
+                            // get number of appointments .. so after the last appointment data is added to our list .. we can call the Appointments CallBack
+                            appointmentsCount = (int) dataSnapshot.getChildrenCount();
+
+                            // if true ... create a new appointment list
+                            appointmentList = new ArrayList<>();
+
+                            // for each appointment  id ... go fetch the appointment data from Booking root
+                            for (final DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                                // root of booking appointments
+                                appointmentsRef
+                                        .child(Constants.BOOKING)
+                                        .child(Constants.APPOINTMENTS)
+                                        .child(Objects.requireNonNull(ds.getKey()))
+                                        .addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                                // retrieve appointment data and add it to the list
+                                                appointmentList.add(dataSnapshot.getValue(BookingModel.class));
+                                                appointmentsCount--;
+                                                // repeat until every appointment is added to the list
+
+                                                // when last one is added .. call the CAll back and pass the list to it
+                                                if (appointmentsCount == 0) {
+                                                    appointmentsCallBack.bindAppointmentsData(appointmentList);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
+                            }
+
+                        }// Else if user don`t have any appointments .. pass null to the call back
+                        else {
+                            appointmentsCallBack.bindAppointmentsData(null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
 
     }
 
-    private void checkOrders() {
+    private void bindAppointmentsDataToAdapter(ArrayList<BookingModel> fetchedAppointmentList) {
+        // if the fetched list is not null .. it means that the user HAVE appointments
+        if (fetchedAppointmentList != null) {
+            // Stop the progress bar and Show and prepare the appointments recycler View
+            ((HomepageActivity) activity).showProgressBar(false);
+            appointmentsLayout.setVisibility(View.VISIBLE);
+            checkForEmptyAppointmentsAndOrders();
+            NavAppointmentsAdapter appointmentsAdapter = new NavAppointmentsAdapter(getActivity(), fetchedAppointmentList);
+            appointmentRV.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+            appointmentRV.setAdapter(appointmentsAdapter);
+        }
+        // else if fetched list is null .. user have no appointments
+        else {
+            // stop the progress bar and hide appointment layout
+            ((HomepageActivity) activity).showProgressBar(false);
+            appointmentsLayout.setVisibility(View.GONE);
+            checkForEmptyAppointmentsAndOrders();
+        }
 
-        ordersRef.child(Constants.USERS)
+
+    }
+
+
+    // [[ ORDERS ]]
+    private interface OrdersCallBack {
+        void bindOrdersData(ArrayList<OrderModel> orderList);
+    }
+
+    private void fetchOrdersDataFromFirebase(final OrdersCallBack ordersCallBack) {
+        // Start the progress Bar
+        ((HomepageActivity) activity).showProgressBar(true);
+
+
+        // root of user`s orders
+        ordersRef
+                .child(Constants.USERS)
                 .child(userId)
                 .child(Constants.APPOINTMENTS_ORDERS).child(Constants.ORDERS)
                 .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChildren()){
-                    orderList = new ArrayList<>();
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    for (DataSnapshot ds :  dataSnapshot.getChildren()
+                        // check if user have any Orders Id`s
+                        if (dataSnapshot.hasChildren()) {
+                            // get number of Orders .. so after the last order data is added to our list .. we can call the Orders CallBack
+                            ordersCount = (int) dataSnapshot.getChildrenCount();
+
+                            // if true ... create a new orders list
+                            ordersList = new ArrayList<>();
+
+                            // for each order  id ... go fetch the order data from Booking root
+                            for (DataSnapshot ds : dataSnapshot.getChildren()
                             ) {
+                                // root of booking Orders
+                                ordersRef
+                                        .child(Constants.BOOKING)
+                                        .child(Constants.ORDERS)
+                                        .child(Objects.requireNonNull(ds.getKey()))
+                                        .orderByChild("timestamp")
+                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        ordersRef.child(Constants.BOOKING).child(Constants.ORDERS).child(Objects.requireNonNull(ds.getKey())).orderByChild("timestamp")
-                                .addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        orderList.add(dataSnapshot.getValue(OrderModel.class));
-                                        bindOrderData();
-                                    }
+                                                // retrieve order data and add it to the list
+                                                ordersList.add(dataSnapshot.getValue(OrderModel.class));
+                                                ordersCount--;  // decrease the counter by 1  = indicates how many other orders are left to be added
+                                                // repeat until every order is added to the list
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                // when last order is added (counter = 0).. call the CAll back and pass the list to it
+                                                if (ordersCount == 0) {
+                                                    ordersCallBack.bindOrdersData(ordersList);
+                                                }
+                                            }
 
-                                    }
-                                });
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
+                            }
+                        } // Else if user don`t have any orders .. pass null to the call back
+                        else {
+                            ordersCallBack.bindOrdersData(null);
+                        }
+
                     }
-                } //
-                else
-                {
-                    orderList = null;
-                }
-                bindOrderData();
 
-            }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+                    }
+                });
 
     }
 
-    private void bindOrderData() {
-        NavOrdersAdapter ordersAdapter = new NavOrdersAdapter(getActivity(),orderList);
-        ordersRV.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
-        ordersRV.setAdapter(ordersAdapter);
-        ordersRV.setVisibility(View.VISIBLE);
+    private void bindOrderDataToAdapter(ArrayList<OrderModel> fetchedOrdersList) {
+        if (fetchedOrdersList != null) {
+            ((HomepageActivity) activity).showProgressBar(false);
+            ordersLayout.setVisibility(View.VISIBLE);
+            checkForEmptyAppointmentsAndOrders();
+            NavOrdersAdapter ordersAdapter = new NavOrdersAdapter(getActivity(), fetchedOrdersList);
+            ordersRV.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+            ordersRV.setAdapter(ordersAdapter);
+        } else {
+            // stop the progress bar and hide appointment layout
+            ((HomepageActivity) activity).showProgressBar(false);
+            ordersLayout.setVisibility(View.GONE);
+            checkForEmptyAppointmentsAndOrders();
 
+        }
+
+    }
+
+    private void checkForEmptyAppointmentsAndOrders(){
+
+        if (ordersLayout.getVisibility()==View.GONE && appointmentsLayout.getVisibility()==View.GONE){
+            emptyLayout.setVisibility(View.VISIBLE);
+        }
+        else{
+            emptyLayout.setVisibility(View.GONE);
+        }
     }
 
 

@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,9 +64,9 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     private DatabaseReference dbRef;
     private TextView navUserName, navUserEmail;
     private CircleImageView navProfileImg;
-    private  AlertDialog.Builder dialogBuilder;
+    private AlertDialog.Builder dialogBuilder;
     private AlertDialog alertDialog;
-
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,13 +108,12 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
 
-          //  Toast.makeText(this, personName + personFamilyName + personEmail + personId, Toast.LENGTH_LONG).show();
+            //  Toast.makeText(this, personName + personFamilyName + personEmail + personId, Toast.LENGTH_LONG).show();
 
         }
 
 
     }
-
 
 
     // [[ FIREBASE DATA RETRIEVAL ]]
@@ -187,14 +187,14 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
         // initialize Firebase reference
         dbRef = FirebaseDatabase.getInstance().getReference().child(Constants.APP_DATA);
 
-       //  Retrieve data from firebase
+        //  Retrieve data from firebase
         dbRef.child(Constants.ABOUT_US).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 AboutUsDataModel obj = dataSnapshot.getValue(AboutUsDataModel.class);
 
                 if (obj != null) {
-                    saveAboutUsDataIntoSharedPreference( obj);
+                    saveAboutUsDataIntoSharedPreference(obj);
                 }
 
             }
@@ -222,10 +222,9 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
         if (!userSerializedData.equals("")) {
             UserProfileModel userData = gson.fromJson(userSerializedData, UserProfileModel.class);
             // Profile image
-            if (userData.getProfileImageUri().equals("")){
+            if (userData.getProfileImageUri().equals("")) {
                 navProfileImg.setImageResource(R.drawable.ic_default_profile);
-            }
-            else{
+            } else {
                 Glide.with(this).load(userData.getProfileImageUri()).into(navProfileImg);
             }
 
@@ -251,7 +250,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     private void saveAboutUsDataIntoSharedPreference(AboutUsDataModel obj) {
         Gson gson = new Gson();
         String serializedAboutUsData = gson.toJson(obj);
-        MySharedPreferences.write(MySharedPreferences.ABOUT_US,serializedAboutUsData);
+        MySharedPreferences.write(MySharedPreferences.ABOUT_US, serializedAboutUsData);
     }
 
 
@@ -264,6 +263,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
         navUserName = navHeaderView.findViewById(R.id.nav_userName);
         navUserEmail = navHeaderView.findViewById(R.id.nav_email);
         navProfileImg = navHeaderView.findViewById(R.id.nav_profileImage);
+        progressBar = findViewById(R.id.homepage_ProgressBar);
     }
 
     // [[ HANDLE NAVIGATION ]]
@@ -432,6 +432,15 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
+    }
+
+    public void showProgressBar(boolean visible) {
+        if (visible) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        else{
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
 

@@ -234,6 +234,7 @@
             android:id="@+id/checkOut_productsListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:overScrollMode="never"
             android:scrollbars="vertical" />
 

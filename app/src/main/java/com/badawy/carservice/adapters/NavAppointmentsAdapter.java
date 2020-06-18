@@ -12,15 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.badawy.carservice.R;
 import com.badawy.carservice.models.BookingModel;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class NavAppointmentsAdapter extends RecyclerView.Adapter<NavAppointmentsAdapter.AppointmentsViewHolder> {
 
 
     //Global Variables
-
     private ArrayList<BookingModel> appointmentsList;
     private Context context;
     private OnItemClickListener onItemClickListener;
@@ -36,11 +33,7 @@ public class NavAppointmentsAdapter extends RecyclerView.Adapter<NavAppointments
 
     //Constructor
     public NavAppointmentsAdapter(Context context, ArrayList<BookingModel> appointmentsList) {
-        if (appointmentsList != null) {
-            this.appointmentsList = appointmentsList;
-        } else {
-            this.appointmentsList = new ArrayList<>();
-        }
+        this.appointmentsList = appointmentsList;
         this.context = context;
 
     }
@@ -60,14 +53,19 @@ public class NavAppointmentsAdapter extends RecyclerView.Adapter<NavAppointments
     @Override
     public void onBindViewHolder(@NonNull AppointmentsViewHolder holder, final int position) {
         String serviceLabelTxt = appointmentsList.get(position).getServiceName().trim();
-        holder.serviceLabel.setText(serviceLabelTxt);
-        holder.serviceType.setText(appointmentsList.get(position).getServiceDescription());
-        holder.servicePrice.setText(appointmentsList.get(position).getPrice() + " EGP ");
-        holder.serviceDate.setText(appointmentsList.get(position).getDate());
+        String serviceTypeTxt = appointmentsList.get(position).getServiceDescription();
+        String servicePriceTxt = appointmentsList.get(position).getPrice() + " EGP ";
+        String serviceDateTxt = appointmentsList.get(position).getDate();
         String timeTxt = appointmentsList.get(position).getTimeObject().getTime() + " " + appointmentsList.get(position).getTimeObject().getTimeOfDay();
-        holder.serviceTime.setText(timeTxt);
-        holder.serviceAddress.setText(appointmentsList.get(position).getAddress().trim());
+        String addressTxt = appointmentsList.get(position).getAddress().trim();
 
+
+        holder.serviceLabel.setText(serviceLabelTxt);
+        holder.serviceType.setText(serviceTypeTxt);
+        holder.servicePrice.setText(servicePriceTxt);
+        holder.serviceDate.setText(serviceDateTxt);
+        holder.serviceTime.setText(timeTxt);
+        holder.serviceAddress.setText(addressTxt);
 
     }
 
