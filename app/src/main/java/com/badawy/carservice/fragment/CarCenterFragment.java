@@ -580,17 +580,18 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
             UserProfileModel userDataObject = gson.fromJson(userSerializedData, UserProfileModel.class);
 
 
-            bookingObject.setServiceName(serviceName);
+            bookingObject.setServiceName(serviceNameTv.getText().toString().trim());
             bookingObject.setPrice(serviceTypePrice.getText().toString().trim());
             bookingObject.setServiceDescription(serviceTypeDescription.getText().toString().trim());
             bookingObject.setDate(selectedDay);
-            bookingObject.setTimeID(String.valueOf(timeAdapter.getTimeId()));
+            bookingObject.setTimeObject(timeAdapter.getTimeObject());
             bookingObject.setUserId(userDataObject.getUserId());
             bookingObject.setCarId(selectCarRecyclerAdapter.getSelectedCarObject().getCarID());
+            bookingObject.setAddress(getResources().getString(R.string.university_address));
 
             dbRef = FirebaseDatabase.getInstance().getReference().child(Constants.AVAILABLE_APPOINTMENTS)
                     .child(Constants.CAR_CENTER).child(tag).child(bookingObject.getDate())
-                    .child(bookingObject.getTimeID());
+                    .child(String.valueOf(bookingObject.getTimeObject().getId()));
 
             final DatabaseReference bookingRef = FirebaseDatabase.getInstance().getReference().child(Constants.BOOKING);
             final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child(Constants.USERS);

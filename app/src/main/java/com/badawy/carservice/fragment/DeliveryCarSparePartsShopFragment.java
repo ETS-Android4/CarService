@@ -151,7 +151,7 @@ public class DeliveryCarSparePartsShopFragment extends Fragment implements Spare
 
     @Override
     public void onCategoryClick(final int position) {
-
+       partsCategoryNameRv.scrollToPosition(position);
         fetchProductsOfThisCategory(position);
 
     }

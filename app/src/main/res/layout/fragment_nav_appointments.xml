@@ -122,10 +122,11 @@
         app:layout_constraintHeight_percent="0.4"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/nav_appointments_ordersLabel"
-        app:layout_constraintRight_toRightOf="@id/nav_appointments_appointmentsRV"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nav_appointments_ordersLabel"
         tools:itemCount="1"
+        android:paddingHorizontal="@dimen/_10sdp"
         app:layout_constraintVertical_bias="0.2"
         tools:listitem="@layout/item_nav_orders" />
 

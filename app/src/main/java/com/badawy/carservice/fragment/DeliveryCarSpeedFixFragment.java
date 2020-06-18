@@ -165,14 +165,15 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
                         bookingObject.setPrice(serviceTypePrice.getText().toString().trim());
                         bookingObject.setServiceDescription(serviceTypeDescription.getText().toString().trim());
                         bookingObject.setDate(selectedDay);
-                        bookingObject.setTimeID(String.valueOf(timeAdapter.getTimeId()));
+                        bookingObject.setTimeObject(timeAdapter.getTimeObject());
                         bookingObject.setUserId(userDataObject.getUserId());
                         bookingObject.setNote(additionalNote.getText().toString().trim());
                         bookingObject.setCarId(selectedCarObject.getCarID());
+                        bookingObject.setAddress(userDataObject.getAddress());
 
                         dbRef = FirebaseDatabase.getInstance().getReference().child(Constants.AVAILABLE_APPOINTMENTS)
                                 .child(Constants.DELIVERY).child(Constants.SPEED_FIX).child(bookingObject.getDate())
-                                .child(bookingObject.getTimeID());
+                                .child(String.valueOf(bookingObject.getTimeObject().getId()));
 
                         final DatabaseReference bookingRef = FirebaseDatabase.getInstance().getReference().child(Constants.BOOKING);
                         final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child(Constants.USERS);

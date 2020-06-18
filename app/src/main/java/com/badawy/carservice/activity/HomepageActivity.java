@@ -1,6 +1,10 @@
 package com.badawy.carservice.activity;
 
+import android.app.AlertDialog;
+
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -59,6 +63,8 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     private DatabaseReference dbRef;
     private TextView navUserName, navUserEmail;
     private CircleImageView navProfileImg;
+    private  AlertDialog.Builder dialogBuilder;
+    private AlertDialog alertDialog;
 
 
     @Override
@@ -389,7 +395,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
         }
     }
 
-    private void openHomepage() {
+    public void openHomepage() {
         onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_home).setChecked(true));
     }
 
@@ -401,6 +407,31 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     // Used in Check Out to Open the Settings Tab
     public void openSettings() {
         onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_settings).setChecked(true));
+    }
+
+    public void prepareDialog() {
+        // Dismiss any old dialog.
+        if (alertDialog != null) {
+            alertDialog.dismiss();
+        }
+
+        clearBackStack();
+        openHomepage();
+        dialogBuilder = new AlertDialog.Builder(this);
+        View layoutView = getLayoutInflater().inflate(R.layout.dialog_order_successful, null);
+        TextView okTv = layoutView.findViewById(R.id.dialogOrderSuccessful_okTv);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+        okTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
     }
 
 

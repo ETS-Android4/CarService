@@ -1,14 +1,27 @@
 package com.badawy.carservice.models;
 
+import com.google.firebase.database.ServerValue;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class OrderModel {
+public class OrderModel implements Serializable {
     private UserProfileModel userProfileObject;
     private ArrayList<ShoppingCartModel> productList;
     private String totalPrice;
     private String orderID;
+    private Object timestamp ;
+
+
+    public Object getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Object timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public OrderModel() {
+        this.timestamp = ServerValue.TIMESTAMP;
     }
 
     public UserProfileModel getUserProfileObject() {

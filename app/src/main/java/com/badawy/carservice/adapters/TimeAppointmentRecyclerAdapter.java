@@ -94,8 +94,8 @@ public class TimeAppointmentRecyclerAdapter extends RecyclerView.Adapter<TimeApp
 
     }
 
-    public int getTimeId() {
-        return timeList.get(selectedItem).getId();
+    public TimeAppointmentModel getTimeObject() {
+        return timeList.get(selectedItem);
     }
 
     // return number of rows in the list

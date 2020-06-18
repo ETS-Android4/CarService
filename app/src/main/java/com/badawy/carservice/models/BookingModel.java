@@ -6,10 +6,11 @@ public class BookingModel {
     private String serviceName;
     private String serviceDescription;
     private String date;
-    private String timeID;
+    private TimeAppointmentModel timeObject;
     private String note;
     private String price;
     private String carId;
+    private String address;
 
     public BookingModel() {
     }
@@ -54,12 +55,12 @@ public class BookingModel {
         this.date = date;
     }
 
-    public String getTimeID() {
-        return timeID;
+    public TimeAppointmentModel getTimeObject() {
+        return timeObject;
     }
 
-    public void setTimeID(String timeID) {
-        this.timeID = timeID;
+    public void setTimeObject(TimeAppointmentModel timeObject) {
+        this.timeObject = timeObject;
     }
 
     public String getNote() {
@@ -84,5 +85,13 @@ public class BookingModel {
 
     public void setCarId(String carId) {
         this.carId = carId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

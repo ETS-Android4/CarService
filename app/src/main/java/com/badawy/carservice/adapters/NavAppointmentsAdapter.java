@@ -10,16 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.badawy.carservice.R;
-import com.badawy.carservice.models.NavAppointmentsModel;
+import com.badawy.carservice.models.BookingModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
-public class NavAppointmentsAdapter extends RecyclerView.Adapter<NavAppointmentsAdapter.AppointmentsViewHolder>{
+public class NavAppointmentsAdapter extends RecyclerView.Adapter<NavAppointmentsAdapter.AppointmentsViewHolder> {
 
 
     //Global Variables
 
-    private ArrayList<NavAppointmentsModel> appointmentsList;
+    private ArrayList<BookingModel> appointmentsList;
     private Context context;
     private OnItemClickListener onItemClickListener;
 
@@ -33,9 +35,14 @@ public class NavAppointmentsAdapter extends RecyclerView.Adapter<NavAppointments
     }
 
     //Constructor
-    public NavAppointmentsAdapter(Context context, ArrayList<NavAppointmentsModel> appointmentsList) {
-        this.appointmentsList = appointmentsList;
+    public NavAppointmentsAdapter(Context context, ArrayList<BookingModel> appointmentsList) {
+        if (appointmentsList != null) {
+            this.appointmentsList = appointmentsList;
+        } else {
+            this.appointmentsList = new ArrayList<>();
+        }
         this.context = context;
+
     }
 
 
@@ -52,13 +59,15 @@ public class NavAppointmentsAdapter extends RecyclerView.Adapter<NavAppointments
     // put the data inside the views of an item
     @Override
     public void onBindViewHolder(@NonNull AppointmentsViewHolder holder, final int position) {
-
-        holder.serviceLabel.setText(appointmentsList.get(position).getServiceLabel());
-        holder.serviceType.setText(appointmentsList.get(position).getServiceType());
-        holder.servicePrice.setText(appointmentsList.get(position).getPrice());
+        String serviceLabelTxt = appointmentsList.get(position).getServiceName().trim();
+        holder.serviceLabel.setText(serviceLabelTxt);
+        holder.serviceType.setText(appointmentsList.get(position).getServiceDescription());
+        holder.servicePrice.setText(appointmentsList.get(position).getPrice() + " EGP ");
         holder.serviceDate.setText(appointmentsList.get(position).getDate());
-        holder.serviceTime.setText(appointmentsList.get(position).getTime());
-        holder.serviceAddress.setText(appointmentsList.get(position).getAddress());
+        String timeTxt = appointmentsList.get(position).getTimeObject().getTime() + " " + appointmentsList.get(position).getTimeObject().getTimeOfDay();
+        holder.serviceTime.setText(timeTxt);
+        holder.serviceAddress.setText(appointmentsList.get(position).getAddress().trim());
+
 
     }
 
@@ -73,7 +82,7 @@ public class NavAppointmentsAdapter extends RecyclerView.Adapter<NavAppointments
     // define the views of an item
     class AppointmentsViewHolder extends RecyclerView.ViewHolder {
 
-        TextView serviceLabel,serviceType,servicePrice,serviceDate,serviceTime,serviceAddress;
+        TextView serviceLabel, serviceType, servicePrice, serviceDate, serviceTime, serviceAddress;
 
         // Constructor to initialize the views from the Layout
         AppointmentsViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
@@ -87,7 +96,6 @@ public class NavAppointmentsAdapter extends RecyclerView.Adapter<NavAppointments
             serviceDate = itemView.findViewById(R.id.item_navAppointments_date);
             serviceTime = itemView.findViewById(R.id.item_navAppointments_time);
             serviceAddress = itemView.findViewById(R.id.item_navAppointments_address);
-
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
