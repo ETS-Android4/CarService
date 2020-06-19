@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,6 +47,8 @@ public class DeliveryCarSparePartsShopFragment extends Fragment implements Spare
     private DatabaseReference dbRef;
     private ArrayList<SparePartsCategoryModel> sparePartsCategoryList;
     private ArrayList<SparePartModel> productsList;
+    private Activity activity;
+    private ConstraintLayout emptyLayout,mainLayout;
 
     public DeliveryCarSparePartsShopFragment() {
         // Required empty public constructor
@@ -57,11 +60,11 @@ public class DeliveryCarSparePartsShopFragment extends Fragment implements Spare
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_spare_parts_shop, container, false);
+        activity = getActivity();
+
         initializeUi(view);
-
-        // Initialize Lists
-
-
+        showProgress();
+        mainLayout.setVisibility(View.GONE);
         // Get Selected Car Data
         getSelectedCar();
 
@@ -123,7 +126,9 @@ public class DeliveryCarSparePartsShopFragment extends Fragment implements Spare
                     bindCategoryDataToAdapter();
                 }
                 else{
-                    Toast.makeText(getContext(), "There is no spare parts available for this car", Toast.LENGTH_SHORT).show();
+                    hideProgress();
+                    mainLayout.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -137,6 +142,8 @@ public class DeliveryCarSparePartsShopFragment extends Fragment implements Spare
         SparePartsCategoryAdapter sparePartsCategoryAdapter = new SparePartsCategoryAdapter(getActivity(), sparePartsCategoryList, this);
         partsCategoryNameRv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         partsCategoryNameRv.setAdapter(sparePartsCategoryAdapter);
+        hideProgress();
+        partsCategoryNameRv.setVisibility(View.VISIBLE);
 
     }
 
@@ -146,6 +153,8 @@ public class DeliveryCarSparePartsShopFragment extends Fragment implements Spare
         shoppingCart = view.findViewById(R.id.sparePartsShop_shoppingCart);
         partsCategoryNameRv = view.findViewById(R.id.sparePartsShop_categoryNameRV);
         productsRv = view.findViewById(R.id.sparePartsShop_productsRV);
+        emptyLayout  =view.findViewById(R.id.sparePartsShop_emptyLayout);
+        mainLayout = view.findViewById(R.id.sparePartsShop_mainLayout);
     }
 
 
@@ -157,6 +166,7 @@ public class DeliveryCarSparePartsShopFragment extends Fragment implements Spare
     }
 
     private void fetchProductsOfThisCategory(int position) {
+        showProgress();
         final List<String> idList =  sparePartsCategoryList.get(position).getPartIdList();
         dbRef = FirebaseDatabase.getInstance().getReference().child(Constants.APP_DATA).child(Constants.SPARE_PARTS);
 
@@ -187,6 +197,22 @@ public class DeliveryCarSparePartsShopFragment extends Fragment implements Spare
         ProductItemAdapter productItemAdapter = new ProductItemAdapter(getActivity(),productsList);
         productsRv.setLayoutManager(new GridLayoutManager(getActivity(),2));
         productsRv.setAdapter(productItemAdapter);
+        hideProgress();
+        productsRv.setVisibility(View.VISIBLE);
+        mainLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void showProgress() {
+        if (activity instanceof HomepageActivity) {
+            ((HomepageActivity) activity).showProgressBar(true);
+        }
+    }
+
+    private void hideProgress() {
+        if (activity instanceof HomepageActivity) {
+            ((HomepageActivity) activity).showProgressBar(false);
+        }
+
     }
 
 

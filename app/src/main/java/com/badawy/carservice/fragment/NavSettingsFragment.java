@@ -31,10 +31,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -64,6 +61,7 @@ public class NavSettingsFragment extends Fragment implements AccountInfoLabelsAd
     private List<String> userData;
     private AccountInfoLabelsAdapter accountInfoLabelsAdapter;
     private FirebaseAuth firebaseAuth;
+    private ImageView navMenuBtn;
 
     public NavSettingsFragment() {
         // Required empty public constructor
@@ -79,11 +77,9 @@ public class NavSettingsFragment extends Fragment implements AccountInfoLabelsAd
 
         // Initialize FireBase Auth
         firebaseAuth = FirebaseAuth.getInstance();
-        ImageView navMenuBtn = view.findViewById(R.id.settings_navMenuBtn);
-        accountInfoRV = view.findViewById(R.id.settings_accountInfoRV);
-        profileImageView = view.findViewById(R.id.settings_profile_image);
-        profileEditImageView = view.findViewById(R.id.settings_profile_edit);
-        changePasswordEditIcon = view.findViewById(R.id.settings_changePasswordEdit);
+
+        initializeUi(view);
+        accountInfoRV.setVisibility(View.GONE);
 
         // get user data from shared preferences then bind it to the views
         bindUserData();
@@ -113,6 +109,15 @@ public class NavSettingsFragment extends Fragment implements AccountInfoLabelsAd
         return view;
     }
 
+    private void initializeUi(View view) {
+         navMenuBtn = view.findViewById(R.id.settings_navMenuBtn);
+        accountInfoRV = view.findViewById(R.id.settings_accountInfoRV);
+        profileImageView = view.findViewById(R.id.settings_profile_image);
+        profileEditImageView = view.findViewById(R.id.settings_profile_edit);
+        changePasswordEditIcon = view.findViewById(R.id.settings_changePasswordEdit);
+
+    }
+
 
     // Allow the user to choose a picture from his gallery
     private void openFileChooser() {
@@ -127,10 +132,22 @@ public class NavSettingsFragment extends Fragment implements AccountInfoLabelsAd
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
-
+            showProgress();
             // when the user choose an image ... upload to firebase
             Uri imageUri = data.getData();
             uploadImageToFirebase(imageUri);
+        }
+    }
+
+    private void showProgress(){
+        if (getActivity() instanceof HomepageActivity){
+            ((HomepageActivity) getActivity()).showProgressBar(true);
+        }
+    }
+
+    private void hideProgress(){
+        if (getActivity() instanceof HomepageActivity){
+            ((HomepageActivity) getActivity()).showProgressBar(false);
         }
     }
 
@@ -198,6 +215,8 @@ public class NavSettingsFragment extends Fragment implements AccountInfoLabelsAd
             accountInfoLabelsAdapter = new AccountInfoLabelsAdapter(getActivity(), accountInfoLabels, userData, this);
             accountInfoRV.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
             accountInfoRV.setAdapter(accountInfoLabelsAdapter);
+            hideProgress();
+            accountInfoRV.setVisibility(View.VISIBLE);
         }
 
 

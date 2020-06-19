@@ -324,10 +324,11 @@
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
-        android:layout_width="344dp"
-        android:layout_height="149dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/aboutUs_callUsBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/_10sdp"
         app:layout_constraintHorizontal_bias="0.445"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aboutUs_locationLabel"

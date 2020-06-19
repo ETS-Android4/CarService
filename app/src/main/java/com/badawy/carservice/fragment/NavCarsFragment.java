@@ -74,6 +74,8 @@ public class NavCarsFragment extends Fragment implements NavCarsAdapter.OnDelete
 
         activity = getActivity();
         initializeUi(view);
+
+        carsRecyclerView.setVisibility(View.GONE);
         showProgress();
         getUserData();
         getUserCarsFromSharedPreferences();
@@ -132,6 +134,7 @@ public class NavCarsFragment extends Fragment implements NavCarsAdapter.OnDelete
         carsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         carsRecyclerView.setAdapter(navCarsAdapter);
         hideProgress();
+        carsRecyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override

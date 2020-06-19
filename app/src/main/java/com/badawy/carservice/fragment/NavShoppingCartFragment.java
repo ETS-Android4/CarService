@@ -40,7 +40,6 @@ public class NavShoppingCartFragment extends Fragment implements ShoppingCartAda
     private static final String ORDER_OBJECT = "OrderObject";
     private RecyclerView shoppingCartRV;
     private float finalPrice = 0;
-    //    private int defaultPartQuantity = 1;
     private DatabaseReference dbRef;
     private UserProfileModel userDataObject;
     private Gson gson;
@@ -65,7 +64,9 @@ public class NavShoppingCartFragment extends Fragment implements ShoppingCartAda
 
         initializeUi(view);
 
-
+        // Show Progress Bar
+        showProgress();
+        shoppingCartRV.setVisibility(View.GONE);
         shoppingCartAdapter = new ShoppingCartAdapter(getActivity(), this);
 
         gson = new Gson();
@@ -104,12 +105,6 @@ public class NavShoppingCartFragment extends Fragment implements ShoppingCartAda
                 checkOutFragment.setArguments(bundle);
                 replaceFragment(checkOutFragment);
 
-//                    dbRef = FirebaseDatabase.getInstance().getReference().child(Constants.AVAILABLE_APPOINTMENTS)
-//                            .child(Constants.DELIVERY).child(Constants.SPEED_FIX).child(bookingObject.getDate())
-//                            .child(bookingObject.getTimeID());
-
-//                    final DatabaseReference bookingRef = FirebaseDatabase.getInstance().getReference().child(Constants.BOOKING);
-//                    final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child(Constants.USERS);
             }
         });
         return view;
@@ -138,11 +133,12 @@ public class NavShoppingCartFragment extends Fragment implements ShoppingCartAda
                 }
 
                 if (shoppingCartList.size() != 0) {
-                    emptyCartLayout.setVisibility(View.GONE);
-                    fullCartLayout.setVisibility(View.VISIBLE);
+
                     bindShoppingCartListData();
                     calculatePrice();
+
                 } else {
+                    hideProgress();
                     fullCartLayout.setVisibility(View.GONE);
                     emptyCartLayout.setVisibility(View.VISIBLE);
                 }
@@ -161,6 +157,11 @@ public class NavShoppingCartFragment extends Fragment implements ShoppingCartAda
         shoppingCartAdapter.setShoppingCartList(shoppingCartList);
         shoppingCartRV.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         shoppingCartRV.setAdapter(shoppingCartAdapter);
+        hideProgress();
+        shoppingCartRV.setVisibility(View.VISIBLE);
+        emptyCartLayout.setVisibility(View.GONE);
+        fullCartLayout.setVisibility(View.VISIBLE);
+
     }
 
     private void getUserData() {
@@ -202,42 +203,31 @@ public class NavShoppingCartFragment extends Fragment implements ShoppingCartAda
 
     @Override
     public void onIncreaseQuantityClick(int position) {
-
+        showProgress();
         int currentQuantity = shoppingCartList.get(position).getPartQuantity();
         int newQuantity = currentQuantity + 1;
 
         dbRef.child(shoppingCartList.get(position).getSparePartModel().getProductID())
                 .child("partQuantity").setValue(newQuantity);
 
-        //doing it manually inside the app
-//        float oldPrice = Float.parseFloat(shoppingCartList.get(position).getOldPrice().replaceAll("[^0-9?!\\.]", ""));
-//        float newPrice = oldPrice * newQuantity;
-//
-//        shoppingCartList.get(position).setPartQuantity(newQuantity);
-//        shoppingCartList.get(position).getSparePartModel().setProductPrice(newPrice + " EGP ");
-//        shoppingCartAdapter.notifyDataSetChanged();
-
         calculatePrice();
+        hideProgress();
     }
 
     @Override
     public void onDecreaseQuantityClick(int position) {
+
         int currentQuantity = shoppingCartList.get(position).getPartQuantity();
         if (!(currentQuantity <= 1)) {
+            showProgress();
             int newQuantity = currentQuantity - 1;
 
             dbRef.child(shoppingCartList.get(position).getSparePartModel().getProductID())
                     .child("partQuantity").setValue(newQuantity);
-//
-//            float oldPrice = Float.parseFloat(shoppingCartList.get(position).getOldPrice().replaceAll("[^0-9?!\\.]", ""));
-//            float newPrice = oldPrice * newQuantity;
-
-//
-//            shoppingCartList.get(position).setPartQuantity(newQuantity);
-//            shoppingCartList.get(position).getSparePartModel().setProductPrice(newPrice + " EGP ");
-//            shoppingCartAdapter.notifyDataSetChanged();
 
             calculatePrice();
+
+            hideProgress();
 
         }
 
@@ -260,19 +250,19 @@ public class NavShoppingCartFragment extends Fragment implements ShoppingCartAda
     }
 
 
-    private void fakeDataTest() {
-
-//
-//         int[] partImage = {R.drawable.tire, R.drawable.tire, R.drawable.tire};
-//         String[] partName = {"Hankook Ventus Prime 3 K125", "Hankook KINERGY ECO 2 K435", "Hankook VENTUS PRIME3 K125"};
-//         String[] partNumber = {"8808563446509", "8808563301211", "8808563401720"};
-//         String[] partPrice = {"1350.00 EGP", "2139.00 EGP", "780.30 EGP"};
-//        for (int i = 0; i < partPrice.length; i++) {
-//
-//            shoppingCartList.add(new ShoppingCartModel(partImage[i], partName[i], partNumber[i], partPrice[i], defaultPartQuantity));
-//        }
-
+    private void showProgress(){
+        if (getActivity() instanceof HomepageActivity){
+            ((HomepageActivity) getActivity()).showProgressBar(true);
+        }
     }
+
+    private void hideProgress(){
+        if (getActivity() instanceof HomepageActivity){
+            ((HomepageActivity) getActivity()).showProgressBar(false);
+        }
+    }
+
+
 
     private void replaceFragment(Fragment fragment) {
         getActivity().getSupportFragmentManager().beginTransaction()

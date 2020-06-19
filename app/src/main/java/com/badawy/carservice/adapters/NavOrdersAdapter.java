@@ -40,11 +40,10 @@ public class NavOrdersAdapter extends RecyclerView.Adapter<NavOrdersAdapter.Orde
 
     //Constructor
     public NavOrdersAdapter(Context context, ArrayList<OrderModel> ordersList) {
-        if (ordersList!=null){
+        if (ordersList != null) {
             this.ordersList = ordersList;
 
-        }
-        else{
+        } else {
             this.ordersList = new ArrayList<>();
 
         }
@@ -65,32 +64,38 @@ public class NavOrdersAdapter extends RecyclerView.Adapter<NavOrdersAdapter.Orde
     // put the data inside the views of an item
     @Override
     public void onBindViewHolder(@NonNull OrdersViewHolder holder, final int position) {
+
+
         OrderModel currentOrder = ordersList.get(position);
         SparePartModel firstPart = ordersList.get(position).getProductList().get(0).getSparePartModel();
-//        holder.productImage.setImageResource(ordersList.get(position).getProductImage());
-        Glide.with(context).load(firstPart.getProductImage()).into(holder.productImage);
 
+
+        Glide.with(context).load(firstPart.getProductImage()).into(holder.productImage);
         holder.productName.setText(firstPart.getProductName().trim());
         holder.productPrice.setText(ordersList.get(position).getTotalPrice().trim());
+        String time = formatTimeStamp(ordersList.get(position).getTimestamp());
+        holder.orderTime.setText(time);
+        holder.orderAddress.setText(currentOrder.getUserProfileObject().getAddress().trim());
+
+        String orderTxt = "Order#: " + currentOrder.getOrderID();
+        holder.orderNumber.setText(orderTxt);
+
         if (currentOrder.getProductList().size() == 1) {
-            holder.productPartNumber.setText("Product Number: "+currentOrder.getProductList().get(0).getSparePartModel().getProductID());
-//                    ordersList.get(position).getProductList().get(position).getSparePartModel().getProductID());
-        } else  if (ordersList.get(position).getProductList().size() > 1)  {
+            String prodName = "Product Number: " + currentOrder.getProductList().get(0).getSparePartModel().getProductID();
+            holder.productPartNumber.setText(prodName);
+        } else if (ordersList.get(position).getProductList().size() > 1) {
 
             int listCount = ordersList.get(position).getProductList().size();
             String msg = "+ " + listCount + " more Products";
             holder.productPartNumber.setText(msg);
         }
-            String time = formatTimeStamp(ordersList.get(position).getTimestamp());
-        holder.orderTime.setText(time);
 
-        holder.orderAddress.setText(currentOrder.getUserProfileObject().getAddress().trim());
 
     }
 
     private String formatTimeStamp(Object timeStamp) {
         yearFormatter = new SimpleDateFormat("MMM dd, yyyy EEE h:mm a", Locale.ENGLISH);
-        Date date = new Date((long)timeStamp);
+        Date date = new Date((long) timeStamp);
 
         return yearFormatter.format(date);
 
@@ -119,7 +124,7 @@ public class NavOrdersAdapter extends RecyclerView.Adapter<NavOrdersAdapter.Orde
             productPartNumber = itemView.findViewById(R.id.item_navOrders_productPartNumber);
             productPrice = itemView.findViewById(R.id.item_navOrders_productPrice);
             orderTime = itemView.findViewById(R.id.item_navOrders_orderTime);
-            orderAddress= itemView.findViewById(R.id.item_navOrders_address);
+            orderAddress = itemView.findViewById(R.id.item_navOrders_address);
             orderNumber = itemView.findViewById(R.id.item_navOrders_orderNumber);
 
 

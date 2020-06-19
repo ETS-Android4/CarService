@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -58,17 +59,10 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener {
         navMenuBtn = view.findViewById(R.id.checkOut_navMenuBtn);
         activity = getActivity();
 
-
         gson = new Gson();
-        confirmOrderBtn = view.findViewById(R.id.checkOut_confirmOrderBtn);
-        productsListView = view.findViewById(R.id.checkOut_productsListView);
-        usernameTv = view.findViewById(R.id.checkOut_username);
-        emailTv = view.findViewById(R.id.checkOut_emailAddress);
-        addressTv = view.findViewById(R.id.checkOut_address);
-        phoneTv = view.findViewById(R.id.checkOut_phoneNumber);
-        cancelOrderTv = view.findViewById(R.id.checkOut_cancelOrderTv);
-        orderPriceTv = view.findViewById(R.id.checkOut_orderPrice);
-        editUserInfoTv = view.findViewById(R.id.checkOut_editUserInfo);
+
+        initializeUi(view);
+
 
         assert getArguments() != null;
         orderObject = gson.fromJson(getArguments().getString(ORDER_OBJECT), OrderModel.class);
@@ -99,6 +93,18 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    private void initializeUi(View view) {
+        confirmOrderBtn = view.findViewById(R.id.checkOut_confirmOrderBtn);
+        productsListView = view.findViewById(R.id.checkOut_productsListView);
+        usernameTv = view.findViewById(R.id.checkOut_username);
+        emailTv = view.findViewById(R.id.checkOut_emailAddress);
+        addressTv = view.findViewById(R.id.checkOut_address);
+        phoneTv = view.findViewById(R.id.checkOut_phoneNumber);
+        cancelOrderTv = view.findViewById(R.id.checkOut_cancelOrderTv);
+        orderPriceTv = view.findViewById(R.id.checkOut_orderPrice);
+        editUserInfoTv = view.findViewById(R.id.checkOut_editUserInfo);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -126,6 +132,7 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener {
                     addressTv.setTextColor(getResources().getColor(R.color.red));
                     Toast.makeText(getContext(), "Please add an Address to your account", Toast.LENGTH_SHORT).show();
                 } else {
+                    showProgress();
                     makeOrder();
                 }
                 break;
@@ -156,13 +163,14 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener {
                                     .child(Constants.SHOPPING_CART)
                                     .setValue(0)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    if (activity instanceof HomepageActivity) {
-                                        ((HomepageActivity) activity).prepareDialog();
-                                    }
-                                }
-                            });
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            if (activity instanceof HomepageActivity) {
+                                                hideProgress();
+                                                ((HomepageActivity) activity).prepareDialog();
+                                            }
+                                        }
+                                    });
                         } else {
                             dbRef.child(Constants.USERS)
                                     .child(orderObject.getUserProfileObject().getUserId())
@@ -170,13 +178,14 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener {
                                     .child(item.getSparePartModel().getProductID())
                                     .removeValue()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    if (activity instanceof HomepageActivity) {
-                                        ((HomepageActivity) activity).prepareDialog();
-                                    }
-                                }
-                            });
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            if (activity instanceof HomepageActivity) {
+                                                hideProgress();
+                                                ((HomepageActivity) activity).prepareDialog();
+                                            }
+                                        }
+                                    });
                         }
                     }
                 }
@@ -187,6 +196,18 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener {
 
             }
         });
+    }
+
+    private void showProgress() {
+        if (getActivity() instanceof HomepageActivity) {
+            ((HomepageActivity) getActivity()).showProgressBar(true);
+        }
+    }
+
+    private void hideProgress() {
+        if (getActivity() instanceof HomepageActivity) {
+            ((HomepageActivity) getActivity()).showProgressBar(false);
+        }
     }
 
 

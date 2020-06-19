@@ -68,10 +68,8 @@ public class AboutUsFragment extends Fragment implements OnMapReadyCallback, Vie
         initializeUi(view);
 
 
-
         // Load the Data from shared preference
         loadDataFromSharedPref();
-
 
 
         // Build the map
@@ -81,7 +79,6 @@ public class AboutUsFragment extends Fragment implements OnMapReadyCallback, Vie
         }
         mMapView.onCreate(mapViewBundle);
         mMapView.getMapAsync(this);
-
 
 
         // Click Listeners
@@ -105,7 +102,7 @@ public class AboutUsFragment extends Fragment implements OnMapReadyCallback, Vie
 
     private void loadDataFromSharedPref() {
         Activity activity = getActivity();
-        if (activity!=null){
+        if (activity != null) {
 
             // Get Data Object From Shared Preference
             Gson gson = new Gson();
@@ -118,7 +115,7 @@ public class AboutUsFragment extends Fragment implements OnMapReadyCallback, Vie
             emailAddress.setText(obj.getEmailAddress());
             lat = obj.getLat();
             lng = obj.getLng();
-            number=phoneNumber.getText().toString().trim();
+            number = phoneNumber.getText().toString().trim();
         }
 
 
@@ -141,7 +138,6 @@ public class AboutUsFragment extends Fragment implements OnMapReadyCallback, Vie
     }
 
 
-
     // Life Cycle
     @Override
     public void onStart() {
@@ -154,6 +150,7 @@ public class AboutUsFragment extends Fragment implements OnMapReadyCallback, Vie
         super.onStop();
         mMapView.onStop();
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -220,8 +217,6 @@ public class AboutUsFragment extends Fragment implements OnMapReadyCallback, Vie
 
 
     }
-
-
 
 
     @Override

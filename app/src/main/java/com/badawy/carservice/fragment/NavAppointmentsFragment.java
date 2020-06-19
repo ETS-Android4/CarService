@@ -44,7 +44,7 @@ public class NavAppointmentsFragment extends Fragment {
     private DatabaseReference appointmentsRef, ordersRef;
     private String userId;
     private ImageView navMenuBtn;
-    private ConstraintLayout appointmentsLayout, ordersLayout,emptyLayout;
+    private ConstraintLayout appointmentsLayout, ordersLayout, emptyLayout;
     private RecyclerView appointmentRV, ordersRV;
     private Activity activity;
     private int appointmentsCount, ordersCount;
@@ -63,14 +63,14 @@ public class NavAppointmentsFragment extends Fragment {
         activity = getActivity();
         initializeUi(view);
 
+        // Hide the RecyclerViews to prevent them from loading before the data is fetched from firebase
+        appointmentsLayout.setVisibility(View.INVISIBLE);
+        ordersLayout.setVisibility(View.INVISIBLE);
+
 
         // Get User UID from Auth Service
         auth = FirebaseAuth.getInstance();
         userId = Objects.requireNonNull(auth.getCurrentUser()).getUid();
-
-        // Hide the RecyclerViews to prevent them from loading before the data is fetched from firebase
-        appointmentsLayout.setVisibility(View.INVISIBLE);
-        ordersLayout.setVisibility(View.GONE);
 
 
         // Initialize Database References
@@ -130,7 +130,7 @@ public class NavAppointmentsFragment extends Fragment {
 
     private void fetchAppointmentsFromFirebase(final AppointmentsCallBack appointmentsCallBack) {
         // Start the progress Bar
-        ((HomepageActivity) activity).showProgressBar(true);
+        showProgress();
 
         // root of user`s appointments
         appointmentsRef
@@ -198,18 +198,20 @@ public class NavAppointmentsFragment extends Fragment {
     private void bindAppointmentsDataToAdapter(ArrayList<BookingModel> fetchedAppointmentList) {
         // if the fetched list is not null .. it means that the user HAVE appointments
         if (fetchedAppointmentList != null) {
-            // Stop the progress bar and Show and prepare the appointments recycler View
-            ((HomepageActivity) activity).showProgressBar(false);
-            appointmentsLayout.setVisibility(View.VISIBLE);
-            checkForEmptyAppointmentsAndOrders();
+
+            // prepare the Adapter
             NavAppointmentsAdapter appointmentsAdapter = new NavAppointmentsAdapter(getActivity(), fetchedAppointmentList);
             appointmentRV.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
             appointmentRV.setAdapter(appointmentsAdapter);
+            // Stop the progress bar and Show appointments recycler View
+            hideProgress();
+            appointmentsLayout.setVisibility(View.VISIBLE);
+            checkForEmptyAppointmentsAndOrders();
         }
         // else if fetched list is null .. user have no appointments
         else {
             // stop the progress bar and hide appointment layout
-            ((HomepageActivity) activity).showProgressBar(false);
+            hideProgress();
             appointmentsLayout.setVisibility(View.GONE);
             checkForEmptyAppointmentsAndOrders();
         }
@@ -225,8 +227,7 @@ public class NavAppointmentsFragment extends Fragment {
 
     private void fetchOrdersDataFromFirebase(final OrdersCallBack ordersCallBack) {
         // Start the progress Bar
-        ((HomepageActivity) activity).showProgressBar(true);
-
+        showProgress();
 
         // root of user`s orders
         ordersRef
@@ -292,15 +293,17 @@ public class NavAppointmentsFragment extends Fragment {
 
     private void bindOrderDataToAdapter(ArrayList<OrderModel> fetchedOrdersList) {
         if (fetchedOrdersList != null) {
-            ((HomepageActivity) activity).showProgressBar(false);
-            ordersLayout.setVisibility(View.VISIBLE);
-            checkForEmptyAppointmentsAndOrders();
+            // prepare the adapter
             NavOrdersAdapter ordersAdapter = new NavOrdersAdapter(getActivity(), fetchedOrdersList);
             ordersRV.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
             ordersRV.setAdapter(ordersAdapter);
+            // hide the progress bar then show the recycler view
+            hideProgress();
+            ordersLayout.setVisibility(View.VISIBLE);
+            checkForEmptyAppointmentsAndOrders();
         } else {
             // stop the progress bar and hide appointment layout
-            ((HomepageActivity) activity).showProgressBar(false);
+            hideProgress();
             ordersLayout.setVisibility(View.GONE);
             checkForEmptyAppointmentsAndOrders();
 
@@ -308,13 +311,24 @@ public class NavAppointmentsFragment extends Fragment {
 
     }
 
-    private void checkForEmptyAppointmentsAndOrders(){
-
-        if (ordersLayout.getVisibility()==View.GONE && appointmentsLayout.getVisibility()==View.GONE){
+    private void checkForEmptyAppointmentsAndOrders() {
+        // if user don`t have appointments and orders then show the Icon
+        if (ordersLayout.getVisibility() == View.GONE && appointmentsLayout.getVisibility() == View.GONE) {
             emptyLayout.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             emptyLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private void showProgress() {
+        if (getActivity() instanceof HomepageActivity) {
+            ((HomepageActivity) getActivity()).showProgressBar(true);
+        }
+    }
+
+    private void hideProgress() {
+        if (getActivity() instanceof HomepageActivity) {
+            ((HomepageActivity) getActivity()).showProgressBar(false);
         }
     }
 

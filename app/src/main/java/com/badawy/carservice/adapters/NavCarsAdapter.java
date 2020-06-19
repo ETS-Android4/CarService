@@ -82,7 +82,7 @@ public class NavCarsAdapter extends RecyclerView.Adapter<NavCarsAdapter.NavCarsV
             carDeleteIcon = itemView.findViewById(R.id.item_nav_cars_deleteCarIcon);
             carNameTv = itemView.findViewById(R.id.item_nav_cars_carName);
             carHistoryRV = itemView.findViewById(R.id.item_nav_cars_carHistoryRecyclerView);
-
+            carHistoryRV.setVisibility(View.GONE); // modified when history is added
             carDeleteIcon.setOnClickListener(this);
         }
 
