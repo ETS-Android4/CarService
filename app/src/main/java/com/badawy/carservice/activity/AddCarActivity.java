@@ -37,6 +37,8 @@ public class AddCarActivity extends AppCompatActivity {
     private AddCarAdapter addCarAdapter;
     private ImageView nextBtn;
     private FirebaseAuth firebaseAuth;
+    private final int requestCode = 11;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,6 @@ public class AddCarActivity extends AppCompatActivity {
         carList = new ArrayList<>();
         firebaseAuth = FirebaseAuth.getInstance();
         initializeUi();
-
 
         initSearchEditText();
 
@@ -86,6 +87,7 @@ public class AddCarActivity extends AppCompatActivity {
             }
         });
     }
+
     private void prepareCarListAdapter(ArrayList<CarModel> carList) {
         addCarAdapter = new AddCarAdapter(this, carList);
         addCarRV.setLayoutManager(new LinearLayoutManager(this));
@@ -122,6 +124,7 @@ public class AddCarActivity extends AppCompatActivity {
             }
         });
     }
+
     private void filterList(String text) {
         ArrayList<CarModel> filterList = new ArrayList<>();
         for (CarModel obj : carList) {
@@ -138,6 +141,10 @@ public class AddCarActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
 
     // Add Car to User`s Profile
     private void addCarToUserProfile() {
@@ -154,11 +161,12 @@ public class AddCarActivity extends AppCompatActivity {
 
                                 dbRef.child(Objects.requireNonNull(firebaseAuth.getUid())).child(Constants.USER_CARS)
                                         .child(selectedCar.getCarID()).setValue(selectedCar);
+                                Toast.makeText(AddCarActivity.this, "Car Added Successfully ! ", Toast.LENGTH_SHORT).show();
                             } else {
                                 // if user already have the car .. do something
                                 Toast.makeText(AddCarActivity.this, "already have it !", Toast.LENGTH_SHORT).show();
                             }
-
+                            setResult(requestCode);
                             finish();
                         }
 
@@ -181,8 +189,6 @@ public class AddCarActivity extends AppCompatActivity {
         addCarRV = findViewById(R.id.addCar_rv);
 
     }
-
-
 
 
 }

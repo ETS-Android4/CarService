@@ -70,7 +70,7 @@ public class NavAppointmentsFragment extends Fragment {
 
         // Hide the RecyclerViews to prevent them from loading before the data is fetched from firebase
         appointmentsLayout.setVisibility(View.INVISIBLE);
-        ordersLayout.setVisibility(View.INVISIBLE);
+        ordersLayout.setVisibility(View.GONE);
 
 
         // Initialize Database References
