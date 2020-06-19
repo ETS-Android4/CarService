@@ -60,6 +60,7 @@ public class NavCarsFragment extends Fragment implements NavCarsAdapter.OnDelete
     private AlertDialog.Builder carDialogBuilder;
     private AlertDialog carAlertDialog;
     private Activity activity;
+    private ConstraintLayout mainLayout;
 
     public NavCarsFragment() {
         // Required empty public constructor
@@ -74,7 +75,7 @@ public class NavCarsFragment extends Fragment implements NavCarsAdapter.OnDelete
 
         activity = getActivity();
         initializeUi(view);
-
+        mainLayout.setVisibility(View.GONE);
         carsRecyclerView.setVisibility(View.GONE);
         showProgress();
         getUserData();
@@ -93,6 +94,7 @@ public class NavCarsFragment extends Fragment implements NavCarsAdapter.OnDelete
     }
 
     private void initializeUi(View view) {
+        mainLayout = view.findViewById(R.id.nav_cars_mainLayout);
         navMenuBtn = view.findViewById(R.id.navCars_navMenuBtn);
         cancelTv = view.findViewById(R.id.nav_cars_cancelTv);
         editLayout = view.findViewById(R.id.nav_cars_editLayout);
@@ -129,12 +131,13 @@ public class NavCarsFragment extends Fragment implements NavCarsAdapter.OnDelete
     }
 
     private void bindUserCars(ArrayList<CarModel> carList) {
-
+        carsRecyclerView.setVisibility(View.VISIBLE);
         navCarsAdapter = new NavCarsAdapter(getActivity(), carList, this);
         carsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         carsRecyclerView.setAdapter(navCarsAdapter);
         hideProgress();
-        carsRecyclerView.setVisibility(View.VISIBLE);
+        mainLayout.setVisibility(View.VISIBLE);
+        mainLayout.animate().alpha(1.0f);
     }
 
     @Override

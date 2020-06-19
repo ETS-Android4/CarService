@@ -68,6 +68,7 @@
     </View>
 
     <ScrollView
+        android:id="@+id/nav_appointments_mainLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:overScrollMode="never"

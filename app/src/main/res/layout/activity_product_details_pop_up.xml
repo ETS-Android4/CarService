@@ -121,6 +121,8 @@
         android:id="@+id/productItemDetails_detailsRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scrollbars="vertical"
+        android:overScrollMode="never"
         android:layout_marginBottom="@dimen/_10sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/productItemDetails_priceLabel"

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
     android:layout_height="match_parent"
     tools:context=".fragment.DeliveryCarSparePartsShopFragment">
 
@@ -86,7 +87,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/segoe_ui_sb"
             android:gravity="left"
-            android:text="Available Products"
+            android:text="@string/available_products"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintHorizontal_bias="0.1"
@@ -127,7 +128,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- No Data Layout -->
+    <!-- Empty  Layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/sparePartsShop_emptyLayout"
         android:layout_width="match_parent"
@@ -147,7 +148,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintWidth_percent="0.8"
+            app:layout_constraintWidth_percent="0.9"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.1"

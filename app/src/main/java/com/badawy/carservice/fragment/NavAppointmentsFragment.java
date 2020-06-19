@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.badawy.carservice.R;
@@ -47,6 +48,7 @@ public class NavAppointmentsFragment extends Fragment {
     private ConstraintLayout appointmentsLayout, ordersLayout, emptyLayout;
     private RecyclerView appointmentRV, ordersRV;
     private Activity activity;
+    private ScrollView mainLayout;
     private int appointmentsCount, ordersCount;
 
     public NavAppointmentsFragment() {
@@ -64,6 +66,7 @@ public class NavAppointmentsFragment extends Fragment {
         initializeUi(view);
 
         // Hide the RecyclerViews to prevent them from loading before the data is fetched from firebase
+        mainLayout.setVisibility(View.GONE);
         appointmentsLayout.setVisibility(View.INVISIBLE);
         ordersLayout.setVisibility(View.INVISIBLE);
 
@@ -119,6 +122,7 @@ public class NavAppointmentsFragment extends Fragment {
         emptyLayout = view.findViewById(R.id.nav_appointments_emptyLayout);
         ordersLayout = view.findViewById(R.id.nav_appointmentsOrders_ordersConstraintLayout);
         navMenuBtn = view.findViewById(R.id.nav_appointments_navMenuBtn);
+        mainLayout = view.findViewById(R.id.nav_appointments_mainLayout);
 
     }
 
@@ -316,6 +320,7 @@ public class NavAppointmentsFragment extends Fragment {
         if (ordersLayout.getVisibility() == View.GONE && appointmentsLayout.getVisibility() == View.GONE) {
             emptyLayout.setVisibility(View.VISIBLE);
         } else {
+            mainLayout.setVisibility(View.VISIBLE);
             emptyLayout.setVisibility(View.GONE);
         }
     }
