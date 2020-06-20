@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/segoe_ui_sb"
             android:maxLines="2"
+            android:gravity="left"
             android:text=" car test 2008 "
             android:textColor="@color/black"
             android:textSize="@dimen/_14sdp"

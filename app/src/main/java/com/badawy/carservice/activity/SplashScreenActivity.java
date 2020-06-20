@@ -66,7 +66,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void setSplashScreen() {
 
         // Time in MilliSeconds 1000 = 1 second
-        int SPLASH_TIME_OUT = 1000;
+        int SPLASH_TIME_OUT = 3500;
         handler.postDelayed(runnable,SPLASH_TIME_OUT);
 
     }

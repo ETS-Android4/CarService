@@ -99,6 +99,8 @@
     <string name="type_here">Type Here...</string>
     <string name="order_now">Order Now</string>
     <string name="default_address">Click on edit to add an address</string>
+    <string name="default_phoneNumber">Click on edit to add a phone number </string>
+    <string name="default_username">Click on edit to add a username </string>
     <string name="order_summery">Order Summery</string>
     <string name="confirm_order">Confirm Order</string>
     <string name="cancel">Cancel</string>

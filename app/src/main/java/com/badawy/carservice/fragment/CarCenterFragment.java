@@ -1,6 +1,7 @@
 package com.badawy.carservice.fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -83,6 +84,8 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
     private String selectedDay;
     private SelectCarRecyclerAdapter selectCarRecyclerAdapter;
     private String serviceName;
+    private Activity activity;
+    private int count;
 
 
     private boolean isServiceSelected = false;
@@ -96,8 +99,8 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_car_center, container, false);
+        activity = getActivity();
         initializeUi(view);
-
 
         // Get Service Name to Decide if its Car Care or Vehicle Inspection
         assert getArguments() != null;
@@ -107,9 +110,7 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
         intent = new Intent(getActivity(), CarCenterSelectServicePopUpActivity.class);
         intent.putExtra(Constants.SERVICE_NAME_BUNDLE_KEY, serviceName);
 
-        // Get Current Day to Retrieve Available Appointments
-        selectedDay = customCalendar.getDateInYearFormat();
-
+        timeRecyclerView.setVisibility(View.GONE);
 
         // Init Appointment Time Root
         timeList = new ArrayList<>();
@@ -127,6 +128,8 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
         assert serviceName != null;
         if (serviceName.equals(Constants.CAR_CARE)) {
 
+            count = 0;
+
             serviceNameTv.setText(R.string.car_care);
 
             // init carCare list
@@ -136,6 +139,9 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
             fetchCarCareDataFromFirebase();
 
 
+            isCurrentTimeIsAfterNinePMCarCare();
+            // Get Current Day to Retrieve Available Appointments
+            selectedDay = customCalendar.getDateInYearFormat();
             // Get Available Appointments from firebase
             checkTimeOfCarCare();
 
@@ -144,6 +150,7 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
                 @Override
                 public void onClick(View v) {
                     customCalendar.resetDate();
+                    isCurrentTimeIsAfterNinePMCarCare();
                     selectedDay = customCalendar.getDateInYearFormat();
                     checkTimeOfCarCare();
                 }
@@ -169,17 +176,24 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
             cycleList = new ArrayList<>();
             specificFixList = new ArrayList<>();
 
+            // Fetch Vehicle Inspection Data from firebase and add to intent
+            fetchVehicleInspectionDataFromFirebase();
+
+
+
+            isCurrentTimeIsAfterNinePMVehicleInspection();
+            // Get Current Day to Retrieve Available Appointments
+            selectedDay = customCalendar.getDateInYearFormat();
             // Get Available Appointments from firebase
             checkTimeOfVehicleInspection();
 
-            // Fetch carCare Data from firebase and add to intent
-            fetchVehicleInspectionDataFromFirebase();
 
 
             customCalendar.setResetDayClick(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     customCalendar.resetDate();
+                    isCurrentTimeIsAfterNinePMVehicleInspection();
                     selectedDay = customCalendar.getDateInYearFormat();
                     checkTimeOfVehicleInspection();
                 }
@@ -229,6 +243,7 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
                         }
                         String serializedList = gson.toJson(cycleList);
                         intent.putExtra(Constants.VEHICLE_INSPECTION_CYCLE, serializedList);
+                        hideProgress();
                     }
 
                     @Override
@@ -238,6 +253,7 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
                 });
 
 
+        showProgress();
         dbRef.child(Constants.VEHICLE_INSPECTION_SPECIFIC_FIXES)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -247,6 +263,7 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
                         }
                         String serializedList = gson.toJson(specificFixList);
                         intent.putExtra(Constants.VEHICLE_INSPECTION_SPECIFIC_FIXES, serializedList);
+                        hideProgress();
                     }
 
                     @Override
@@ -265,11 +282,13 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                for (DataSnapshot child : dataSnapshot.getChildren()
+                ) {
                     carCareList.add(new ServiceTypeModel(child.getKey(), (int) ((long) child.getValue())));
                 }
                 String serializedList = gson.toJson(carCareList);
                 intent.putExtra(Constants.CAR_CARE, serializedList);
+                hideProgress();
             }
 
             @Override
@@ -281,7 +300,9 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
 
     // fetch Available Appointments
     private void checkTimeOfCarCare() {
-        // Simple Testing Data for Time
+        count = 0;
+        showProgress();
+        // Data for Time
         final String[] time = {"12:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00"};
         final String[] timeOfDay = {"pm", "pm", "pm", "pm", "pm", "pm", "pm", "pm", "pm", "pm"};
 
@@ -305,7 +326,7 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
                                 .child(selectedDay)
                                 .child(String.valueOf(obj.getId()))
                                 .setValue(obj);
-
+                        hideProgress();
                     }
                 } else {
 
@@ -332,6 +353,8 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
     }
 
     private void checkTimeOfVehicleInspection() {
+        count = 0;
+        showProgress();
         // Simple Testing Data for Time
         final String[] time = {"12:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00"};
         final String[] timeOfDay = {"pm", "pm", "pm", "pm", "pm", "pm", "pm", "pm", "pm", "pm"};
@@ -356,6 +379,7 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
                                 .child(selectedDay)
                                 .child(String.valueOf(obj.getId()))
                                 .setValue(obj);
+                        hideProgress();
 
                     }
                 } else {
@@ -385,9 +409,11 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
     // Update Time Recycler Adapter
     // TEST AFTER NOON TO CHECK IF DATA IS RETURNED SUCCESSFULLY  AFTER CURR TIME PASS APPOINTMENT TIME
     private void updateView(ArrayList<TimeAppointmentModel> timeList) {
+        count= timeList.size();
         ArrayList<TimeAppointmentModel> availableTimeList = new ArrayList<>();
         for (TimeAppointmentModel obj : timeList
-        ) {  String appointmentTime = obj.getTime();
+        ) {
+            String appointmentTime = obj.getTime();
 
             if (customCalendar.getDay().equals(dateFormatter.format(Calendar.getInstance().getTime()))) {
 
@@ -413,11 +439,24 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
             }
 
         }
-        //    TimeAppointmentRecyclerAdapter timeAppointmentRecyclerAdapter = new TimeAppointmentRecyclerAdapter(getContext());
-
-        timeAdapter.setTimeList(availableTimeList);
-        timeRecyclerView.setAdapter(timeAdapter);
-        // timeRecyclerView.setAdapter(timeAppointmentRecyclerAdapter);
+        if (count==10) {
+            if (availableTimeList.size()>=1) {
+                timeAdapter.setTimeList(availableTimeList);
+                timeRecyclerView.setAdapter(timeAdapter);
+                hideProgress();
+                timeRecyclerView.setVisibility(View.VISIBLE);
+            }
+            else{
+                customCalendar.getNextDay();
+                selectedDay = customCalendar.getDateInYearFormat();
+                if (serviceName.equals(Constants.CAR_CARE)){
+                    checkTimeOfCarCare();
+                }
+                else if(serviceName.equals(Constants.VEHICLE_INSPECTION)){
+                    checkTimeOfVehicleInspection();
+                }
+            }
+        }
 
     }
 
@@ -573,6 +612,7 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
         if (!isServiceSelected) {
             Toast.makeText(getActivity(), "Please Select a service First", Toast.LENGTH_SHORT).show();
         } else {
+            showProgress();
         final BookingModel bookingObject = new BookingModel();
         Gson gson = new Gson();
         String userSerializedData = MySharedPreferences.read(MySharedPreferences.USER_DATA, "");
@@ -610,6 +650,12 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
                             .child(Constants.APPOINTMENTS)
                             .child(orderID).setValue(0);
 
+                    hideProgress();
+                    if (activity instanceof HomepageActivity) {
+                        hideProgress();
+                        ((HomepageActivity) activity).prepareDialog(R.layout.dialog_appointment_successful);
+                    }
+
                 }
 
                 @Override
@@ -618,6 +664,42 @@ public class CarCenterFragment extends Fragment implements View.OnClickListener 
                 }
             });
         }
+        }
+    }
+
+
+    private void showProgress() {
+        if (activity instanceof HomepageActivity) {
+            ((HomepageActivity) activity).showProgressBar(true);
+        }
+    }
+
+    private void hideProgress() {
+        if (activity instanceof HomepageActivity) {
+            ((HomepageActivity) activity).showProgressBar(false);
+        }
+
+    }
+
+    private void isCurrentTimeIsAfterNinePMCarCare() {
+        Calendar cal = Calendar.getInstance();
+        int currTime = cal.get(Calendar.HOUR_OF_DAY);
+        int targetTime = 21;
+        if (currTime >= targetTime) {
+            customCalendar.getNextDay();
+            selectedDay = customCalendar.getDateInYearFormat();
+            checkTimeOfCarCare();
+        }
+    }
+
+    private void isCurrentTimeIsAfterNinePMVehicleInspection() {
+        Calendar cal2 = Calendar.getInstance();
+        int currTime = cal2.get(Calendar.HOUR_OF_DAY);
+        int targetTime = 21;
+        if (currTime >= targetTime) {
+            customCalendar.getNextDay();
+            selectedDay = customCalendar.getDateInYearFormat();
+            checkTimeOfVehicleInspection();
         }
     }
 

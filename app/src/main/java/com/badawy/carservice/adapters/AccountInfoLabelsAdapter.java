@@ -34,7 +34,7 @@ public class AccountInfoLabelsAdapter extends RecyclerView.Adapter<AccountInfoLa
     }
 
     //Constructor
-    public AccountInfoLabelsAdapter(Context context, String[] infoLabels, List<String> userData,OnItemClickListener onClickListener) {
+    public AccountInfoLabelsAdapter(Context context, String[] infoLabels, List<String> userData, OnItemClickListener onClickListener) {
         this.accountInfoLabels = infoLabels;
         this.context = context;
         this.userData = userData;
@@ -56,9 +56,15 @@ public class AccountInfoLabelsAdapter extends RecyclerView.Adapter<AccountInfoLa
     @Override
     public void onBindViewHolder(@NonNull AccountInfoLabelsAdapter.AccountInfoLabelsViewHolder holder, final int position) {
         holder.infoLabel.setText(accountInfoLabels[position]);
-        holder.userInfo.setText(userData.get(position));
+        if (userData.get(position).equals(context.getResources().getString(R.string.default_address)) || userData.get(position).equals(context.getResources().getString(R.string.default_phoneNumber))) {
+            holder.userInfo.setTextColor(context.getResources().getColor(R.color.red));
+            holder.userInfo.setText(userData.get(position));
 
-        if (position == 1){
+        } else {
+
+            holder.userInfo.setText(userData.get(position));
+        }
+        if (position == 1) {
             holder.editIcon.setVisibility(View.GONE);
         }
     }
@@ -83,16 +89,16 @@ public class AccountInfoLabelsAdapter extends RecyclerView.Adapter<AccountInfoLa
             super(itemView);
 
             // Views inside our layout
-                infoLabel = itemView.findViewById(R.id.item_accountInfoLabel);
-                userInfo = itemView.findViewById(R.id.item_accountInfo_userInfo);
-                editIcon = itemView.findViewById(R.id.item_accountInfo_edit);
+            infoLabel = itemView.findViewById(R.id.item_accountInfoLabel);
+            userInfo = itemView.findViewById(R.id.item_accountInfo_userInfo);
+            editIcon = itemView.findViewById(R.id.item_accountInfo_edit);
 
-                editIcon.setOnClickListener(this);
+            editIcon.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == R.id.item_accountInfo_edit){
+            if (v.getId() == R.id.item_accountInfo_edit) {
 
                 if (onClickListener != null) {
                     int position = getAdapterPosition();

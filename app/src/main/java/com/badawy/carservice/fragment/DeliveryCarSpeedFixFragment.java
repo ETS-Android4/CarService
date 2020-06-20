@@ -1,5 +1,6 @@
 package com.badawy.carservice.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,8 +72,11 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
     private Button orderNowBtn;
     private EditText additionalNote;
     private CarModel selectedCarObject;
+    private ScrollView mainLayout;
+    private Activity activity;
 
     private boolean isServiceSelected = false;
+    private int count;
 
 
     public DeliveryCarSpeedFixFragment() {
@@ -84,8 +89,10 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_speedfix, container, false);
-
+        activity = getActivity();
         initializeUi(view);
+        mainLayout.setVisibility(View.GONE);
+        timeRecyclerView.setVisibility(View.GONE);
 
         // Get Selected Car
         getSelectedCar();
@@ -95,7 +102,6 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
 
         // Intent to send lists to Pop up activity
         intent = new Intent(getActivity(), SpeedFixPopUpActivity.class);
-
 
         // Init Appointment Time Root
         timeList = new ArrayList<>();
@@ -107,7 +113,7 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
                 .child(Constants.DELIVERY);
         timeRef.keepSynced(true);
 
-
+        isCurrentTimeIsAfterNinePM();
         // Get Current Day to Retrieve Available Appointments
         selectedDay = customCalendar.getDateInYearFormat();
         checkTimeOfSpeedFix();
@@ -115,7 +121,9 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
         customCalendar.setResetDayClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 customCalendar.resetDate();
+                isCurrentTimeIsAfterNinePM();
                 selectedDay = customCalendar.getDateInYearFormat();
                 checkTimeOfSpeedFix();
             }
@@ -154,56 +162,73 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
                 if (!isServiceSelected) {
                     Toast.makeText(getActivity(), "Please Select a service First", Toast.LENGTH_SHORT).show();
                 } else {
+                    showProgress();
                     final BookingModel bookingObject = new BookingModel();
                     Gson gson = new Gson();
                     String userSerializedData = MySharedPreferences.read(MySharedPreferences.USER_DATA, "");
                     if (!userSerializedData.equals("")) {
                         UserProfileModel userDataObject = gson.fromJson(userSerializedData, UserProfileModel.class);
 
-
-                        bookingObject.setServiceName(TAG);
-                        bookingObject.setPrice(serviceTypePrice.getText().toString().trim());
-                        bookingObject.setServiceDescription(serviceTypeDescription.getText().toString().trim());
-                        bookingObject.setDate(selectedDay);
-                        bookingObject.setTimeObject(timeAdapter.getTimeObject());
-                        bookingObject.setUserId(userDataObject.getUserId());
-                        bookingObject.setNote(additionalNote.getText().toString().trim());
-                        bookingObject.setCarId(selectedCarObject.getCarID());
-                        bookingObject.setAddress(userDataObject.getAddress());
-
-                        dbRef = FirebaseDatabase.getInstance().getReference().child(Constants.AVAILABLE_APPOINTMENTS)
-                                .child(Constants.DELIVERY).child(Constants.SPEED_FIX).child(bookingObject.getDate())
-                                .child(String.valueOf(bookingObject.getTimeObject().getId()));
-
-                        final DatabaseReference bookingRef = FirebaseDatabase.getInstance().getReference().child(Constants.BOOKING);
-                        final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child(Constants.USERS);
-
-                        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                dbRef.child("booked").setValue("yes");
-                                String orderID = bookingRef.push().getKey();
-                                assert orderID != null;
-                                bookingObject.setOrderId(orderID);
-                                bookingRef.child(Constants.APPOINTMENTS).child(orderID)
-                                        .setValue(bookingObject);
-
-                                userRef.child(bookingObject.getUserId()).child(Constants.APPOINTMENTS_ORDERS)
-                                        .child(Constants.APPOINTMENTS)
-                                        .child(orderID).setValue(0);
-
+                        if (userDataObject.getPhoneNumber() == null
+                                || userDataObject.getAddress() == null
+                                || userDataObject.getUserName() == null) {
+                            hideProgress();
+                            Toast.makeText(getContext(), "Please Fill your information first then try again", Toast.LENGTH_SHORT).show();
+                            if (activity instanceof HomepageActivity) {
+                                ((HomepageActivity) activity).openSettings();
                             }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                        } else {
+                            bookingObject.setServiceName(TAG);
+                            bookingObject.setPrice(serviceTypePrice.getText().toString().trim());
+                            bookingObject.setServiceDescription(serviceTypeDescription.getText().toString().trim());
+                            bookingObject.setDate(selectedDay);
+                            bookingObject.setTimeObject(timeAdapter.getTimeObject());
+                            bookingObject.setUserId(userDataObject.getUserId());
+                            bookingObject.setNote(additionalNote.getText().toString().trim());
+                            bookingObject.setCarId(selectedCarObject.getCarID());
+                            bookingObject.setAddress(userDataObject.getAddress());
 
-                            }
-                        });
+                            dbRef = FirebaseDatabase.getInstance().getReference().child(Constants.AVAILABLE_APPOINTMENTS)
+                                    .child(Constants.DELIVERY).child(Constants.SPEED_FIX).child(bookingObject.getDate())
+                                    .child(String.valueOf(bookingObject.getTimeObject().getId()));
 
+                            final DatabaseReference bookingRef = FirebaseDatabase.getInstance().getReference().child(Constants.BOOKING);
+                            final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child(Constants.USERS);
+
+                            dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    dbRef.child("booked").setValue("yes");
+                                    String orderID = bookingRef.push().getKey();
+                                    assert orderID != null;
+                                    bookingObject.setOrderId(orderID);
+                                    bookingRef.child(Constants.APPOINTMENTS).child(orderID)
+                                            .setValue(bookingObject);
+
+                                    userRef.child(bookingObject.getUserId()).child(Constants.APPOINTMENTS_ORDERS)
+                                            .child(Constants.APPOINTMENTS)
+                                            .child(orderID).setValue(0);
+
+                                    if (activity instanceof HomepageActivity) {
+                                        hideProgress();
+                                        ((HomepageActivity) activity).prepareDialog(R.layout.dialog_appointment_successful);
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+                        }
                     }
                 }
             }
         });
+
         return view;
     }
 
@@ -214,6 +239,7 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
         serviceTypePrice = view.findViewById(R.id.speedFix_serviceCost);
         timeRecyclerView = view.findViewById(R.id.speedFix_timeRecyclerView);
         orderNowBtn = view.findViewById(R.id.speedFix_orderNowButton);
+        mainLayout = view.findViewById(R.id.speedFix_mainLayout);
         additionalNote = view.findViewById(R.id.speedFix_typeNoteET);
     }
 
@@ -267,6 +293,7 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
 
 
     private void fetchSpeedFixDataFromFirebase() {
+        showProgress();
         speedFixServiceList = new ArrayList<>();
 
         dbRef = FirebaseDatabase.getInstance().getReference().child(Constants.APP_DATA).child(Constants.SPEED_FIX);
@@ -284,7 +311,7 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
 
                 String serializedList = gson.toJson(speedFixServiceList);
                 intent.putExtra(Constants.SPEED_FIX, serializedList);
-
+                hideProgress();
             }
 
             @Override
@@ -297,7 +324,9 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
 
     // fetch Available Appointments
     private void checkTimeOfSpeedFix() {
-        // Simple Testing Data for Time
+        count = 0;
+        showProgress();
+        // Data for Time
         final String[] time = {"12:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00"};
         final String[] timeOfDay = {"pm", "pm", "pm", "pm", "pm", "pm", "pm", "pm", "pm", "pm"};
 
@@ -321,6 +350,7 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
                                 .child(selectedDay)
                                 .child(String.valueOf(obj.getId()))
                                 .setValue(obj);
+                        hideProgress();
 
                     }
                 } else {
@@ -358,8 +388,22 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
 
     }
 
+    private void isCurrentTimeIsAfterNinePM() {
+        Calendar cal = Calendar.getInstance();
+        int currTime = cal.get(Calendar.HOUR_OF_DAY);
+        int targetTime = 21;
+        if (currTime >= targetTime) {
+            customCalendar.getNextDay();
+            selectedDay = customCalendar.getDateInYearFormat();
+            checkTimeOfSpeedFix();
+        }
+
+
+    }
+
     // Update Time Recycler Adapter
     private void updateView(ArrayList<TimeAppointmentModel> timeList) {
+        count++;
         ArrayList<TimeAppointmentModel> availableTimeList = new ArrayList<>();
         for (TimeAppointmentModel obj : timeList
         ) {
@@ -376,6 +420,7 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
                     if (appointmentTime.compareTo(customCalendar.getTime()) > 0) {
                         if (obj.getBooked().equals("no")) {
                             availableTimeList.add(obj);
+
                         }
                     }
 
@@ -389,8 +434,35 @@ public class DeliveryCarSpeedFixFragment extends Fragment {
             }
 
         }
-        timeAdapter.setTimeList(availableTimeList);
-        timeRecyclerView.setAdapter(timeAdapter);
+        if (count == 10) {
+            if (availableTimeList.size() >= 1) {
+                timeAdapter.setTimeList(availableTimeList);
+                timeRecyclerView.setAdapter(timeAdapter);
+                hideProgress();
+                timeRecyclerView.setVisibility(View.VISIBLE);
+                mainLayout.setVisibility(View.VISIBLE);
+            } else {
+                customCalendar.getNextDay();
+                selectedDay = customCalendar.getDateInYearFormat();
+                checkTimeOfSpeedFix();
+
+            }
+
+        }
+
+    }
+
+
+    private void showProgress() {
+        if (activity instanceof HomepageActivity) {
+            ((HomepageActivity) activity).showProgressBar(true);
+        }
+    }
+
+    private void hideProgress() {
+        if (activity instanceof HomepageActivity) {
+            ((HomepageActivity) activity).showProgressBar(false);
+        }
 
     }
 

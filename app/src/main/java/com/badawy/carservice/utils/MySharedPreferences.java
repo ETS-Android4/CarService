@@ -12,6 +12,7 @@ public class MySharedPreferences {
     public static final String USER_DATA= "UserData";
     public static final String USER_CARS= "UserCars";
     public static final String ABOUT_US= "AboutUs";
+    public static final String FIRST_TIME_HELP_GUIDE = "FirstTimeHelpGuide";
 
     private MySharedPreferences() {
 

@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +34,6 @@ import com.badawy.carservice.utils.Constants;
 import com.badawy.carservice.utils.MySharedPreferences;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
@@ -53,6 +51,8 @@ import java.util.Objects;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomepageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+
     // time in milliseconds to press back again to exit
     private static final int EXIT_APP_TIME_INTERVAL = 2000;
     private long backButtonPressed;
@@ -67,6 +67,8 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog alertDialog;
     private ProgressBar progressBar;
+    private String userId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
 
         // Initialize Firebase Auth Object
         firebaseAuth = FirebaseAuth.getInstance();
+        userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
         //Add Click listener to Navigation list
         navigationView.setNavigationItemSelectedListener(this);
@@ -98,28 +101,15 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
         fetchAboutUsDataFromFirebase();
 
 
-        //To Be Continued @Ahmed mahmoud
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
-
-            //  Toast.makeText(this, personName + personFamilyName + personEmail + personId, Toast.LENGTH_LONG).show();
-
-        }
 
 
     }
 
 
-    // [[ FIREBASE DATA RETRIEVAL ]]
-    private void fetchUserProfileFromFirebase() {
 
-        String userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+    // [[ FIREBASE DATA RETRIEVAL ]]
+    private void  fetchUserProfileFromFirebase() {
+
         dbRef = FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -146,7 +136,6 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     }
 
     private void fetchUserCarsFromFirebase() {
-        String userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         dbRef = FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -409,7 +398,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
         onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_settings).setChecked(true));
     }
 
-    public void prepareDialog() {
+    public void prepareDialog(int layout) {
         // Dismiss any old dialog.
         if (alertDialog != null) {
             alertDialog.dismiss();
@@ -417,28 +406,46 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
 
         clearBackStack();
         openHomepage();
-        dialogBuilder = new AlertDialog.Builder(this);
-        View layoutView = getLayoutInflater().inflate(R.layout.dialog_order_successful, null);
-        TextView okTv = layoutView.findViewById(R.id.dialogOrderSuccessful_okTv);
-        dialogBuilder.setView(layoutView);
-        alertDialog = dialogBuilder.create();
-        Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        alertDialog.show();
-        okTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
 
-            }
-        });
+        if (layout == R.layout.dialog_order_successful) {
+            dialogBuilder = new AlertDialog.Builder(this);
+            View layoutView = getLayoutInflater().inflate(R.layout.dialog_order_successful, null);
+            TextView okTv = layoutView.findViewById(R.id.dialogOrderSuccessful_okTv);
+            dialogBuilder.setView(layoutView);
+            alertDialog = dialogBuilder.create();
+            Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            alertDialog.show();
+            okTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+
+                }
+            });
+        } else if (layout == R.layout.dialog_appointment_successful) {
+
+            dialogBuilder = new AlertDialog.Builder(this);
+            View layoutView = getLayoutInflater().inflate(R.layout.dialog_appointment_successful, null);
+            TextView okTv = layoutView.findViewById(R.id.dialogAppointmentSuccessful_okTv);
+            dialogBuilder.setView(layoutView);
+            alertDialog = dialogBuilder.create();
+            Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            alertDialog.show();
+            okTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+
+                }
+            });
+        }
 
     }
 
     public void showProgressBar(boolean visible) {
         if (visible) {
             progressBar.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             progressBar.setVisibility(View.GONE);
         }
     }

@@ -69,10 +69,35 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener {
 
         ArrayList<String> productList = new ArrayList<>();
 
-        usernameTv.setText(orderObject.getUserProfileObject().getUserName());
-        emailTv.setText(orderObject.getUserProfileObject().getEmailAddress());
-        addressTv.setText(orderObject.getUserProfileObject().getAddress());
-        phoneTv.setText(orderObject.getUserProfileObject().getPhoneNumber());
+        // check user name is null
+        if (orderObject.getUserProfileObject().getUserName() == null) {
+            usernameTv.setTextColor(getResources().getColor(R.color.red));
+            usernameTv.setText(getResources().getString(R.string.default_username));
+        } else {
+            usernameTv.setText(orderObject.getUserProfileObject().getUserName());
+        }
+
+        if (orderObject.getUserProfileObject().getEmailAddress() == null) {
+            emailTv.setTextColor(getResources().getColor(R.color.red));
+            emailTv.setText(getResources().getString(R.string.default_username));
+        }else{
+            emailTv.setText(orderObject.getUserProfileObject().getEmailAddress());
+        }
+        // check address is null
+        if (orderObject.getUserProfileObject().getAddress() == null) {
+            addressTv.setTextColor(getResources().getColor(R.color.red));
+            addressTv.setText(getResources().getString(R.string.default_address));
+        } else {
+            addressTv.setText(orderObject.getUserProfileObject().getAddress());
+        }
+
+        // check phone number is null
+        if (orderObject.getUserProfileObject().getPhoneNumber() == null) {
+            phoneTv.setTextColor(getResources().getColor(R.color.red));
+            phoneTv.setText(getResources().getString(R.string.default_phoneNumber));
+        } else {
+            phoneTv.setText(orderObject.getUserProfileObject().getPhoneNumber());
+        }
         orderPriceTv.setText(orderObject.getTotalPrice());
         for (ShoppingCartModel item : orderObject.getProductList()
         ) {
@@ -125,12 +150,13 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.checkOut_confirmOrderBtn:
-                if (orderObject.getUserProfileObject().getAddress().equals("")
+                if (orderObject.getUserProfileObject().getPhoneNumber() == null
                         || orderObject.getUserProfileObject().getAddress() == null
-                        || orderObject.getUserProfileObject().getAddress().equals(getResources().getString(R.string.default_address))) {
-                    addressTv.setText(R.string.default_address);
-                    addressTv.setTextColor(getResources().getColor(R.color.red));
-                    Toast.makeText(getContext(), "Please add an Address to your account", Toast.LENGTH_SHORT).show();
+                        || orderObject.getUserProfileObject().getUserName() == null) {
+                    Toast.makeText(getContext(), "Please fill your account information, then try again", Toast.LENGTH_SHORT).show();
+                    if (activity instanceof HomepageActivity) {
+                        ((HomepageActivity) activity).openSettings();
+                    }
                 } else {
                     showProgress();
                     makeOrder();
@@ -167,7 +193,7 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener {
                                         public void onSuccess(Void aVoid) {
                                             if (activity instanceof HomepageActivity) {
                                                 hideProgress();
-                                                ((HomepageActivity) activity).prepareDialog();
+                                                ((HomepageActivity) activity).prepareDialog(R.layout.dialog_order_successful);
                                             }
                                         }
                                     });
@@ -182,7 +208,7 @@ public class CheckOutFragment extends Fragment implements View.OnClickListener {
                                         public void onSuccess(Void aVoid) {
                                             if (activity instanceof HomepageActivity) {
                                                 hideProgress();
-                                                ((HomepageActivity) activity).prepareDialog();
+                                                ((HomepageActivity) activity).prepareDialog(R.layout.dialog_order_successful);
                                             }
                                         }
                                     });

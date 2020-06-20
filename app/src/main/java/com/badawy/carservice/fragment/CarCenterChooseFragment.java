@@ -18,6 +18,7 @@ import com.badawy.carservice.activity.HomepageActivity;
 import com.badawy.carservice.adapters.CarCenterHelpGuideViewPager2Adapter;
 import com.badawy.carservice.models.CarCenterHelpGuideModel;
 import com.badawy.carservice.utils.Constants;
+import com.badawy.carservice.utils.MySharedPreferences;
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
 import java.util.ArrayList;
@@ -47,8 +48,13 @@ public class CarCenterChooseFragment extends Fragment {
 
         initializeUi(view);
 
+        boolean firstTimeHelpGuide = MySharedPreferences.read(MySharedPreferences.FIRST_TIME_HELP_GUIDE,true);
 
-        //  prepareHelpGuide();
+         if (firstTimeHelpGuide){
+         prepareHelpGuide();
+         MySharedPreferences.write(MySharedPreferences.FIRST_TIME_HELP_GUIDE,false);
+         }
+
 
 
         // Choose Car Care option
@@ -101,7 +107,9 @@ public class CarCenterChooseFragment extends Fragment {
         ArrayList<CarCenterHelpGuideModel> dataList = new ArrayList<>();
         int[] helpImages = {R.drawable.ic_car_center_choose_bg, R.drawable.ic_car_center_choose_car_care, R.drawable.ic_car_choose_car_inspection};
         String[] helpTitles = {"Car Center", "Car Care", "Vehicle Inspection"};
-        String[] helpDescription = {"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"};
+        String[] helpDescription = {"Let us tell you about the service we perform in our Physical Location"
+                , "Cleaning, polishing, and a lot more other services waiting for you to choose from to take the best care of your car "
+                , "we fix your car from any mechanical problem, just tell us what the problem is, pick an appointment and we will fix it."};
 
 
         for (int i = 0; i < helpTitles.length; i++) {

@@ -7,9 +7,11 @@
     tools:context=".fragment.DeliveryCarSpeedFixFragment">
 
     <ScrollView
+        android:id="@+id/speedFix_mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:animateLayoutChanges="true"
         android:isScrollContainer="true"
         android:overScrollMode="never"
         android:scrollbars="none"

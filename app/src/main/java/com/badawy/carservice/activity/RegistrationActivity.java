@@ -167,7 +167,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
                             // prepare user profile object
                             UserProfileModel userProfileObject = new UserProfileModel();
-                            userProfileObject.setEmailAddress(emailAddress);
                             userProfileObject.setUserName(username);
                             userProfileObject.setEmailAddress(emailAddress);
                             userProfileObject.setUserId(userUID);
@@ -196,6 +195,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
+                                            Toast.makeText(RegistrationActivity.this, "Account Created Successfully, Please log in ", Toast.LENGTH_SHORT).show();
                                             Intent goToLoginActivity = new Intent(RegistrationActivity.this, LoginActivity.class);
                                             startActivity(goToLoginActivity);
                                             finish();

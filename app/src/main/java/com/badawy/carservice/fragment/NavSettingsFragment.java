@@ -201,14 +201,18 @@ public class NavSettingsFragment extends Fragment implements AccountInfoLabelsAd
             // Data must be added in the same order of the layout  name,email,address,phone
             userData.add(userDataObject.getUserName());
             userData.add(userDataObject.getEmailAddress());
-            if (userDataObject.getAddress().equals("")) {
+            if (userDataObject.getAddress()==null) {
 
                 userData.add(getString(R.string.default_address));
             } else {
                 userData.add(userDataObject.getAddress());
+            } if (userDataObject.getPhoneNumber()==null) {
+
+                userData.add(getString(R.string.default_phoneNumber));
+            } else {
+                userData.add(userDataObject.getPhoneNumber());
             }
 
-            userData.add(userDataObject.getPhoneNumber());
 
 
             // create and set the adapter
