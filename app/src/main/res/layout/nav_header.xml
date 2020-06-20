@@ -11,6 +11,7 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/nav_profileImage"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
             android:src="@drawable/ic_default_profile"
@@ -20,21 +21,29 @@
 
         <TextView
             android:id="@+id/nav_userName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_5sdp"
             android:fontFamily="@font/segoe_ui_sb"
             android:text="@string/username"
             android:textColor="@color/black"
             android:textSize="@dimen/_18sdp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="left"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/nav_email"
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
             android:id="@+id/nav_email"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/segoe_ui_regular"
+            app:layout_constraintRight_toRightOf="parent"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="left"
             android:text="username@example.com"
             android:textColor="@color/grey"
             android:textSize="@dimen/_12sdp"

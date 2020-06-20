@@ -1,23 +1,21 @@
 package com.badawy.carservice.models;
 
 public class TimeAppointmentModel {
-    private byte id;
+    private int id;
     private String time;
     private String timeOfDay;
     private String booked;
 
-    public TimeAppointmentModel(byte id, String time, String timeOfDay, String booked) {
-        this.id = id;
-        this.time = time;
-        this.timeOfDay = timeOfDay;
-        this.booked = booked;
+    public TimeAppointmentModel() {
+
     }
 
-    public byte getId() {
+
+    public int getId() {
         return id;
     }
 
-    public void setId(byte id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -44,4 +42,6 @@ public class TimeAppointmentModel {
     public void setBooked(String booked) {
         this.booked = booked;
     }
+
+
 }

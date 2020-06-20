@@ -1,51 +1,27 @@
 package com.badawy.carservice.models;
 
 public class ShoppingCartModel {
-    private int partImage;
-    private String partName;
-    private String partNumber;
-    private String partPrice;
+    private SparePartModel sparePartModel;
     private int partQuantity;
+    private String oldPrice;
 
-    public ShoppingCartModel(int partImage, String partName, String partNumber, String partPrice, int partQuantity) {
-        this.partImage = partImage;
-        this.partName = partName;
-        this.partNumber = partNumber;
-        this.partPrice = partPrice;
-        this.partQuantity = partQuantity;
+    public ShoppingCartModel() {
     }
 
-
-    public int getPartImage() {
-        return partImage;
+    public SparePartModel getSparePartModel() {
+        return sparePartModel;
     }
 
-    public void setPartImage(int partImage) {
-        this.partImage = partImage;
+    public String getOldPrice() {
+        return oldPrice;
     }
 
-    public String getPartName() {
-        return partName;
+    public void setOldPrice(String oldPrice) {
+        this.oldPrice = oldPrice;
     }
 
-    public void setPartName(String partName) {
-        this.partName = partName;
-    }
-
-    public String getPartNumber() {
-        return partNumber;
-    }
-
-    public void setPartNumber(String partNumber) {
-        this.partNumber = partNumber;
-    }
-
-    public String getPartPrice() {
-        return partPrice;
-    }
-
-    public void setPartPrice(String partPrice) {
-        this.partPrice = partPrice;
+    public void setSparePartModel(SparePartModel sparePartModel) {
+        this.sparePartModel = sparePartModel;
     }
 
     public int getPartQuantity() {

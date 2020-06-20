@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.CheckOutFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/checkOut_headerCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/checkOut_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:text="@string/check_out"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/checkOut_navMenuBtn"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_menu_black"
+                app:layout_constraintBottom_toBottomOf="@id/checkOut_label"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/checkOut_label"
+                app:layout_constraintTop_toTopOf="@id/checkOut_label"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/checkOut_orderSummeryLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoe_ui_regular"
+        android:gravity="left"
+        android:text="@string/order_summery"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkOut_headerCard"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <TextView
+
+        android:id="@+id/checkOut_editUserInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoe_ui_regular"
+        android:gravity="left"
+        android:text="Edit"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintLeft_toRightOf="@id/checkOut_orderSummeryLabel"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkOut_headerCard"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <LinearLayout
+        android:id="@+id/checkOut_orderSummeryLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/_5sdp"
+        app:layout_constraintLeft_toLeftOf="@id/checkOut_orderSummeryLabel"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/checkOut_orderPriceLabel"
+        app:layout_constraintTop_toBottomOf="@id/checkOut_orderSummeryLabel">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/segoe_ui_regular"
+                    android:gravity="left"
+                    android:text="Username: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/segoe_ui_regular"
+                    android:gravity="left"
+                    android:text="Email: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/segoe_ui_regular"
+                    android:gravity="left"
+                    android:text="Address: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/segoe_ui_regular"
+                    android:gravity="left"
+                    android:text="Phone: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:orientation="vertical"
+                android:weightSum="4">
+
+
+                <TextView
+                    android:id="@+id/checkOut_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/segoe_ui_regular"
+                    android:gravity="left"
+                    android:text="@string/order_summery"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/checkOut_emailAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:fontFamily="@font/segoe_ui_regular"
+                    android:gravity="left"
+                    android:text="@string/order_summery"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+
+
+
+                <TextView
+                    android:id="@+id/checkOut_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:fontFamily="@font/segoe_ui_regular"
+                    android:layout_weight="1"
+
+                    android:gravity="left"
+                    android:text="@string/order_summery"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/checkOut_phoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:fontFamily="@font/segoe_ui_regular"
+                    android:gravity="left"
+                    android:layout_weight="1"
+
+                    android:text="@string/order_summery"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <ListView
+            android:id="@+id/checkOut_productsListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:overScrollMode="never"
+            android:scrollbars="vertical" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/checkOut_orderPriceLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/segoe_ui_regular"
+        android:gravity="left"
+        android:text="Order Price"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <TextView
+        android:id="@+id/checkOut_orderPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoe_ui_regular"
+        android:gravity="left"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16sdp"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/checkOut_orderPriceLabel"
+        app:layout_constraintLeft_toLeftOf="@id/checkOut_orderPriceLabel"
+        app:layout_constraintTop_toBottomOf="@id/checkOut_orderPriceLabel"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/checkOut_confirmOrderBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/style_btn_red_with_corners"
+        android:padding="@dimen/_10sdp"
+        android:text="@string/confirm_order"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="@id/checkOut_orderPrice"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/checkOut_orderPriceLabel"
+        />
+
+    <TextView
+        android:id="@+id/checkOut_cancelOrderTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="@string/cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/red"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="@id/checkOut_confirmOrderBtn"
+        app:layout_constraintLeft_toRightOf="@id/checkOut_confirmOrderBtn"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/checkOut_confirmOrderBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

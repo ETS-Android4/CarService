@@ -12,31 +12,55 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.badawy.carservice.R;
 import com.badawy.carservice.models.ShoppingCartModel;
+import com.badawy.carservice.models.SparePartModel;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapter.ShoppingCartItemViewHolder> {
+
     //Global Variables
-
-    private ArrayList<ShoppingCartModel> shoppingCarList;
+    private ArrayList<ShoppingCartModel> shoppingCartList;
     private Context context;
-    private OnItemClickListener onItemClickListener;
+    private OnClickListener onClickListener;
 
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
+    public interface OnClickListener {
+        void onDeleteIconClick(int position);
+
+        void onIncreaseQuantityClick(int position);
+
+        void onDecreaseQuantityClick(int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        onItemClickListener = listener;
+    public void setOnClickListener(OnClickListener listener) {
+        onClickListener = listener;
     }
 
     //Constructor
-    public ShoppingCartAdapter(Context context, ArrayList<ShoppingCartModel> shoppingCartList) {
-        this.shoppingCarList = shoppingCartList;
+    public ShoppingCartAdapter(Context context, OnClickListener onClickListener) {
         this.context = context;
+        this.onClickListener = onClickListener;
     }
 
+    public ArrayList<ShoppingCartModel> getShoppingCartList() {
+        return shoppingCartList;
+    }
+
+    public void setShoppingCartList(ArrayList<ShoppingCartModel> shoppingCartList) {
+        this.shoppingCartList = shoppingCartList;
+        setOldPrice();
+        notifyDataSetChanged();
+
+    }
+
+    private void setOldPrice() {
+
+        for (ShoppingCartModel part : shoppingCartList
+        ) {
+            part.setOldPrice(part.getSparePartModel().getProductPrice());
+        }
+    }
 
     //return the layout of items ( How an item should look like )
     @NonNull
@@ -44,43 +68,21 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     public ShoppingCartItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View itemLayout = LayoutInflater.from(context).inflate(R.layout.item_shopping_cart, parent, false);
-        return new ShoppingCartItemViewHolder(itemLayout, onItemClickListener);
+        return new ShoppingCartItemViewHolder(itemLayout);
     }
 
 
     // put the data inside the views of an item
     @Override
     public void onBindViewHolder(@NonNull ShoppingCartItemViewHolder holder, final int position) {
-        holder.partImage.setImageResource(shoppingCarList.get(position).getPartImage());
-        holder.partName.setText(shoppingCarList.get(position).getPartName());
-        holder.partNumber.setText(shoppingCarList.get(position).getPartNumber());
-        holder.partPrice.setText(shoppingCarList.get(position).getPartPrice());
-        holder.partQuantity.setText(String.valueOf(shoppingCarList.get(position).getPartQuantity()));
+        SparePartModel sparePartObject = shoppingCartList.get(position).getSparePartModel();
 
+        Glide.with(context).load(sparePartObject.getProductImage()).into(holder.partImage);
+        holder.partName.setText(sparePartObject.getProductName().trim());
+        holder.partNumber.setText(sparePartObject.getProductID().trim());
+        holder.partPrice.setText(String.valueOf(sparePartObject.getProductPrice()));
+        holder.partQuantity.setText(String.valueOf(shoppingCartList.get(position).getPartQuantity()));
 
-        holder.increaseQuantity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentQuantity = shoppingCarList.get(position).getPartQuantity();
-                int newQuantity = currentQuantity+1;
-                shoppingCarList.get(position).setPartQuantity(newQuantity);
-                notifyDataSetChanged();
-            }
-        });
-
-        holder.decreaseQuantity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentQuantity = shoppingCarList.get(position).getPartQuantity();
-                if (currentQuantity > 1){
-
-                    int newQuantity = currentQuantity -1;
-                    shoppingCarList.get(position).setPartQuantity(newQuantity);
-                    notifyDataSetChanged();
-                }
-
-            }
-        });
 
     }
 
@@ -88,12 +90,12 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     // return number of rows in the list
     @Override
     public int getItemCount() {
-        return shoppingCarList.size();
+        return shoppingCartList.size();
     }
 
 
     // define the views of an item
-    class ShoppingCartItemViewHolder extends RecyclerView.ViewHolder {
+    class ShoppingCartItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView partImage;
         TextView partName;
@@ -102,9 +104,10 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         TextView partQuantity;
         ImageView increaseQuantity;
         ImageView decreaseQuantity;
+        ImageView deleteImage;
 
         // Constructor to initialize the views from the Layout
-        ShoppingCartItemViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        ShoppingCartItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
             // Views inside our layout
@@ -116,22 +119,47 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             partQuantity = itemView.findViewById(R.id.item_shoppingCart_partQuantity);
             increaseQuantity = itemView.findViewById(R.id.item_shoppingCart_increaseQuantity);
             decreaseQuantity = itemView.findViewById(R.id.item_shoppingCart_decreaseQuantity);
+            deleteImage = itemView.findViewById(R.id.item_shoppingCart_delete);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onItemClick(position);
-                            notifyDataSetChanged();
-                        }
-                    }
-                }
-            });
-
+            deleteImage.setOnClickListener(this);
+            increaseQuantity.setOnClickListener(this);
+            decreaseQuantity.setOnClickListener(this);
 
         }//End of constructor
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+
+                case R.id.item_shoppingCart_delete:
+                    if (onClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onClickListener.onDeleteIconClick(position);
+                        }
+                    }
+                    break;
+                case R.id.item_shoppingCart_increaseQuantity:
+                    if (onClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onClickListener.onIncreaseQuantityClick(position);
+                        }
+                    }
+                    break;
+                case R.id.item_shoppingCart_decreaseQuantity:
+                    if (onClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onClickListener.onDecreaseQuantityClick(position);
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+        }
     } // End of view Holder
 
 }

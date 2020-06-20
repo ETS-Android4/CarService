@@ -1,12 +1,13 @@
 package com.badawy.carservice.activity;
 
 import android.content.Intent;
-import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,9 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.badawy.carservice.R;
+import com.badawy.carservice.models.UserProfileModel;
+import com.badawy.carservice.utils.Constants;
 import com.badawy.carservice.utils.MyCustomSystemUi;
 import com.badawy.carservice.utils.MyValidation;
-import com.badawy.carservice.utils.SharePreference;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -40,24 +42,34 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.OAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+
+    // providers IDs Do Not Change them
+    private final String GOOGLE_PROVIDER = "google.com";
+    private final String FACEBOOK_PROVIDER = "facebook.com";
+    private final String TWITTER_PROVIDER = "twitter.com";
+
 
     // Views
     private EditText emailET, passwordET;
     private Button signInBtn;
     private ImageView showPasswordIcon, facebookIcon, googleIcon, twitterIcon;
-    private TextView forgotPassword,signUp;
+    private TextView forgotPassword, signUp;
+
 
     // Firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
+    private FirebaseUser currentUser;
+    private DatabaseReference dbRef;
+
 
     // Google Client
     private int RC_SIGN_IN = 1;
@@ -65,9 +77,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     // CallBack manager
     private CallbackManager callbackManager;
+    private ProgressBar progressBar;
 
     // Twitter provider
-    OAuthProvider.Builder provider = OAuthProvider.newBuilder("twitter.com");
+    OAuthProvider.Builder provider = OAuthProvider.newBuilder(TWITTER_PROVIDER);
 
     // Local Variables
     private boolean isPasswordVisible = false;
@@ -77,13 +90,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        progressBar = findViewById(R.id.login_progressbar);
         initializeUi();
 
 
         //callbackManager to handle login responses
         callbackManager = CallbackManager.Factory.create();
-
 
 
         // Firebase Auth Listener to send user to homepage
@@ -92,15 +104,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
+                currentUser = firebaseAuth.getCurrentUser();
+
+                if (currentUser != null) {
                     Intent intent = new Intent(LoginActivity.this, HomepageActivity.class);
                     startActivity(intent);
                     finish();
                 }
             }
-        };
 
+        };
 
         // Click Listeners
         signInBtn.setOnClickListener(this);
@@ -132,10 +145,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-
     // Email and Password Methods
     private void signInWithEmailPassword() {
-
+        progressBar.setVisibility(View.VISIBLE);
         final String emailAddress = emailET.getText().toString().trim();
         final String password = passwordET.getText().toString().trim();
 
@@ -144,10 +156,135 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
-
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "The Email or Password is incorrect",
                                     Toast.LENGTH_SHORT).show();
+                        }
+                        mAuth.addAuthStateListener(firebaseAuthListener);
+                        progressBar.setVisibility(View.INVISIBLE);
+
+                    }
+                });
+    }
+
+
+
+
+    // if user used google or FB or twitter , then check to see if its the first time
+    //  if it is the first time.. then create an account for him with all the available data we can get from providers
+    // if not .. then direct him to the auth listener
+    private void checkFirstTimeSignIn(final String provider, final String userID, final FirebaseUser user) {
+        progressBar.setVisibility(View.VISIBLE);
+        dbRef = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.USERS);
+
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.hasChild(userID)) {
+                    createUserProfile(provider, userID, user);
+                } else {
+                    hideProgress();
+                    mAuth.addAuthStateListener(firebaseAuthListener);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(LoginActivity.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+
+    // Create account for user from the data we have taken from providers
+    private void createUserProfile(String provider, String userID, FirebaseUser user) {
+
+        currentUser = user;
+
+
+        // prepare user profile object
+        UserProfileModel userProfileObject = new UserProfileModel();
+
+        if (provider.equals(GOOGLE_PROVIDER)) {
+
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+            if (acct != null) {
+                String userName = acct.getDisplayName();
+                String email = acct.getEmail();
+                Uri personPhoto = acct.getPhotoUrl();
+
+                userProfileObject.setEmailAddress(email);
+                userProfileObject.setUserName(userName);
+                userProfileObject.setUserId(userID);
+//                userProfileObject.setPhoneNumber("");
+                if (personPhoto != null) {
+                    userProfileObject.setProfileImageUri(personPhoto.toString());
+                }
+
+//                else {
+//                    userProfileObject.setProfileImageUri("");
+//                }
+//                userProfileObject.setAddress("");
+
+            }
+        } else if (provider.equals(FACEBOOK_PROVIDER) || provider.equals(TWITTER_PROVIDER)) {
+
+            String userName = currentUser.getDisplayName();
+            String email = currentUser.getEmail();
+            String personPhoto = "";
+            String phoneNumber = "";
+
+            userProfileObject.setEmailAddress(email);
+            userProfileObject.setUserName(userName);
+            userProfileObject.setUserId(userID);
+
+//            if (currentUser.getPhoneNumber() != null) {
+//                phoneNumber = currentUser.getPhoneNumber();
+//            }
+//
+//            if (currentUser.getPhotoUrl() != null) {
+//                personPhoto = currentUser.getPhotoUrl().toString();
+//            }
+            if (currentUser.getPhotoUrl()!=null){
+                userProfileObject.setProfileImageUri(currentUser.getPhotoUrl().toString());
+            }
+            if (currentUser.getPhoneNumber()!=null){
+                userProfileObject.setPhoneNumber(currentUser.getPhoneNumber().toString());
+            }
+//            userProfileObject.setPhoneNumber(phoneNumber);
+//            userProfileObject.setProfileImageUri(personPhoto);
+//            userProfileObject.setAddress("");
+
+        }
+
+        // prepare firebase root
+        DatabaseReference userRef = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.USERS)
+                .child(userID);
+
+
+        userRef.child(Constants.USER_CARS).setValue("0");
+        userRef.child(Constants.APPOINTMENTS_ORDERS).child(Constants.APPOINTMENTS).setValue("0");
+        userRef.child(Constants.APPOINTMENTS_ORDERS).child(Constants.ORDERS).setValue("0");
+        userRef.child(Constants.SHOPPING_CART).setValue("0");
+
+        // add user profile to database
+        userRef.child(Constants.USER_PROFILE)
+                .setValue(userProfileObject)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        if (mAuth.getCurrentUser() != null) {
+                            hideProgress();
+                            mAuth.addAuthStateListener(firebaseAuthListener);
                         }
                     }
                 });
@@ -155,9 +292,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 
+
     // Facebook Methods
     private void signInWithFacebook() {
         // @alfred
+
+        showProgress();
         LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("email", "public_profile"));
 
         LoginManager.getInstance().registerCallback(callbackManager,
@@ -171,11 +311,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onCancel() {
                         // App code
+                        hideProgress();
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
                         // App code
+                        hideProgress();
+                        Toast.makeText(LoginActivity.this, exception.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -183,19 +326,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void handleFacebookAccessToken(AccessToken token) {
         //@alfred
         //to get an access token for the signed-in user, put it in FireBase then auth
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        final AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success
-                            //BY Alfred 18/2/2020
-                            //check user data
-                            check();
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (user != null) {
+                                String userID = user.getUid();
+                                checkFirstTimeSignIn(FACEBOOK_PROVIDER, userID, user);
+                            }
+
                         } else {
                             // If sign in fails, display a message to the user.
-
+                            hideProgress();
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
 
@@ -207,8 +353,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 
+
     // Google Methods
     private void signInWithGoogle() {
+        showProgress();
         buildGoogleClient();
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -224,8 +372,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
     }
 
     @Override
@@ -237,6 +383,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
+            showProgress();
             // The Task returned from this call is always completed, no need to attach a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResultOfGoogle(task);
@@ -250,7 +397,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         } catch (ApiException e) {
-            Toast.makeText(this, String.valueOf(e), Toast.LENGTH_SHORT).show();
+            hideProgress();
+//            Toast.makeText(this, String.valueOf(e), Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -261,10 +409,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    //BY Alfred 18/2/2020
-                    //check user data
-                    check();
-
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    if (user != null) {
+                        String userID = user.getUid();
+                        checkFirstTimeSignIn(GOOGLE_PROVIDER, userID, user);
+                    }
                 } else {
                     Toast.makeText(LoginActivity.this, "Authentication Failed",
                             Toast.LENGTH_SHORT).show();
@@ -276,19 +425,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 
+
     // Twitter Methods
     private void signInWithTwitter() {
-        mAuth.startActivityForSignInWithProvider(this, provider.build()).addOnSuccessListener(
-                new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        authResult.getAdditionalUserInfo().getProfile();
-                        authResult.getCredential();
-                        check();
+        mAuth.startActivityForSignInWithProvider(this, provider.build()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    if (user != null) {
+                        String userID = user.getUid();
+                        checkFirstTimeSignIn(TWITTER_PROVIDER, userID, user);
                     }
-                });
+                } else {
+                    hideProgress();
+                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
-
 
 
     // Edit Text Validation
@@ -314,31 +470,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-
-    //To be Modified later
-    private void check() {
-        FirebaseDatabase.getInstance().getReference("/Users").child(mAuth.getUid()).child("/Username").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                //check if userID in realtime database
-                //if he isn't, so save his data to realtime database
-                FirebaseUser currentUser = mAuth.getCurrentUser();
-                if (dataSnapshot.getValue() == null) {
-                    Map<String, String> Users_map = new HashMap<>();
-                    Users_map.put("Username", currentUser.getDisplayName());
-                    Users_map.put("EmailAddress", currentUser.getEmail());
-                    Users_map.put("PhoneNumber", currentUser.getPhoneNumber());
-                    FirebaseDatabase.getInstance().getReference("/Users").child(mAuth.getUid()).setValue(Users_map);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-            }
-        });
+    // Progress Bar
+    private void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
     }
 
+    private void hideProgress() {
+        progressBar.setVisibility(View.INVISIBLE);
+    }
 
     // Click Events
     @Override
@@ -386,28 +525,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-
-
     //Activity life cycle
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(firebaseAuthListener);
-    }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mAuth.removeAuthStateListener(firebaseAuthListener);
+        if (null != firebaseAuthListener) {
+            mAuth.removeAuthStateListener(firebaseAuthListener);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (null != firebaseAuthListener) {
+            mAuth.removeAuthStateListener(firebaseAuthListener);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (mAuth.getCurrentUser() != null) {
+            mAuth.addAuthStateListener(firebaseAuthListener);
+        }
         MyCustomSystemUi.clearInput(emailET);
         MyCustomSystemUi.clearInput(passwordET);
     }
-
 
 
     // Request Focus on Keyboard when clicking near Edit Texts

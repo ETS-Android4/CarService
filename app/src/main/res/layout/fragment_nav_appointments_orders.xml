@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
+    android:layout_height="match_parent"
+    tools:context=".fragment.NavAppointmentsFragment">
+
+    <!-- Header -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/nav_appointments_headerCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/nav_appointments_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_sb"
+                android:text="@string/appointments_amp_orders"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/nav_appointments_navMenuBtn"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:src="@drawable/ic_menu_black"
+                app:layout_constraintBottom_toBottomOf="@id/nav_appointments_label"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/nav_appointments_label"
+                app:layout_constraintTop_toTopOf="@id/nav_appointments_label"
+                tools:ignore="ContentDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- a Dummy View to stop scrollview from scrolling down automatically -->
+    <View
+        android:id="@+id/nav_appointments_focus_view"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:focusable="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:focusableInTouchMode="true">
+
+        <requestFocus />
+    </View>
+
+    <ScrollView
+        android:id="@+id/nav_appointments_mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nav_appointments_headerCard">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Appointments Layout -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/nav_appointmentsOrders_appointmentsConstraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    android:id="@+id/nav_appointments_upcomingAppointmentsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:fontFamily="@font/segoe_ui_sb"
+                    android:text="@string/upcoming_appointments"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/nav_appointments_appointmentsRV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layout_constrainedHeight="true"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nav_appointments_upcomingAppointmentsLabel"
+                    app:layout_constraintWidth_percent="0.95"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_nav_appointments" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <!-- Line -->
+            <TextView
+                android:id="@+id/nav_appointments_line1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/grey_line"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintVertical_bias="0.02" />
+
+            <!-- Orders Layout -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/nav_appointmentsOrders_ordersConstraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nav_appointmentsOrders_appointmentsConstraintLayout">
+
+                <TextView
+                    android:id="@+id/nav_appointments_ordersLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:fontFamily="@font/segoe_ui_sb"
+                    android:text="@string/your_orders"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/nav_appointments_ordersRV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layout_constrainedHeight="true"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nav_appointments_ordersLabel"
+                    app:layout_constraintWidth_percent="0.95"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_nav_orders" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+    <!-- Empty Appointments and Orders Layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nav_appointments_emptyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nav_appointments_headerCard">
+
+
+        <ImageView
+            android:id="@+id/nav_appointments_emptyImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_empty_appointments_orders"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.1"
+            />
+
+        <TextView
+            android:id="@+id/nav_appointments_emptyDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/segoe_ui_sb"
+            android:text="@string/you_don_t_have_any_appointments_or_orders"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_14sdp"
+            android:gravity="left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nav_appointments_emptyImage"
+            app:layout_constraintVertical_bias="0.05" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.badawy.carservice.R;
 import com.badawy.carservice.activity.ProductDetailsPopUpActivity;
-import com.badawy.carservice.models.ProductItemModel;
+import com.badawy.carservice.models.SparePartModel;
+import com.badawy.carservice.utils.Constants;
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -22,7 +25,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
 
     //Global Variables
 
-    private ArrayList<ProductItemModel> productsList;
+    private ArrayList<SparePartModel> productsList;
     private Context context;
     private OnItemClickListener onItemClickListener;
 
@@ -36,7 +39,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     }
 
     //Constructor
-    public ProductItemAdapter(Context context, ArrayList<ProductItemModel> productsList) {
+    public ProductItemAdapter(Context context, ArrayList<SparePartModel> productsList) {
         this.productsList = productsList;
         this.context = context;
     }
@@ -55,18 +58,21 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     // put the data inside the views of an item
     @Override
     public void onBindViewHolder(@NonNull final ProductsItemViewHolder holder, final int position) {
-        holder.manufacturerImage.setImageResource(productsList.get(position).getManufacturerImage());
-        holder.productImage.setImageResource(productsList.get(position).getProductImage());
-        holder.productName.setText(productsList.get(position).getProductName());
-        holder.productPartNumber.setText(productsList.get(position).getProductPartNumber());
-        holder.productDescription.setText(productsList.get(position).getProductDescription());
-        holder.productPrice.setText(productsList.get(position).getProductPrice());
+
+        holder.productName.setText(productsList.get(position).getProductName().trim());
+        holder.productPartNumber.setText(productsList.get(position).getProductID().trim());
+        holder.productDescription.setText(productsList.get(position).getProductDescription().trim());
+        holder.productPrice.setText(productsList.get(position).getProductPrice().trim());
+        Glide.with(context).load(productsList.get(position).getProductImage()).into(holder.productImage);
+        Glide.with(context).load(productsList.get(position).getManufacturerImage()).into(holder.manufacturerImage);
 
         holder.productDetailsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(holder.productDetailsBtn.getContext(), ProductDetailsPopUpActivity.class);
-
+                Gson gson = new Gson();
+                String serializedObject = gson.toJson(productsList.get(position));
+                i.putExtra(Constants.SPARE_PARTS,serializedObject);
 
                 //start activity
                 context.startActivity(i);
@@ -92,7 +98,6 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
         TextView productPartNumber;
         TextView productDescription;
         TextView productPrice;
-
         Button productDetailsBtn;
 
         // Constructor to initialize the views from the Layout
