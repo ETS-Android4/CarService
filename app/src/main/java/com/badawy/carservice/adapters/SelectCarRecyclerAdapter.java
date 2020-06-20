@@ -13,7 +13,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.badawy.carservice.R;
-import com.badawy.carservice.models.SelectCarModel;
+import com.badawy.carservice.models.CarModel;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -23,10 +24,10 @@ public class SelectCarRecyclerAdapter extends RecyclerView.Adapter<SelectCarRecy
 
     //Global Variables
 
-    private ArrayList<SelectCarModel> carList;
+    private ArrayList<CarModel> carList;
     private Context context;
     private OnItemClickListener onItemClickListener;
-    private int defaultSelectedItem;
+    private int selectedItem;
 
 
     public interface OnItemClickListener {
@@ -38,10 +39,10 @@ public class SelectCarRecyclerAdapter extends RecyclerView.Adapter<SelectCarRecy
     }
 
     //Constructor
-    public SelectCarRecyclerAdapter(Context context, ArrayList<SelectCarModel> carList) {
+    public SelectCarRecyclerAdapter(Context context, ArrayList<CarModel> carList) {
         this.carList = carList;
         this.context = context;
-        this.defaultSelectedItem = 0;
+        this.selectedItem = 0;
     }
 
 
@@ -58,21 +59,25 @@ public class SelectCarRecyclerAdapter extends RecyclerView.Adapter<SelectCarRecy
     // put the data inside the views of an item
     @Override
     public void onBindViewHolder(@NonNull CarHolder holder, final int position) {
-        holder.carItemImage.setImageResource(carList.get(position).getCarImage());
-        holder.carItemName.setText(carList.get(position).getCarName());
+       // holder.carItemImage.setImageResource(R.drawable.ic_nav_cars_car_test);
+
+        String carName = carList.get(position).getCarModel().concat(" - ")
+                .concat(carList.get(position).getCarYear());
+        holder.carItemName.setText(carName);
+        Glide.with(context).load(carList.get(position).getCarBrandLogoUri()).into(holder.carItemImage);
 
 
         holder.carItemBackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                defaultSelectedItem = position;
+                selectedItem = position;
                 notifyDataSetChanged();
 
             }
         });
 
 
-        if (defaultSelectedItem == position) {
+        if (selectedItem == position) {
 
             holder.carItemBackground.setBackgroundResource(R.drawable.style_rectangle_full_corners_red);
             holder.carItemName.setTextColor(Color.WHITE);
@@ -85,8 +90,8 @@ public class SelectCarRecyclerAdapter extends RecyclerView.Adapter<SelectCarRecy
 
     }
 
-    public byte getCarId() {
-        return carList.get(defaultSelectedItem).getCarId();
+    public CarModel getSelectedCarObject() {
+        return carList.get(selectedItem);
     }
 
     // return number of rows in the list
@@ -108,7 +113,7 @@ public class SelectCarRecyclerAdapter extends RecyclerView.Adapter<SelectCarRecy
             super(itemView);
 
             // Views inside our layout
-            carItemImage = itemView.findViewById(R.id.carItem_image);
+            carItemImage = itemView.findViewById(R.id.carItem_brandImage);
             carItemName = itemView.findViewById(R.id.carItem_name);
             carItemBackground = itemView.findViewById(R.id.carItem_background);
 

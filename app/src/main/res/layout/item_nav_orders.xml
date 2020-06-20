@@ -24,6 +24,7 @@
             android:background="@drawable/style_grey_stroke_line">
 
             <TextView
+                android:id="@+id/item_navOrders_redLine"
                 android:layout_width="@dimen/_5sdp"
                 android:layout_height="0dp"
                 android:background="@drawable/style_rectangle_left_corners_red"
@@ -34,15 +35,15 @@
 
             <ImageView
                 android:id="@+id/item_navOrders_productImage"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
                 android:adjustViewBounds="true"
                 android:padding="@dimen/_5sdp"
-                android:scaleType="centerInside"
+                android:scaleType="fitCenter"
                 android:src="@drawable/tire"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/item_navOrders_redLine"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0" />
@@ -130,20 +131,38 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/item_navOrders_productImage" />
 
-
-
-            <TextView
-                android:id="@+id/item_navOrders_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:text="01 April, 2020"
-                android:textColor="@color/grey"
-                android:textSize="@dimen/_8sdp"
+            <ImageView
+                android:id="@+id/item_navOrders_markerIcon"
+                android:layout_width="@dimen/_8sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/marker"
+                android:src="@drawable/ic_red_marker"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/item_navOrders_line1"
-                app:layout_constraintTop_toBottomOf="@id/item_navOrders_line1" />
+                app:layout_constraintTop_toBottomOf="@id/item_navOrders_line1"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintWidth_percent="0.025" />
+
+            <TextView
+                android:id="@+id/item_navOrders_address"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/segoe_ui_regular"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:singleLine="true"
+                android:text="@string/university_address"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="@id/item_navOrders_markerIcon"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toRightOf="@id/item_navOrders_markerIcon"
+                app:layout_constraintRight_toLeftOf="@id/item_navOrders_line2"
+                app:layout_constraintTop_toTopOf="@id/item_navOrders_line2" />
+
+
 
             <TextView
                 android:id="@+id/item_navOrders_line2"
@@ -152,24 +171,24 @@
                 android:background="@color/grey_line"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_5sdp"
-                app:layout_constraintBottom_toBottomOf="@id/item_navOrders_date"
-                app:layout_constraintLeft_toRightOf="@id/item_navOrders_date"
-                app:layout_constraintRight_toLeftOf="@id/item_navOrders_time"
-                app:layout_constraintTop_toTopOf="@id/item_navOrders_date" />
+                app:layout_constraintBottom_toBottomOf="@id/item_navOrders_orderTime"
+                app:layout_constraintLeft_toRightOf="@id/item_navOrders_address"
+                app:layout_constraintRight_toLeftOf="@id/item_navOrders_orderTime"
+                app:layout_constraintTop_toTopOf="@id/item_navOrders_orderTime" />
+
 
 
             <TextView
-                android:id="@+id/item_navOrders_time"
+                android:id="@+id/item_navOrders_orderTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:text="12:00 PM"
                 android:textColor="@color/grey"
-                android:layout_marginLeft="@dimen/_5sdp"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/item_navOrders_line2"
+                app:layout_constraintRight_toRightOf="@id/item_navOrders_line1"
                 app:layout_constraintTop_toBottomOf="@id/item_navOrders_line1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

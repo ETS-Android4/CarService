@@ -19,6 +19,8 @@ import com.badawy.carservice.R;
 import com.badawy.carservice.activity.HomepageActivity;
 import com.badawy.carservice.adapters.CarCenterHelpGuideViewPager2Adapter;
 import com.badawy.carservice.models.CarCenterHelpGuideModel;
+import com.badawy.carservice.utils.Constants;
+import com.badawy.carservice.utils.MySharedPreferences;
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 import java.util.ArrayList;
 
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 public class CarCenterChooseFragment extends Fragment {
 
     private CardView carCareCV, carInspectionCV;
-    private ImageView helpGuideFinishArrow,navMenuBtn,helpIcon;
+    private ImageView helpGuideFinishArrow, navMenuBtn, helpIcon;
     private ConstraintLayout helpGuideContainer, carCenterContainer;
     private ViewPager2 helpGuideViewPager;
     private CarCenterHelpGuideViewPager2Adapter helpAdapter;
@@ -45,36 +47,21 @@ public class CarCenterChooseFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_car_center_choose, container, false);
 
-        initUi(view);
+        initializeUi(view);
 
+        boolean firstTimeHelpGuide = MySharedPreferences.read(MySharedPreferences.FIRST_TIME_HELP_GUIDE,true);
 
-
-
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
-        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
-        if(!previouslyStarted) {
-            SharedPreferences.Editor edit = prefs.edit();
-            edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
-            edit.commit();
-            prepareHelpGuide();
-        }
-
-        // open Navigation Drawer
-        navMenuBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HomepageActivity.openDrawer();
-            }
-        });
-
+         if (firstTimeHelpGuide){
+         prepareHelpGuide();
+         MySharedPreferences.write(MySharedPreferences.FIRST_TIME_HELP_GUIDE,false);
+         }
 
         // Choose Car Care option
         carCareCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                replaceFragment(new CarCenterFragment());
+                replaceFragment(new CarCenterFragment(), Constants.CAR_CARE);
 
             }
         });
@@ -85,15 +72,24 @@ public class CarCenterChooseFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                replaceFragment(new CarCenterFragment());
+                replaceFragment(new CarCenterFragment(), Constants.VEHICLE_INSPECTION);
 
             }
         });
 
+        // open Help Guide
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 prepareHelpGuide();
+            }
+        });
+
+        // open Navigation Drawer
+        navMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomepageActivity.openDrawer();
             }
         });
 
@@ -110,7 +106,9 @@ public class CarCenterChooseFragment extends Fragment {
         ArrayList<CarCenterHelpGuideModel> dataList = new ArrayList<>();
         int[] helpImages = {R.drawable.ic_car_center_choose_bg, R.drawable.ic_car_center_choose_car_care, R.drawable.ic_car_choose_car_inspection};
         String[] helpTitles = {"Car Center", "Car Care", "Vehicle Inspection"};
-        String[] helpDescription = {"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"};
+        String[] helpDescription = {"Let us tell you about the service we perform in our Physical Location"
+                , "Cleaning, polishing, and a lot more other services waiting for you to choose from to take the best care of your car "
+                , "we fix your car from any mechanical problem, just tell us what the problem is, pick an appointment and we will fix it."};
 
 
         for (int i = 0; i < helpTitles.length; i++) {
@@ -147,7 +145,10 @@ public class CarCenterChooseFragment extends Fragment {
 
     }
 
-    private void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment, String serviceName) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.SERVICE_NAME_BUNDLE_KEY, serviceName);
+        fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .replace(R.id.homepage_fragment_container, fragment)
@@ -157,7 +158,7 @@ public class CarCenterChooseFragment extends Fragment {
 
     }
 
-    private void initUi(View view){
+    private void initializeUi(View view) {
         carCareCV = view.findViewById(R.id.carCenterChoose_carCareCV);
         carInspectionCV = view.findViewById(R.id.carCenterChoose_carInspectionCV);
         carCenterContainer = view.findViewById(R.id.carCenterChoose_container);
@@ -166,7 +167,7 @@ public class CarCenterChooseFragment extends Fragment {
         helpGuideViewPager = view.findViewById(R.id.carCenter_HelpGuide_viewPager);
         helpGuideFinishArrow = view.findViewById(R.id.item_carCenterHelpGuide_finishButton);
         dotsIndicator = view.findViewById(R.id.carCenter_HelpGuide_dotsIndicator);
-        helpIcon =view.findViewById(R.id.carCenterChoose_helpIcon);
+        helpIcon = view.findViewById(R.id.carCenterChoose_helpIcon);
 
 
     }

@@ -49,9 +49,9 @@
 
             <ImageView
                 android:id="@+id/navCars_edit"
-                android:padding="@dimen/_10sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
                 android:src="@drawable/ic_material_edit"
                 app:layout_constraintBottom_toBottomOf="@id/navCars_label"
                 app:layout_constraintHorizontal_bias="0.9"
@@ -63,172 +63,98 @@
 
     </androidx.cardview.widget.CardView>
 
-
-    <TextView
-        android:id="@+id/navCars_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/segoe_ui_regular"
-        android:text="Hello, example  "
-        android:textColor="@color/black"
-        android:textSize="@dimen/_15sdp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navCars_headerCard"
-        app:layout_constraintVertical_bias="0.1" />
-
-
-    <LinearLayout
-        android:id="@+id/navCars_cancel"
-        android:layout_width="wrap_content"
-        android:visibility="invisible"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/navCars_name"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintLeft_toRightOf="@id/navCars_name"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/navCars_name"
-        app:layout_constraintVertical_bias="0.01">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/segoe_ui_sb"
-            android:text="Cancel"
-            android:textColor="@color/grey"
-            android:textSize="@dimen/_15sdp" />
-
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/nav_cars_mainLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@color/grey" />
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/navCars_headerCard"
+            app:layout_constraintRight_toRightOf="parent">
 
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/navCars_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_regular"
+                android:gravity="left"
+                android:text="Hello, example  "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.05" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/nav_cars_carsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:overScrollMode="never"
+                android:scrollbars="vertical"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintBottom_toTopOf="@id/nav_cars_editLayout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/navCars_username"
+                app:layout_constraintVertical_bias="0.1"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_nav_cars" />
 
 
-    <ImageView
-        android:id="@+id/navCars_halfCircle"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_115sdp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_nav_cars_half_circle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/navCars_lineUnderCircle"
-        android:layout_width="@dimen/_200sdp"
-        android:layout_height="@dimen/_5sdp"
-        android:src="@drawable/ic_nav_cars_line"
-        app:layout_constraintBottom_toBottomOf="@id/navCars_halfCircle"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/navCars_halfCircle"
-        app:layout_constraintVertical_bias="0.92" />
-
-    <ImageView
-        android:id="@+id/navCars_carShadow"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:src="@drawable/ic_car_shadow"
-        app:layout_constraintBottom_toBottomOf="@id/navCars_car"
-        app:layout_constraintLeft_toLeftOf="@id/navCars_car"
-        app:layout_constraintRight_toRightOf="@id/navCars_car"
-        app:layout_constraintTop_toTopOf="@id/navCars_car"
-        app:layout_constraintVertical_bias="0.93" />
-
-    <ImageView
-        android:id="@+id/navCars_car"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
-        android:adjustViewBounds="true"
-        android:src="@drawable/ic_nav_cars_car_test"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.58" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/nav_cars_editLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent="0.1"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
 
 
-    <TextView
-        android:id="@+id/navCars_swipeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/segoe_ui_regular"
-        android:text="Swipe to see your cars"
-        android:textColor="@color/grey"
-        android:textSize="@dimen/_10sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navCars_carShadow" />
+                <Button
+                    android:id="@+id/nav_cars_addCarBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/style_btn_red_with_corners"
+                    android:drawableLeft="@drawable/ic_shopping_cart_increase"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:text="@string/add_car"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.6"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
 
-    <ImageView
-        android:layout_width="@dimen/_12sdp"
-        android:layout_height="@dimen/_12sdp"
-        android:layout_margin="@dimen/_2sdp"
-        android:src="@drawable/ic_swipe_right"
-        app:layout_constraintBottom_toBottomOf="@id/navCars_swipeLabel"
-        app:layout_constraintRight_toLeftOf="@id/navCars_swipeLabel"
-        app:layout_constraintTop_toTopOf="@id/navCars_swipeLabel" />
+                <TextView
+                    android:id="@+id/nav_cars_cancelTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/cancel"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintRight_toLeftOf="@id/nav_cars_addCarBtn"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintHorizontal_bias="0.8"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <TextView
-        android:id="@+id/navCars_carName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/segoe_ui_regular"
-        android:text="2014 Mazda MX-5"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_18sdp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navCars_car"
-        app:layout_constraintVertical_bias="0.7" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/navCars_removeCar"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        android:background="@drawable/style_btn_red_with_corners"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.05"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navCars_swipeLabel">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_15sdp"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/_10sdp"
-            android:src="@drawable/ic_nav_cars_delete_car" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:fontFamily="@font/segoe_ui_sb"
-            android:gravity="center_vertical"
-            android:text="Remove this car"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp" />
-    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

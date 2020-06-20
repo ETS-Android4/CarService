@@ -47,159 +47,52 @@
         android:id="@+id/addCar_bottom_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_marginTop="@dimen/_10sdp"
         android:paddingLeft="@dimen/_10sdp"
         android:paddingRight="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addCar_top_container"
         app:layout_constraintVertical_bias="0.1">
 
-
-        <!-- Year Selection -->
-        <TextView
-            android:id="@+id/addCar_tv_year"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/addCar_searchET"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/segoe_ui_sb"
-            android:text="@string/year"
-            android:textColor="@color/black"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:textSize="@dimen/_14sdp"
-            app:layout_constraintBottom_toTopOf="@id/addCar_container_year"
+            android:hint="Search.."
+            android:gravity="left"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/addCar_container_year"
-            android:layout_width="0dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/addCar_rv"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/style_spinner"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingRight="@dimen/_10sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            app:layout_constraintBottom_toTopOf="@id/addCar_tv_brand"
-            app:layout_constraintHeight_percent="0.12"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addCar_tv_year"
-            >
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/addCar_spinner_year"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_30sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <!--Brand Selection -->
-        <TextView
-            android:id="@+id/addCar_tv_brand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:fontFamily="@font/segoe_ui_sb"
-            android:text="@string/brand"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_14sdp"
-            app:layout_constraintBottom_toTopOf="@id/addCar_container_brand"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addCar_container_year"
-            app:layout_goneMarginTop="@dimen/_5sdp" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/addCar_container_brand"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/style_spinner"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingRight="@dimen/_10sdp"
-            android:paddingBottom="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent="0.12"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/addCar_spinner_brand"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_30sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/addCar_tv_model"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:fontFamily="@font/segoe_ui_sb"
-            android:text="@string/model"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_14sdp"
-            app:layout_constraintBottom_toTopOf="@id/addCar_container_model"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addCar_container_brand" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/addCar_container_model"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/style_spinner"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingRight="@dimen/_10sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent="0.12"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addCar_container_brand">
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/addCar_spinner_model"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_30sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@id/addCar_searchET"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_add_car" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/addCar_img_next"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_50sdp"
         android:src="@drawable/ic_round_next_btn"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addCar_bottom_container"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

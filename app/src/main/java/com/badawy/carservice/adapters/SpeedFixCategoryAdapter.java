@@ -15,16 +15,16 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.badawy.carservice.R;
-import com.badawy.carservice.fragment.DeliveryCarMaintenanceFragment;
-import com.badawy.carservice.models.MaintenanceCategoryModel;
+import com.badawy.carservice.fragment.DeliveryCarSpeedFixFragment;
+import com.badawy.carservice.models.SpeedFixCategoryModel;
 
 import java.util.ArrayList;
 
-public class MaintenanceCategoryAdapter extends RecyclerView.Adapter<MaintenanceCategoryAdapter.myViewHolder> {
+public class SpeedFixCategoryAdapter extends RecyclerView.Adapter<SpeedFixCategoryAdapter.myViewHolder> {
 
     //Global Variables
 
-    private ArrayList<MaintenanceCategoryModel> list;
+    private ArrayList<SpeedFixCategoryModel> list;
     private Context context;
     private OnItemClickListener onItemClickListener;
     private int currentPosition;
@@ -39,7 +39,7 @@ public class MaintenanceCategoryAdapter extends RecyclerView.Adapter<Maintenance
     }
 
     //Constructor
-    public MaintenanceCategoryAdapter(Context context, ArrayList<MaintenanceCategoryModel> list) {
+    public SpeedFixCategoryAdapter(Context context, ArrayList<SpeedFixCategoryModel> list) {
         this.list = list;
         this.context = context;
         currentPosition = -1;
@@ -51,7 +51,7 @@ public class MaintenanceCategoryAdapter extends RecyclerView.Adapter<Maintenance
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View itemLayout = LayoutInflater.from(context).inflate(R.layout.item_maintenance_categories, parent, false);
+        View itemLayout = LayoutInflater.from(context).inflate(R.layout.item_speedfix_categories, parent, false);
         return new myViewHolder(itemLayout, onItemClickListener);
     }
 
@@ -69,7 +69,7 @@ public class MaintenanceCategoryAdapter extends RecyclerView.Adapter<Maintenance
             public void onClick(View v) {
                 currentPosition = position;
                 notifyDataSetChanged();
-                replaceFragment(v, new DeliveryCarMaintenanceFragment());
+                replaceFragment(v, new DeliveryCarSpeedFixFragment());
             }
         });
 
@@ -117,9 +117,9 @@ public class MaintenanceCategoryAdapter extends RecyclerView.Adapter<Maintenance
             super(itemView);
 
             // Views inside our layout
-            categoryIcon = itemView.findViewById(R.id.item_maintenance_category_image);
-            categoryName = itemView.findViewById(R.id.item_maintenance_category_name);
-            categoryBackground = itemView.findViewById(R.id.item_maintenance_category_background);
+            categoryIcon = itemView.findViewById(R.id.item_speedFix_category_image);
+            categoryName = itemView.findViewById(R.id.item_speedFix_category_name);
+            categoryBackground = itemView.findViewById(R.id.item_speedFix_category_background);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

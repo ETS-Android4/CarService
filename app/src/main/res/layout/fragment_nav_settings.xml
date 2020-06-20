@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.NavSettingsFragment"
+    android:animateLayoutChanges="true"
     tools:ignore="ContentDescription">
 
     <!-- Banner Container -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/settings_headerCard"
+        android:id="@+id/checkOut_headerCard"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:cardElevation="@dimen/_5sdp"
@@ -24,7 +25,7 @@
 
 
             <TextView
-                android:id="@+id/settings_label"
+                android:id="@+id/checkOut_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/segoe_ui_sb"
@@ -42,11 +43,11 @@
                 android:layout_height="@dimen/_20sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:src="@drawable/ic_menu_black"
-                app:layout_constraintBottom_toBottomOf="@id/settings_label"
+                app:layout_constraintBottom_toBottomOf="@id/checkOut_label"
                 app:layout_constraintHorizontal_bias="0.04"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@id/settings_label"
-                app:layout_constraintTop_toTopOf="@id/settings_label"
+                app:layout_constraintRight_toRightOf="@id/checkOut_label"
+                app:layout_constraintTop_toTopOf="@id/checkOut_label"
                 tools:ignore="ContentDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -64,7 +65,7 @@
         app:layout_constraintHeight_percent="0.15"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_headerCard"
+        app:layout_constraintTop_toBottomOf="@id/checkOut_headerCard"
         app:layout_constraintVertical_bias="0.02"
         app:layout_constraintWidth_percent="0.25" />
 
@@ -134,7 +135,7 @@
         app:layout_constraintTop_toBottomOf="@id/settings_line1"
         app:layout_constraintWidth_percent="0.87"
         tools:itemCount="4"
-        tools:listitem="@layout/account_info_item" />
+        tools:listitem="@layout/item_account_info" />
 
     <TextView
         android:id="@+id/settings_changePasswordLabel"
@@ -156,7 +157,8 @@
         android:id="@+id/settings_changePasswordEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_grey_arrow"
+        android:src="@drawable/ic_material_edit"
+        android:padding="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="@id/settings_changePasswordLabel"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintLeft_toRightOf="@id/settings_changePasswordLabel"
@@ -226,7 +228,7 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="false"
+        android:checked="true"
         app:layout_constraintBottom_toBottomOf="@id/settings_showNotificationsLabel"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintLeft_toRightOf="@id/settings_showNotificationsLabel"
