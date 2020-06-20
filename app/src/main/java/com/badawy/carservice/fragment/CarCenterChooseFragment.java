@@ -1,5 +1,6 @@
 package com.badawy.carservice.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +22,6 @@ import com.badawy.carservice.models.CarCenterHelpGuideModel;
 import com.badawy.carservice.utils.Constants;
 import com.badawy.carservice.utils.MySharedPreferences;
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
-
 import java.util.ArrayList;
 
 /**
@@ -54,8 +55,6 @@ public class CarCenterChooseFragment extends Fragment {
          prepareHelpGuide();
          MySharedPreferences.write(MySharedPreferences.FIRST_TIME_HELP_GUIDE,false);
          }
-
-
 
         // Choose Car Care option
         carCareCV.setOnClickListener(new View.OnClickListener() {
