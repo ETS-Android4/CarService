@@ -1,4 +1,4 @@
-# Car Service Android Application [Graduation Project May 2020]
+# Car Service Android Application [Graduation Project]
 
 The app brings the customer all the service introduced by a “Car service shop”
 
@@ -26,20 +26,27 @@ The app brings the customer all the service introduced by a “Car service shop�
 * How to do it.
 * Divide ourselves into teams.
 
-<img src="readmeSrc/FirstMeeting1.jpeg" alt="drawing" width="300"  hspace="20"/>
+<p float="left">
+ <img src="readmeSrc/FirstMeeting1.jpeg" alt="drawing" width="300"  hspace="20"/>
 <img src="readmeSrc/FirstMeeting2.jpeg" alt="drawing" width="200" hspace="20"/>
-<img src="readmeSrc/FirstMeeting3.jpeg" alt="drawing" width="400" hspace="20"/>
+<img src="readmeSrc/FirstMeeting3.jpeg" alt="drawing" width="350" hspace="20"/>
+</p>
+
+
 
 ### Wireframe and Designing:
 
 * Wireframe
+
   <img src="readmeSrc/wireframe.JPG" alt="drawing"/>
 * Prototyping the Design in Adobe XD
-  <img src="readmeSrc/proto.PNG" alt="drawing"/>
+
+  <img src="readmeSrc/proto.png" alt="drawing"/>
 
 ### Implementation:
  * Coding a Responsive Ui to Work on Most Screens.
  <img src="readmeSrc/responsive.JPG" alt="drawing"/>
+ 
  * Creating Custom Components.
  * Coding the Navigation between Activities and Fragments. 
  * Sending Requests to the Backend and Handling the Response.
