@@ -2,7 +2,7 @@
 
 The app brings the customer all the service introduced by a “Car service shop”
 
-![intro](intro.JPG)
+![intro](readmeSrc/intro.JPG)
 
 ## Tech-Stack
 
@@ -16,7 +16,7 @@ The app brings the customer all the service introduced by a “Car service shop�
 
 ## Application Features
 
-![features](features.JPG)
+![features](readmeSrc/features.JPG)
 
 ## Planning the Application
 
@@ -26,20 +26,20 @@ The app brings the customer all the service introduced by a “Car service shop�
 * How to do it.
 * Divide ourselves into teams.
 
-<img src="FirstMeeting1.jpeg" alt="drawing" width="300"  hspace="20"/>
-<img src="FirstMeeting2.jpeg" alt="drawing" width="200" hspace="20"/>
-<img src="FirstMeeting3.jpeg" alt="drawing" width="400" hspace="20"/>
+<img src="readmeSrc/FirstMeeting1.jpeg" alt="drawing" width="300"  hspace="20"/>
+<img src="readmeSrc/FirstMeeting2.jpeg" alt="drawing" width="200" hspace="20"/>
+<img src="readmeSrc/FirstMeeting3.jpeg" alt="drawing" width="400" hspace="20"/>
 
 ### Wireframe and Designing:
 
 * Wireframe
-  <img src="wireframe.JPG" alt="drawing"/>
+  <img src="readmeSrc/wireframe.JPG" alt="drawing"/>
 * Prototyping the Design in Adobe XD
-  <img src="proto.PNG" alt="drawing"/>
+  <img src="readmeSrc/proto.PNG" alt="drawing"/>
 
 ### Implementation:
  * Coding a Responsive Ui to Work on Most Screens.
- <img src="responsive.JPG" alt="drawing"/>
+ <img src="readmeSrc/responsive.JPG" alt="drawing"/>
  * Creating Custom Components.
  * Coding the Navigation between Activities and Fragments. 
  * Sending Requests to the Backend and Handling the Response.
