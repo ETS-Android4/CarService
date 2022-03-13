@@ -4,6 +4,10 @@ The app brings the customer all the service introduced by a â€œCar service shopâ
 
 ![intro](readmeSrc/intro.JPG)
 
+## App Showcase
+https://user-images.githubusercontent.com/29329827/158055360-867a32db-142e-4d69-a045-ded9e9550cf3.mp4
+
+
 ## Tech-Stack
 
 * Java Programming Language, Xml.
